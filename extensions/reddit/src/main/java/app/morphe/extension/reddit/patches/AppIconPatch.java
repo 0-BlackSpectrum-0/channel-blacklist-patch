@@ -66,7 +66,7 @@ import app.morphe.extension.shared.ui.CustomDialog;
  *   changes. We show a confirmation dialog before applying so the user is not surprised.
  */
 @SuppressWarnings({"deprecation", "unused"})
-public class CustomAppIconPatch {
+public class AppIconPatch {
 
     /**
      * Verified from AndroidManifest.xml in Reddit 2026.32.0.
@@ -177,7 +177,7 @@ public class CustomAppIconPatch {
                 ? str("morphe_app_icon_unknown")
                 : currentComponent.label);
         preference.setOnPreferenceClickListener(pref -> {
-            CustomAppIconPatch.showIconPicker(context);
+            AppIconPatch.showIconPicker(context);
             return true;
         });
         return preference;
