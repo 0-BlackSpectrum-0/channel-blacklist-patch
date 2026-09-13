@@ -1,3 +1,9 @@
+## [1.43.0-dev.5](https://github.com/MorpheApp/morphe-patches/compare/v1.43.0-dev.4...v1.43.0-dev.5) (2026-09-13)
+
+### ✨ New Features
+
+* **YouTube - Swipe controls:** Add a volume steps option and set the swipe distance per step ([#2938](https://github.com/MorpheApp/morphe-patches/issues/2938)) ([f06d565](https://github.com/MorpheApp/morphe-patches/commit/f06d565ad899c022370237d9694aa29fbe22e95b))
+
 ## [1.43.0-dev.4](https://github.com/MorpheApp/morphe-patches/compare/v1.43.0-dev.3...v1.43.0-dev.4) (2026-09-13)
 
 ### ✨ New Features
