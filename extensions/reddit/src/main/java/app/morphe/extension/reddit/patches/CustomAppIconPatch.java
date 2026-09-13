@@ -310,12 +310,26 @@ public class CustomAppIconPatch {
             LinearLayout row = new LinearLayout(context);
             row.setOrientation(LinearLayout.HORIZONTAL);
             row.setPadding(32, 20, 32, 20);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+
+            ImageView checkIcon = new ImageView(context);
+            checkIcon.setImageResource(CustomDialogListPreference.DRAWABLE_CHECKMARK);
+            checkIcon.setColorFilter(ThemeUtils.getAppForegroundColor());
+
+            LinearLayout.LayoutParams checkParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            checkParams.gravity = Gravity.CENTER_VERTICAL;
+            checkIcon.setLayoutParams(checkParams);
+            checkIcon.setVisibility(redditIcon == currentComponent ? View.VISIBLE : View.INVISIBLE);
+            row.addView(checkIcon);
 
             ImageView img = new ImageView(context);
             final int size = 112;
-            img.setLayoutParams(new LinearLayout.LayoutParams(size, size));
-            Drawable iconDrawable = (redditIcon != null) ? redditIcon.getIcon(context) : null;
+            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(size, size);
+            imgParams.setMarginStart(28);
+            img.setLayoutParams(imgParams);
 
+            Drawable iconDrawable = (redditIcon != null) ? redditIcon.getIcon(context) : null;
             if (iconDrawable == null) {
                 try {
                     iconDrawable = context.getPackageManager().getApplicationIcon(PACKAGE);
@@ -342,18 +356,6 @@ public class CustomAppIconPatch {
             title.setTextColor(ThemeUtils.getAppForegroundColor());
             col.addView(title);
             row.addView(col);
-
-            ImageView checkIcon = new ImageView(context);
-            checkIcon.setImageResource(CustomDialogListPreference.DRAWABLE_CHECKMARK);
-            checkIcon.setColorFilter(ThemeUtils.getAppForegroundColor());
-
-            LinearLayout.LayoutParams checkParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            checkParams.gravity = Gravity.CENTER_VERTICAL;
-            checkIcon.setLayoutParams(checkParams);
-
-            checkIcon.setVisibility(redditIcon == currentComponent ? View.VISIBLE : View.GONE);
-            row.addView(checkIcon);
 
             return row;
         }
