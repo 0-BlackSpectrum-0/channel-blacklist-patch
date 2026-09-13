@@ -9,7 +9,7 @@
 ### ✨ New Features
 
 * **Custom branding:** Add an app icon patch option and support mounted installations ([#2518](https://github.com/MorpheApp/morphe-patches/issues/2518)) ([e7a508f](https://github.com/MorpheApp/morphe-patches/commit/e7a508f2b1b629066e49776254e5c2e2f625976a))
-* **Reddit:** Add `Custom app icon` patch ([#2937](https://github.com/MorpheApp/morphe-patches/issues/2937)) ([c17f699](https://github.com/MorpheApp/morphe-patches/commit/c17f6990a6d3ed5f8041f07eb3cb129a939e529e))
+* **Reddit:** Add `App icon` patch ([#2937](https://github.com/MorpheApp/morphe-patches/issues/2937)) ([c17f699](https://github.com/MorpheApp/morphe-patches/commit/c17f6990a6d3ed5f8041f07eb3cb129a939e529e))
 
 ## [1.43.0-dev.3](https://github.com/MorpheApp/morphe-patches/compare/v1.43.0-dev.2...v1.43.0-dev.3) (2026-09-13)
 
