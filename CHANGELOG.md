@@ -1,3 +1,9 @@
+## [1.43.0-dev.7](https://github.com/MorpheApp/morphe-patches/compare/v1.43.0-dev.6...v1.43.0-dev.7) (2026-09-14)
+
+### ✨ New Features
+
+* **YouTube - Miniplayer:** Add "Minimal 2" miniplayer type ([#2928](https://github.com/MorpheApp/morphe-patches/issues/2928)) ([3ae8dd1](https://github.com/MorpheApp/morphe-patches/commit/3ae8dd17d0b1ad543a994dbb3bf1b076e1eb7301))
+
 ## [1.43.0-dev.6](https://github.com/MorpheApp/morphe-patches/compare/v1.43.0-dev.5...v1.43.0-dev.6) (2026-09-14)
 
 ### 🐛 Bug Fixes
