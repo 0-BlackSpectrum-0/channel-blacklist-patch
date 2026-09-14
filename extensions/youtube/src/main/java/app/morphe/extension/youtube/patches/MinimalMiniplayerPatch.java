@@ -625,7 +625,9 @@ public final class MinimalMiniplayerPatch {
         cancelMorph();
         morphFrom.set(currentBounds);
         morphTo.set(currentBounds);
-        morphTo.offset(0, currentBounds.height());
+        // Clear of the screen, not one bar height down. That only reaches the navigation bar,
+        // which the bar then sits behind until YouTube is done closing after the click below.
+        morphTo.offset(0, Dim.getScreenHeight() - currentBounds.top);
 
         runMorph(false, () -> clickModernButton(modernCloseButtonRef, "close"));
     }
