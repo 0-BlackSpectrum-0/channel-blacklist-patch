@@ -1038,6 +1038,7 @@ Automotive レイアウト
   <string name="morphe_miniplayer_type_entry_0">無効</string>
   <string name="morphe_miniplayer_type_entry_1">デフォルト</string>
   <string name="morphe_miniplayer_type_entry_2">旧タイプ（横長）</string>
+  <string name="morphe_miniplayer_type_entry_3">ミニマル 2</string>
   <string name="morphe_miniplayer_type_entry_4">タブレット</string>
   <string name="morphe_miniplayer_type_entry_5">新タイプ 1</string>
   <string name="morphe_miniplayer_type_entry_6">新タイプ 2</string>

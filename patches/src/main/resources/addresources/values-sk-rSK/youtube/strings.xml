@@ -1036,6 +1036,7 @@ Obmedzenie: Ak je vypnutá možnosť 'Obnoviť starú lištu akcií videa', vrst
   <string name="morphe_miniplayer_type_entry_0">Vypnutý</string>
   <string name="morphe_miniplayer_type_entry_1">Predvolený</string>
   <string name="morphe_miniplayer_type_entry_2">Minimalistický</string>
+  <string name="morphe_miniplayer_type_entry_3">Minimálny 2</string>
   <string name="morphe_miniplayer_type_entry_4">Tablet</string>
   <string name="morphe_miniplayer_type_entry_5">Moderný 1</string>
   <string name="morphe_miniplayer_type_entry_6">Moderný 2</string>

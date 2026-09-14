@@ -1036,6 +1036,7 @@ Hạn chế: Nếu tùy chọn \"Khôi phục thanh thao tác video cũ\" bị t
   <string name="morphe_miniplayer_type_entry_0">Tắt</string>
   <string name="morphe_miniplayer_type_entry_1">Mặc định</string>
   <string name="morphe_miniplayer_type_entry_2">Tối giản</string>
+  <string name="morphe_miniplayer_type_entry_3">Tối giản 2</string>
   <string name="morphe_miniplayer_type_entry_4">Máy tính bảng</string>
   <string name="morphe_miniplayer_type_entry_5">Hiện đại 1</string>
   <string name="morphe_miniplayer_type_entry_6">Hiện đại 2</string>

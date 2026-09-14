@@ -1037,6 +1037,8 @@ Ograničenje: Ako je \"Vrati staru traku sa akcijama za video\" isključen, prek
   <string name="morphe_miniplayer_type_entry_0">Onemogućen</string>
   <string name="morphe_miniplayer_type_entry_1">Podrazumevan</string>
   <string name="morphe_miniplayer_type_entry_2">Minimalan</string>
+  <string name="morphe_miniplayer_type_entry_3">Minimalni 2</string>
+  <string name="morphe_miniplayer_type_entry_4">Tablet</string>
   <string name="morphe_miniplayer_type_entry_5">Moderan 1</string>
   <string name="morphe_miniplayer_type_entry_6">Moderan 2</string>
   <string name="morphe_miniplayer_type_entry_7">Moderan 3</string>

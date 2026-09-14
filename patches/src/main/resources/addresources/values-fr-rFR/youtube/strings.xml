@@ -1038,6 +1038,7 @@ Limitation : Si 'Restaurer l'ancienne barre d'actions vidéo' est désactivé, l
   <string name="morphe_miniplayer_type_entry_0">Désactivé</string>
   <string name="morphe_miniplayer_type_entry_1">Par défaut</string>
   <string name="morphe_miniplayer_type_entry_2">Minimale</string>
+  <string name="morphe_miniplayer_type_entry_3">Minimaliste 2</string>
   <string name="morphe_miniplayer_type_entry_4">Tablette</string>
   <string name="morphe_miniplayer_type_entry_5">Moderne 1</string>
   <string name="morphe_miniplayer_type_entry_6">Moderne 2</string>

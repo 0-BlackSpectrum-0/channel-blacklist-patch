@@ -1042,6 +1042,7 @@ Mistral Nemo هو الخيار الأرخص، بينما توفر Gemma 4 أعل
   <string name="morphe_miniplayer_type_entry_0">معطّل</string>
   <string name="morphe_miniplayer_type_entry_1">إفتراضي</string>
   <string name="morphe_miniplayer_type_entry_2">بسيط</string>
+  <string name="morphe_miniplayer_type_entry_3">بسيط 2</string>
   <string name="morphe_miniplayer_type_entry_4">الجهاز اللوحي</string>
   <string name="morphe_miniplayer_type_entry_5">حديث 1</string>
   <string name="morphe_miniplayer_type_entry_6">حديث 2</string>

@@ -1037,6 +1037,7 @@ Rajoitus: Jos \"Palauta vanha videotoimintopalkki\" on poissa käytöstä, \"Lis
   <string name="morphe_miniplayer_type_entry_0">Pois käytöstä</string>
   <string name="morphe_miniplayer_type_entry_1">Oletus</string>
   <string name="morphe_miniplayer_type_entry_2">Minimaalinen</string>
+  <string name="morphe_miniplayer_type_entry_3">Minimaalinen 2</string>
   <string name="morphe_miniplayer_type_entry_4">Tabletti</string>
   <string name="morphe_miniplayer_type_entry_5">Moderni 1</string>
   <string name="morphe_miniplayer_type_entry_6">Moderni 2</string>

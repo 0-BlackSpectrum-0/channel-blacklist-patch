@@ -47,19 +47,19 @@ Second \"item\" text"</string>
 Beberapa tata letak sisi server mungkin tidak kembali.
 
 Perubahan termasuk:
-• Komponen di menu pemutar yang melayang (atau setelan terkait) mungkin tidak berfungsi.
+• Komponen di menu melayang pemutar (atau setelan terkait) mungkin tidak berfungsi.
 • Angka yang bergulir tidak dianimasi.
-• Tab pustaka ditampilkan.
+• Tab koleksi ditampilkan.
 • Bagian musik dari deskripsi video mungkin tidak berfungsi.
-• Item menu pop-up pemutar tidak dapat disembunyikan.
-• Tombol beralih akun mungkin tidak muncul di tab Pustaka."</string>
+• Item menu melayang pemutar tidak dapat disembunyikan.
+• Tombol beralih akun mungkin tidak muncul di tab Koleksi."</string>
   <!-- layout.hide.general.hideLayoutComponentsPatch -->
   <string name="morphe_hide_feed_flyout_menu_title">Aktifkan penyaring menu feed melayang</string>
   <string name="morphe_hide_feed_flyout_menu_filter_strings_title">Penyaring menu feed melayang</string>
   <string name="morphe_hide_feed_flyout_menu_filter_strings_summary">Masukkan nama menu melayang untuk disaring, dipisahkan oleh baris baru</string>
-  <string name="morphe_hide_account_menu_title">Aktifkan penyaring menu bawah Pustaka / Anda</string>
-  <string name="morphe_hide_account_menu_filter_strings_title">Penyaring menu bawah Pustaka / Anda</string>
-  <string name="morphe_hide_account_menu_filter_strings_summary">Masukkan nama menu Pustaka / Anda yang ingin disaring, dipisahkan oleh baris baru</string>
+  <string name="morphe_hide_account_menu_title">Aktifkan penyaring menu bawah Koleksi / Anda</string>
+  <string name="morphe_hide_account_menu_filter_strings_title">Penyaring menu bawah Koleksi / Anda</string>
+  <string name="morphe_hide_account_menu_filter_strings_summary">Masukkan nama menu Koleksi / Anda yang ingin disaring, dipisahkan oleh baris baru</string>
   <string name="morphe_hide_album_cards_title">Sembunyikan kartu album</string>
   <string name="morphe_hide_album_cards_summary">Menyembunyikan kartu album di bawah deskripsi artis</string>
   <string name="morphe_hide_artist_cards_title">Sembunyikan kartu artis</string>
@@ -516,7 +516,7 @@ Info: Mungkin tidak berfungsi pada siaran langsung"</string>
   <string name="morphe_ads_channel_whitelist_flyout_menu_title">Daftar putih iklan di menu melayang</string>
   <string name="morphe_ads_channel_whitelist_flyout_menu_summary">Menambahkan item menu melayang yang memungkinkan iklan diputar di saluran video tersebut</string>
   <!-- "Spoof video streams" must use the same translation as morphe_spoof_video_streams_screen_title -->
-  <string name="morphe_ads_channel_whitelist_flyout_user_dialog_message">Fitur ini mungkin memerlukan penggunaan PotHelper atau mengubah \"Palsukan aliran video\" menjadi login TV atau Android VR sign-in.</string>
+  <string name="morphe_ads_channel_whitelist_flyout_user_dialog_message">Fitur ini mungkin memerlukan penggunaan PotHelper atau mengubah \"Palsukan aliran video\" menjadi TV atau masuk Android VR.</string>
   <string name="morphe_playback_speed_channel_whitelist_flyout_menu_title">Daftar putih kecepatan di menu melayang</string>
   <string name="morphe_playback_speed_channel_whitelist_flyout_menu_summary">Menambahkan item menu melayang yang selalu memutar saluran video tersebut dengan kecepatan 1,0x</string>
   <string name="morphe_queue_manager_check_failed_auth">Belum masuk</string>
@@ -994,7 +994,7 @@ Batasan: Jika 'Kembalikan bilah tindakan video lama' dinonaktifkan, hamparan 'Vi
   <string name="morphe_change_start_page_entry_fashion">Fashion &amp; Kecantikan</string>
   <string name="morphe_change_start_page_entry_gaming">Permainan</string>
   <string name="morphe_change_start_page_entry_history">Riwayat</string>
-  <string name="morphe_change_start_page_entry_library">Pustaka</string>
+  <string name="morphe_change_start_page_entry_library">Koleksi</string>
   <string name="morphe_change_start_page_entry_liked_videos">Video yang disukai</string>
   <string name="morphe_change_start_page_entry_live">Siaran langsung</string>
   <string name="morphe_change_start_page_entry_movies">Film</string>
@@ -1037,6 +1037,12 @@ Batasan: Jika 'Kembalikan bilah tindakan video lama' dinonaktifkan, hamparan 'Vi
   <string name="morphe_miniplayer_type_entry_0">Dinonaktifkan</string>
   <string name="morphe_miniplayer_type_entry_1">Bawaan</string>
   <string name="morphe_miniplayer_type_entry_2">Minimal</string>
+  <string name="morphe_miniplayer_type_entry_3">Minimal 2</string>
+  <string name="morphe_miniplayer_type_entry_4">Tablet</string>
+  <string name="morphe_miniplayer_type_entry_5">Modern 1</string>
+  <string name="morphe_miniplayer_type_entry_6">Modern 2</string>
+  <string name="morphe_miniplayer_type_entry_7">Modern 3</string>
+  <string name="morphe_miniplayer_type_entry_8">Modern 4</string>
   <string name="morphe_miniplayer_disable_rounded_corners_title">Nonaktifkan sudut membulat</string>
   <string name="morphe_miniplayer_disable_drag_and_drop_title">Nonaktifkan seret dan lepas</string>
   <string name="morphe_miniplayer_disable_drag_and_drop_summary">Mencegah penyeretan pemutar yang diperkecil ke sudut layar yang berbeda</string>

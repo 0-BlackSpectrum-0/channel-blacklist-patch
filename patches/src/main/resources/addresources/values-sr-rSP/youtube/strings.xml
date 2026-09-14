@@ -1020,6 +1020,7 @@ Promene uključuju:
   <string name="morphe_miniplayer_type_entry_0">Онемогућен</string>
   <string name="morphe_miniplayer_type_entry_1">Подразумеван</string>
   <string name="morphe_miniplayer_type_entry_2">Минималан</string>
+  <string name="morphe_miniplayer_type_entry_3">Минимални 2</string>
   <string name="morphe_miniplayer_type_entry_4">Таблет</string>
   <string name="morphe_miniplayer_type_entry_5">Модеран 1</string>
   <string name="morphe_miniplayer_type_entry_6">Модеран 2</string>

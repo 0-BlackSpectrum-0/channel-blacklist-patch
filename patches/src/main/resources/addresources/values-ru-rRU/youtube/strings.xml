@@ -1039,6 +1039,7 @@ Second \"item\" text"</string>
   <string name="morphe_miniplayer_type_entry_0">Отключено</string>
   <string name="morphe_miniplayer_type_entry_1">Стандартный</string>
   <string name="morphe_miniplayer_type_entry_2">Минимальный</string>
+  <string name="morphe_miniplayer_type_entry_3">Минимальный 2</string>
   <string name="morphe_miniplayer_type_entry_4">Планшетный</string>
   <string name="morphe_miniplayer_type_entry_5">Современный 1</string>
   <string name="morphe_miniplayer_type_entry_6">Современный 2</string>
