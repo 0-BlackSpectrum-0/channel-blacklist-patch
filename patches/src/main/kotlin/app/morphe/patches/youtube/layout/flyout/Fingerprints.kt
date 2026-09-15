@@ -25,7 +25,6 @@ internal object FeedBottomSheetFlyoutFingerprint : Fingerprint (
     classFingerprint = Fingerprint(
         parameters = listOf("Landroid/os/Bundle;"),
         filters = listOf(
-            string("BaseBottomSheetDialogFragment.useNewUi"),
             string("BaseBottomSheetDialogFragment.peekHeightEnabled"),
             string("BaseBottomSheetDialogFragment.largeFormWidthDp"),
         )
