@@ -1,3 +1,14 @@
+## [1.44.0-dev.1](https://github.com/MorpheApp/morphe-patches/compare/v1.43.1-dev.2...v1.44.0-dev.1) (2026-09-15)
+
+### 🐛 Bug Fixes
+
+* **YouTube - GmsCore support:** "Play Protect certification" screen is shown on startup ([#2977](https://github.com/MorpheApp/morphe-patches/issues/2977)) ([e250326](https://github.com/MorpheApp/morphe-patches/commit/e25032649908890ae848ee012befbb266deb08e8))
+
+### ✨ New Features
+
+* **Custom branding:** Warn that the app icon setting only changes the launcher icon ([8607c76](https://github.com/MorpheApp/morphe-patches/commit/8607c76d33e931fc0931de8e2a52d5ac9b4d3dc6))
+* **YouTube:** Add `Channel search` patch ([#2964](https://github.com/MorpheApp/morphe-patches/issues/2964)) ([acd856c](https://github.com/MorpheApp/morphe-patches/commit/acd856cc27dde7f33042ddced67c8ee6a8c31e30))
+
 ## [1.43.1-dev.2](https://github.com/MorpheApp/morphe-patches/compare/v1.43.1-dev.1...v1.43.1-dev.2) (2026-09-15)
 
 ### 🐛 Bug Fixes
