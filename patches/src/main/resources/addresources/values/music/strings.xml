@@ -375,7 +375,7 @@ Steps:
 1. Sign in at open.spotify.com
 2. Open DevTools → Application → Cookies → open.spotify.com
 3. Copy the value of \"sp_dc\""</string>
-    <string name="morphe_music_spotify_token_dialog_hint">sp_dc</string>
+    <string name="morphe_music_spotify_token_dialog_hint" translatable="false">sp_dc</string>
     <string name="morphe_music_spotify_token_toast_saved">Spotify: sp_dc saved</string>
     <string name="morphe_music_spotify_token_toast_cleared">Spotify: sp_dc cleared</string>
     <string name="morphe_music_spotify_token_toast_invalid">Spotify: invalid sp_dc — please check and try again</string>
@@ -411,7 +411,7 @@ Steps:
 3. Copy the full cookie string (key=value pairs separated by semicolons)
 
 Required cookies: SID, HSID, SSID, SAPISID, __Secure-3PAPISID, __Secure-1PAPISID, LOGIN_INFO"</string>
-    <string name="morphe_music_youtube_cookies_dialog_hint">SID=...; HSID=...; SSID=...; SAPISID=...</string>
+    <string name="morphe_music_youtube_cookies_dialog_hint" translatable="false">SID=...; HSID=...; SSID=...; SAPISID=...</string>
     <string name="morphe_music_youtube_cookies_toast_saved">YouTube: cookies saved</string>
     <string name="morphe_music_youtube_cookies_toast_cleared">YouTube: cookies cleared</string>
     <string name="morphe_music_youtube_cookies_toast_invalid">YouTube: invalid cookies — please check and try again</string>
