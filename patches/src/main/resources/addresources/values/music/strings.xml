@@ -410,7 +410,7 @@ Steps:
 1. Sign in at music.apple.com as a member user
 2. Open DevTools → Application → Cookies → music.apple.com
 3. Copy the value of \"media-user-token\""</string>
-    <string name="morphe_music_apple_music_token_dialog_hint">media-user-token</string>
+    <string name="morphe_music_apple_music_token_dialog_hint" translatable="false">media-user-token</string>
     <string name="morphe_music_apple_music_token_toast_saved">Apple Music: media-user-token saved</string>
     <string name="morphe_music_apple_music_token_toast_cleared">Apple Music: media-user-token cleared</string>
     <string name="morphe_music_apple_music_token_toast_invalid">Apple Music: invalid media-user-token — please check and try again</string>
@@ -433,7 +433,7 @@ Steps:
 1. Sign in at deezer.com
 2. Open DevTools → Application → Cookies → deezer.com
 3. Copy the value of \"arl\""</string>
-    <string name="morphe_music_deezer_arl_dialog_hint">arl</string>
+    <string name="morphe_music_deezer_arl_dialog_hint" translatable="false">arl</string>
     <string name="morphe_music_deezer_arl_toast_saved">Deezer: arl saved</string>
     <string name="morphe_music_deezer_arl_toast_cleared">Deezer: arl cleared</string>
     <string name="morphe_music_deezer_arl_toast_invalid">Deezer: invalid arl — please check and try again</string>
