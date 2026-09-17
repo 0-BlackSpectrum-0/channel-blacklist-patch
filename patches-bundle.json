@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-17T22:59:18",
-  "description": "## [1.3.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.0...v1.3.1) (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* make Litho filter hooks idempotent and merge upstream dev 21.37.42 fixes ([5e4a179](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/5e4a17979c8a7d2bb7b6cba0c276c8cb3adde470))",
-  "download_url": "https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/download/v1.3.1/patches-1.3.1.mpp",
+  "created_at": "2026-09-17T23:21:07",
+  "description": "## [1.3.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.1...v1.3.2) (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* correct Litho filter idempotency check and make all bytecode dependency hooks idempotent ([5a4b3f5](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/5a4b3f5ed625f79d6385a857534d06a695a7d4ed))",
+  "download_url": "https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/download/v1.3.2/patches-1.3.2.mpp",
   "signature_download_url": "",
-  "version": "1.3.1"
+  "version": "1.3.2"
 }

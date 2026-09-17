@@ -1,3 +1,9 @@
+## [1.3.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.1...v1.3.2) (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* correct Litho filter idempotency check and make all bytecode dependency hooks idempotent ([5a4b3f5](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/5a4b3f5ed625f79d6385a857534d06a695a7d4ed))
+
 ## [1.3.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.0...v1.3.1) (2026-09-17)
 
 ### 🐛 Bug Fixes
