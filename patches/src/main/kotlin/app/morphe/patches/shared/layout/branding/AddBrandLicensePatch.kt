@@ -1,6 +1,5 @@
 package app.morphe.patches.shared.layout.branding
 
-import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.rawResourcePatch
 import app.morphe.util.inputStreamFromBundledResource
 import java.nio.file.Files
@@ -22,18 +21,10 @@ internal val addLicensePatch = rawResourcePatch {
 
             val targetFile = get(sourceFileName, false).toPath()
 
-            // Check if target file exists and give a more informative error
-            // because Files.copy throws an exception if the file already exists.
+            // If the target file already exists (e.g. copied by official Morphe patches source in multi-source setups
+            // or when re-patching), skip copying to avoid collisions.
             if (Files.exists(targetFile)) {
-                throw PatchException(
-                    "\n\n\n" +
-                            "!!!\n" +
-                            "!!!\n" +
-                            "!!! Provided APK is already modified with Morphe patches\n" +
-                            "!!! (File already exists in target app: $sourceFileName)\n" +
-                            "!!!\n" +
-                            "!!!\n\n"
-                )
+                return@forEach
             }
 
             Files.copy(inputFileStream, targetFile)

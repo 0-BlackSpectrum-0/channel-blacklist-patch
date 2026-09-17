@@ -30,7 +30,7 @@ A Morphe patch to filter and hide videos from blacklisted channels across YouTub
 
 | Target App | Package Name | Compatible App Versions |
 | :--- | :--- | :--- |
-| **YouTube** | `com.google.android.youtube` | `21.36.45`, `21.35.442`, `21.28.208`, `21.13.164`, `21.07.247`, `20.31.42`, `20.21.37` |
+| **YouTube** | `com.google.android.youtube` | `21.37.42`, `21.36.45`, `21.35.442`, `21.28.208`, `21.13.164`, `21.07.247`, `20.31.42`, `20.21.37` |
 
 ---
 
