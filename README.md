@@ -34,6 +34,13 @@ A Morphe patch to filter and hide videos from blacklisted channels across YouTub
 
 ---
 
+## 🩹 Patches List
+
+<!-- PATCHES_START -->
+<!-- PATCHES_END -->
+
+---
+
 ## 🚀 Installation
 
 ### Morphe Manager (Android)
