@@ -89,8 +89,6 @@ private const val CUSTOM_FILTER =
     "Lapp/morphe/extension/youtube/patches/components/CustomFilter;"
 private const val KEYWORD_FILTER =
     "Lapp/morphe/extension/youtube/patches/components/KeywordContentFilter;"
-private const val CHANNEL_BLACKLIST_FILTER =
-    "Lapp/morphe/extension/youtube/patches/components/ChannelBlacklistFilter;"
 private const val AISLIST_FILTER =
     "Lapp/morphe/extension/youtube/patches/components/AiSListFilter;"
 private const val SANITIZE_VIDEO_SUBTITLE_FILTER =
@@ -99,7 +97,6 @@ private const val SEARCH_LINKS_FILTER =
     "Lapp/morphe/extension/youtube/patches/spans/SearchLinksFilter;"
 
 val hideLayoutComponentsPatch = bytecodePatch(
-    name = "Hide layout components",
     description = "Adds options to hide general layout components."
 
 ) {
@@ -269,37 +266,6 @@ val hideLayoutComponentsPatch = bytecodePatch(
                             NonInteractivePreference(
                                 key = "morphe_hide_keyword_content_about_whole_words",
                                 tag = "app.morphe.extension.youtube.settings.preference.HTMLPreference"
-                            )
-                        )
-                    )
-                )
-            ),
-            PreferenceScreenPreference(
-                key = "morphe_hide_channel_blacklist_screen",
-                sorting = Sorting.UNSORTED,
-                preferences = setOf(
-                    SwitchPreference("morphe_hide_channel_blacklist_home"),
-                    SwitchPreference("morphe_hide_channel_blacklist_search"),
-                    SwitchPreference("morphe_hide_channel_blacklist_subscriptions"),
-                    SwitchPreference("morphe_hide_channel_blacklist_comments"),
-                    TextPreference("morphe_hide_channel_blacklist_channels", inputType = InputType.TEXT_MULTI_LINE),
-                    SwitchPreference("morphe_channel_blacklist_flyout_menu", summary = true),
-                    PreferenceCategory(
-                        key = "morphe_hide_channel_blacklist_stats_category",
-                        titleKey = "morphe_hide_stats_category_title",
-                        sorting = Sorting.UNSORTED,
-                        preferences = emptySet(),
-                        tag = "app.morphe.extension.youtube.settings.preference.ChannelBlacklistStatsPreferenceCategory"
-                    ),
-                    PreferenceCategory(
-                        key = "morphe_hide_channel_blacklist_about_category",
-                        titleKey = "morphe_hide_about_category_title",
-                        sorting = Sorting.UNSORTED,
-                        preferences = setOf(
-                            NonInteractivePreference(
-                                key = "morphe_hide_channel_blacklist_about",
-                                titleKey = "morphe_hide_channel_blacklist_screen_title",
-                                tag = "app.morphe.extension.shared.settings.preference.BulletPointPreference"
                             )
                         )
                     )
@@ -489,7 +455,6 @@ val hideLayoutComponentsPatch = bytecodePatch(
         }
         addLithoFilter(COMMENTS_FILTER)
         addLithoFilter(KEYWORD_FILTER)
-        addLithoFilter(CHANNEL_BLACKLIST_FILTER)
         addLithoFilter(AISLIST_FILTER)
         addLithoFilter(CUSTOM_FILTER)
         addSpanFilter(SANITIZE_VIDEO_SUBTITLE_FILTER)

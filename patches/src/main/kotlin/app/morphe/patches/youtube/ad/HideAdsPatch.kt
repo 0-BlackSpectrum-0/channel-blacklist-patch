@@ -86,7 +86,6 @@ private val hideAdsResourcePatch = resourcePatch {
 
 @Suppress("unused")
 val hideAdsPatch = bytecodePatch(
-    name = "Hide ads",
     description = "Adds options to hide general ads, Premium promotions and video ads."
 ) {
     dependsOn(

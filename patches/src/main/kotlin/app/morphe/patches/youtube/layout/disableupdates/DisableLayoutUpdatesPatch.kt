@@ -20,7 +20,6 @@ private const val EXTENSION_CLASS =
 
 @Suppress("unused")
 val disableLayoutUpdatesPatch = bytecodePatch(
-    name = "Disable layout updates",
     description = "Adds an option to disable server side layout updates and use an older UI.",
 ) {
     dependsOn(

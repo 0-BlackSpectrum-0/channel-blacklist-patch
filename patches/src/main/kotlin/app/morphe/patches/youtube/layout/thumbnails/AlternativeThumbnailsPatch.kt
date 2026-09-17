@@ -19,7 +19,6 @@ private const val EXTENSION_CLASS =
     "Lapp/morphe/extension/youtube/patches/AlternativeThumbnailsPatch;"
 
 val alternativeThumbnailsPatch = bytecodePatch(
-    name = "Alternative thumbnails",
     description = "Adds options to replace video thumbnails using the DeArrow API or image captures from the video.",
 ) {
     dependsOn(

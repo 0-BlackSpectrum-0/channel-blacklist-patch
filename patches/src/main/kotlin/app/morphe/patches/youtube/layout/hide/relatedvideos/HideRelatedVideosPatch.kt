@@ -40,7 +40,6 @@ private const val EXTENSION_CLASS =
 
 @Suppress("unused")
 val hideRelatedVideosPatch = bytecodePatch(
-    name = "Hide related videos",
     description = "Adds options to hide related videos."
 ) {
     dependsOn(

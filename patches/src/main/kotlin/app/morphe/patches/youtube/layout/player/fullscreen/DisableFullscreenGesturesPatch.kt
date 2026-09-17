@@ -32,7 +32,6 @@ import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
 @Suppress("unused")
 val disableFullscreenGesturesPatch = bytecodePatch(
-    name = "Disable fullscreen gestures",
     description = "Adds options to selectively disable gestures for entering and exiting fullscreen mode, and to disable pinch-to-zoom.",
 ) {
     dependsOn(

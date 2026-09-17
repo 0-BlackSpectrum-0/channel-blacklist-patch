@@ -24,7 +24,6 @@ private const val EXTENSION_CLASS =
 
 @Suppress("unused")
 val disablePlaylistAutoplayPatch = bytecodePatch(
-    name = "Disable playlist autoplay",
     description = "Adds an option to stop a playlist from automatically advancing to the next video.",
 ) {
     dependsOn(

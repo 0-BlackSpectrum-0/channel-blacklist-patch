@@ -166,7 +166,6 @@ private const val EXTENSION_FILTER = "Lapp/morphe/extension/youtube/patches/comp
 
 @Suppress("unused")
 val hideShortsComponentsPatch = bytecodePatch(
-    name = "Hide Shorts components",
     description = "Adds options to hide components related to Shorts."
 ) {
     dependsOn(

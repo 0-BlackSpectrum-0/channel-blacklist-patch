@@ -24,7 +24,6 @@ private const val EXTENSION_CLASS =
 
 @Suppress("unused")
 val disableScrollSpeedLimitPatch = bytecodePatch(
-    name = "Disable scrolling speed limit",
     description = "Adds an option to remove limits of how fast the home and " +
             "subscription feed can be scrolled."
 ) {

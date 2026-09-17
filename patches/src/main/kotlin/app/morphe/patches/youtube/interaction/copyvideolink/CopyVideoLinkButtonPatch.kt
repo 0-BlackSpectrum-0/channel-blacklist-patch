@@ -43,7 +43,6 @@ private val copyVideoLinkButtonResourcePatch = resourcePatch {
 
 @Suppress("unused")
 val copyVideoLinkButtonPatch = bytecodePatch(
-    name = "Copy video link",
     description = "Adds options to display buttons in the video player to copy video links.",
 ) {
     dependsOn(

@@ -151,7 +151,6 @@ private val swipeControlsResourcePatch = resourcePatch {
 
 @Suppress("unused")
 val swipeControlsPatch = bytecodePatch(
-    name = "Swipe controls",
     description = "Adds options to enable and configure volume and brightness swipe controls."
 ) {
     dependsOn(

@@ -66,7 +66,6 @@ internal const val MINIMAL_BOUNDS_INTERFACE =
 
 @Suppress("unused")
 val miniplayerPatch = bytecodePatch(
-    name = "Miniplayer",
     description = "Adds options to change the in-app minimized player. " +
             "Patching 21.28.206 and lower has more miniplayer types to choose from."
 ) {

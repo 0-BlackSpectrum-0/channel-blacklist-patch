@@ -63,7 +63,6 @@ private val fullscreenVideoScaleResourcePatch = resourcePatch {
 
 @Suppress("unused")
 val fullscreenVideoScalePatch = bytecodePatch(
-    name = "Fullscreen video scale",
     description = "Adds options to stretch or zoom videos to fill the screen in fullscreen mode.",
 ) {
     dependsOn(
