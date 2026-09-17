@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.0.1...v1.1.0) (2026-09-17)
+
+### ✨ New Features
+
+* rename patch source to Spectre Patches and set solid black logo ([fc5a98b](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/fc5a98ba8d00db0059fdc4bfcfbd5c11b7cb6092))
+
 ## [1.0.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.0.0...v1.0.1) (2026-09-17)
 
 ### 🐛 Bug Fixes
