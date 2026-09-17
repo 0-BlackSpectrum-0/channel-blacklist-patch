@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.0...v1.3.1) (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* make Litho filter hooks idempotent and merge upstream dev 21.37.42 fixes ([5e4a179](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/5e4a17979c8a7d2bb7b6cba0c276c8cb3adde470))
+
 ## [1.3.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.2.0...v1.3.0) (2026-09-17)
 
 ### ✨ New Features
