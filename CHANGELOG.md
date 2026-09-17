@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.1.0...v1.2.0) (2026-09-17)
+
+### ✨ New Features
+
+* isolate repository to single Channel blacklist patch ([5504676](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/5504676870b1bc26624adbeebeb8838235b03263))
+
 ## [1.1.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.0.1...v1.1.0) (2026-09-17)
 
 ### ✨ New Features
