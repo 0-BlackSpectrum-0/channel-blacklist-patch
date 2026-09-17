@@ -8,7 +8,6 @@
 package app.morphe.patches.youtube.layout.flyout
 
 
-import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
@@ -18,13 +17,12 @@ import app.morphe.patches.shared.misc.settings.preference.noTitleUnsortedPrefere
 import app.morphe.patches.youtube.layout.hide.general.ContextualMenuItemBuilderFingerprint
 import app.morphe.patches.youtube.layout.hide.general.ContextualMenuItemBuilderOnClickFingerprint
 import app.morphe.patches.youtube.misc.auth.authHookPatch
-import app.morphe.patches.youtube.misc.proto.elementProtoParserHookPatch
 import app.morphe.patches.youtube.misc.extension.sharedExtensionPatch
 import app.morphe.patches.youtube.misc.playservice.is_21_05_or_greater
+import app.morphe.patches.youtube.misc.proto.elementProtoParserHookPatch
 import app.morphe.patches.youtube.misc.settings.PreferenceScreen
 import app.morphe.patches.youtube.misc.settings.settingsPatch
 import app.morphe.patches.youtube.shared.Constants.COMPATIBILITY_YOUTUBE
-import app.morphe.patches.youtube.video.information.videoInformationPatch
 import app.morphe.util.cloneParameters
 import app.morphe.util.findFreeRegister
 import app.morphe.util.numberOfParameterRegisters

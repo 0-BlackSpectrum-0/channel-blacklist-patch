@@ -12,15 +12,13 @@ import app.morphe.patcher.InstructionLocation.MatchAfterWithin
 import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
-import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod.Companion.toMutable
 import app.morphe.patcher.fieldAccess
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
+import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod.Companion.toMutable
 import app.morphe.patches.shared.misc.litho.filter.addLithoFilter
-import app.morphe.patches.shared.misc.proto.hookElement
 import app.morphe.patches.youtube.layout.hide.general.hideLayoutComponentsPatch
 import app.morphe.patches.youtube.misc.extension.sharedExtensionPatch
-import app.morphe.patches.youtube.shared.Constants.COMPATIBILITY_YOUTUBE
 import app.morphe.patches.youtube.misc.litho.filter.lithoFilterPatch
 import app.morphe.patches.youtube.misc.proto.elementProtoParserHookPatch
 import app.morphe.patches.youtube.shared.StartVideoInformerFingerprint
@@ -32,8 +30,8 @@ import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.builder.MutableMethodImplementation
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
-import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.TypeReference
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
 
@@ -46,13 +44,9 @@ private const val EXTENSION_FLYOUT_MENU_VIDEO_ID_INTERFACE =
 private const val EXTENSION_PROTOCOL_BUFFER_INTERFACE =
     $$"Lapp/morphe/extension/youtube/patches/utils/FlyoutUtils$ProtocolBufferFieldInterface;"
 
-@Suppress("unused")
 val flyoutPatch = bytecodePatch(
-    name = "Flyout infrastructure",
     description = "Provides shared flyout menu hooks.",
-    default = false,
 ) {
-    compatibleWith(COMPATIBILITY_YOUTUBE)
     dependsOn(
         sharedExtensionPatch,
         lithoFilterPatch,
