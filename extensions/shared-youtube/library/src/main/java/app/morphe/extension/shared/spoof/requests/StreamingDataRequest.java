@@ -107,6 +107,7 @@ public class StreamingDataRequest {
 
     private static volatile ClientType lastSpoofedClientType;
     private static volatile boolean fallbackWithTVDash;
+    private static volatile Map<String, String> lastPlayerHeaders = Collections.emptyMap();
 
     /**
      * Used only for stats for nerds to show VR sign-in was used.
@@ -174,16 +175,30 @@ public class StreamingDataRequest {
         return videoId;
     }
 
-    private StreamingDataRequest(String videoId, boolean isInline, Map<String, String> playerHeaders) {
+    private StreamingDataRequest(String videoId, boolean isInline,
+                                 Map<String, String> playerHeaders, boolean includeVideoDetails) {
         this.videoId = videoId;
         this.isInline = isInline;
         this.future = Utils.submitOnBackgroundThread(
-                () -> fetch(resolveVideoIdToFetch(videoId), isInline, playerHeaders));
+                () -> fetch(resolveVideoIdToFetch(videoId), isInline, playerHeaders, includeVideoDetails));
     }
 
     public static void fetchRequest(String videoId, boolean isInline, Map<String, String> fetchHeaders) {
+        // Keep the latest player headers so downloads can resolve tracks that were never opened.
+        if (fetchHeaders != null && !fetchHeaders.isEmpty()) {
+            lastPlayerHeaders = fetchHeaders;
+        }
         // Always fetch, even if there is an existing request for the same video.
-        cache.put(videoId, new StreamingDataRequest(videoId, isInline, fetchHeaders));
+        cache.put(videoId, new StreamingDataRequest(videoId, isInline, fetchHeaders, false));
+    }
+
+    /**
+     * Resolves a video that the app never opened, using the latest player headers.
+     * Deliberately not cached, so downloads cannot evict the streams of videos being watched.
+     */
+    public static StreamingDataRequest fetchRequestForDownload(String videoId) {
+        // The video details name the saved file, so the download asks for them as well.
+        return new StreamingDataRequest(videoId, false, lastPlayerHeaders, true);
     }
 
     @Nullable
@@ -207,7 +222,8 @@ public class StreamingDataRequest {
     private static HttpURLConnection send(ClientType clientType,
                                           String videoId,
                                           String authorization,
-                                          boolean showErrorToasts) {
+                                          boolean showErrorToasts,
+                                          boolean includeVideoDetails) {
         Utils.verifyOffMainThread();
 
         Objects.requireNonNull(clientType);
@@ -217,7 +233,8 @@ public class StreamingDataRequest {
         final boolean authHeadersIncludes = Utils.isNotEmpty(authorization);
 
         try {
-            HttpURLConnection connection = PlayerRoutes.getPlayerResponseConnectionFromRoute(clientType);
+            HttpURLConnection connection =
+                    PlayerRoutes.getPlayerResponseConnectionFromRoute(clientType, includeVideoDetails);
             connection.setConnectTimeout(HTTP_TIMEOUT_MILLISECONDS);
             connection.setReadTimeout(HTTP_TIMEOUT_MILLISECONDS);
 
@@ -435,7 +452,8 @@ public class StreamingDataRequest {
         return false;
     }
 
-    private static StreamData fetch(String videoId, boolean isInline, Map<String, String> playerHeaders) {
+    private static StreamData fetch(String videoId, boolean isInline,
+                                    Map<String, String> playerHeaders, boolean includeVideoDetails) {
         final boolean debugEnabled = BaseSettings.DEBUG.get();
         final long fetchStartTime = System.currentTimeMillis();
         String authorization = playerHeaders.get(AUTHORIZATION_HEADER);
@@ -450,13 +468,15 @@ public class StreamingDataRequest {
             // Show an error if the last client type fails, or if debug is enabled then show for all attempts.
             final boolean showErrorToast = (++i == clientOrderToUse.length) || debugEnabled;
 
-            HttpURLConnection connection = send(clientType, videoId, authorization, showErrorToast);
+            HttpURLConnection connection =
+                    send(clientType, videoId, authorization, showErrorToast, includeVideoDetails);
             StreamData streamingData = buildPlayerResponseBuffer(clientType, connection, videoId, isInline);
 
             if (clientType == ClientType.TV_SABR && fallbackWithTVDash) {
                 fallbackWithTVDash = false;
                 clientType = ClientType.TV_DASH;
-                HttpURLConnection fallBackConnection = send(clientType, videoId, authorization, showErrorToast);
+                HttpURLConnection fallBackConnection =
+                        send(clientType, videoId, authorization, showErrorToast, includeVideoDetails);
                 streamingData = buildPlayerResponseBuffer(clientType, fallBackConnection, videoId, isInline);
             }
 
