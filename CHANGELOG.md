@@ -1,3 +1,10 @@
+## 1.0.0 (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* **ci:** add patches list markers to README and make missing markers non-fatal ([fdfd8cd](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/fdfd8cdd498f4914decd4093d80ece20fbb4cd00))
+* **ci:** grant execute permissions to gradlew and guard deployment steps ([c0a5e1e](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/c0a5e1e6c06b2a3e8996faf56049d41ebcf05960))
+
 ## [1.43.0](https://github.com/MorpheApp/morphe-patches/compare/v1.42.0...v1.43.0) (2026-09-14)
 
 ### 🐛 Bug Fixes
