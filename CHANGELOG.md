@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.2.0...v1.3.0) (2026-09-17)
+
+### ✨ New Features
+
+* add support for YouTube 21.37.42 and avoid branding license collision ([a9439da](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/a9439daddcfe00f0dfc6789a497741d62403d383))
+
 ## [1.2.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.1.0...v1.2.0) (2026-09-17)
 
 ### ✨ New Features
