@@ -320,35 +320,50 @@ val addToQueuePatch = bytecodePatch(
         }
 
         FeedBottomSheetFlyoutFingerprint.method.apply {
-            findInstructionIndicesReversedOrThrow(Opcode.RETURN_OBJECT).forEach { index ->
-                val register = getInstruction<OneRegisterInstruction>(index).registerA
+            val alreadyHooked = implementation?.instructions?.any { inst ->
+                (inst as? ReferenceInstruction)?.reference?.toString()?.contains("setBottomSheetFlyout") == true
+            } == true
+            if (!alreadyHooked) {
+                findInstructionIndicesReversedOrThrow(Opcode.RETURN_OBJECT).forEach { index ->
+                    val register = getInstruction<OneRegisterInstruction>(index).registerA
 
-                addInstruction(
-                    index,
-                    "invoke-static { v$register }, $EXTENSION_UTILS_CLASS->" +
-                            "setBottomSheetFlyout(Landroid/app/Dialog;)V"
-                )
+                    addInstruction(
+                        index,
+                        "invoke-static { v$register }, $EXTENSION_UTILS_CLASS->" +
+                                "setBottomSheetFlyout(Landroid/app/Dialog;)V"
+                    )
+                }
             }
         }
 
         FeedPopupWindowFlyoutFingerprint.matchAll(2..4).forEach {
             it.method.apply {
-                val instructionIndex = it.instructionMatches.last().index
-                val instructionRegister = getInstruction<FiveRegisterInstruction>(instructionIndex).registerC
+                val alreadyHooked = implementation?.instructions?.any { inst ->
+                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("setPopupWindowFlyout") == true
+                } == true
+                if (!alreadyHooked) {
+                    val instructionIndex = it.instructionMatches.last().index
+                    val instructionRegister = getInstruction<FiveRegisterInstruction>(instructionIndex).registerC
 
-                addInstruction(
-                    instructionIndex,
-                    "invoke-static { v$instructionRegister }, $EXTENSION_UTILS_CLASS->" +
-                            "setPopupWindowFlyout(Landroid/widget/PopupWindow;)V"
-                )
+                    addInstruction(
+                        instructionIndex,
+                        "invoke-static { v$instructionRegister }, $EXTENSION_UTILS_CLASS->" +
+                                "setPopupWindowFlyout(Landroid/widget/PopupWindow;)V"
+                    )
+                }
             }
         }
 
         addLithoFilter(EXTENSION_FILTER)
         hookElement("$EXTENSION_UTILS_CLASS->onNewElementsLoaded")
-        StartVideoInformerFingerprint.method.addInstruction(
-            0,
-            "invoke-static { }, $EXTENSION_UTILS_CLASS->setVideoMarkedAsForKids()V"
-        )
+        val alreadyInformed = StartVideoInformerFingerprint.method.implementation?.instructions?.any { inst ->
+            (inst as? ReferenceInstruction)?.reference?.toString()?.contains("setVideoMarkedAsForKids") == true
+        } == true
+        if (!alreadyInformed) {
+            StartVideoInformerFingerprint.method.addInstruction(
+                0,
+                "invoke-static { }, $EXTENSION_UTILS_CLASS->setVideoMarkedAsForKids()V"
+            )
+        }
     }
 }

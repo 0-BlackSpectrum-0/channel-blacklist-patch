@@ -28,11 +28,6 @@ internal object Constants {
                 isExperimental = true
             ),
             AppTarget(
-                version = "21.35.442",
-                minSdk = 29,
-                isExperimental = true
-            ),
-            AppTarget(
                 version = "21.28.208", // Last version with different miniplayers.
                 minSdk = 29,
                 isExperimental = true
