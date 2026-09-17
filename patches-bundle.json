@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-17T18:44:23",
-  "description": "## 1.0.0 (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* **ci:** add patches list markers to README and make missing markers non-fatal ([fdfd8cd](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/fdfd8cdd498f4914decd4093d80ece20fbb4cd00))\n* **ci:** grant execute permissions to gradlew and guard deployment steps ([c0a5e1e](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/c0a5e1e6c06b2a3e8996faf56049d41ebcf05960))",
-  "download_url": "https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/download/v1.0.0/patches-1.0.0.mpp",
+  "created_at": "2026-09-17T18:56:43",
+  "description": "## [1.0.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.0.0...v1.0.1) (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* **ci:** remove backmerge plugin from semantic-release ([b71ca59](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/b71ca59a835f459116fd705e1f1a73905bd6900a))",
+  "download_url": "https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/download/v1.0.1/patches-1.0.1.mpp",
   "signature_download_url": "",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }

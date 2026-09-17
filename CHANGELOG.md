@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.0.0...v1.0.1) (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* **ci:** remove backmerge plugin from semantic-release ([b71ca59](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/b71ca59a835f459116fd705e1f1a73905bd6900a))
+
 ## 1.0.0 (2026-09-17)
 
 ### 🐛 Bug Fixes
