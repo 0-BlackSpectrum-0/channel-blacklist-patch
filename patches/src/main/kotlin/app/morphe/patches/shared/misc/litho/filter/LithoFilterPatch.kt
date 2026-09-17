@@ -229,7 +229,8 @@ internal fun sharedLithoFilterPatch(
         ).let {
             it.method.apply {
                 val isAlreadyPatched = implementation?.instructions?.any { inst ->
-                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("LithoFilterPatch;->filter") == true
+                    val ref = (inst as? ReferenceInstruction)?.reference?.toString() ?: ""
+                    ref.contains("LithoFilterPatch") || ref.contains("isFiltered")
                 } == true
                 if (isAlreadyPatched) return@let
 

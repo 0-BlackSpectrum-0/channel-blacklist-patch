@@ -67,7 +67,9 @@ internal fun createConversionContextPatch(
         if (conversionContextClassDef.superclass == "Ljava/lang/Object;") {
             conversionContextClassDef.apply {
                 // Add interface and helper methods to allow extension code to call obfuscated methods.
-                interfaces.add(EXTENSION_CONTEXT_INTERFACE)
+                if (!interfaces.contains(EXTENSION_CONTEXT_INTERFACE)) {
+                    interfaces.add(EXTENSION_CONTEXT_INTERFACE)
+                }
 
                 arrayOf(
                     Triple(
@@ -81,26 +83,28 @@ internal fun createConversionContextPatch(
                         stringBuilderField
                     )
                 ).forEach { (interfaceMethodName, interfaceMethodReturnType, classFieldReference) ->
-                    methods.add(
-                        ImmutableMethod(
-                            type,
-                            interfaceMethodName,
-                            listOf(),
-                            interfaceMethodReturnType,
-                            AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
-                            null,
-                            null,
-                            MutableMethodImplementation(2),
-                        ).toMutable().apply {
-                            addInstructions(
-                                0,
-                                """
-                                    iget-object v0, p0, $classFieldReference
-                                    return-object v0
-                                """
-                            )
-                        }
-                    )
+                    if (methods.none { it.name == interfaceMethodName }) {
+                        methods.add(
+                            ImmutableMethod(
+                                type,
+                                interfaceMethodName,
+                                listOf(),
+                                interfaceMethodReturnType,
+                                AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
+                                null,
+                                null,
+                                MutableMethodImplementation(2),
+                            ).toMutable().apply {
+                                addInstructions(
+                                    0,
+                                    """
+                                        iget-object v0, p0, $classFieldReference
+                                        return-object v0
+                                    """
+                                )
+                            }
+                        )
+                    }
                 }
             }
         } else {
@@ -146,7 +150,9 @@ internal fun createConversionContextPatch(
 
             conversionContextClassDef.apply {
                 // Add interface and helper methods to allow extension code to call obfuscated methods.
-                interfaces.add(EXTENSION_CONTEXT_INTERFACE)
+                if (!interfaces.contains(EXTENSION_CONTEXT_INTERFACE)) {
+                    interfaces.add(EXTENSION_CONTEXT_INTERFACE)
+                }
 
                 arrayOf(
                     Triple(
@@ -160,27 +166,29 @@ internal fun createConversionContextPatch(
                         stringBuilderMethodName
                     )
                 ).forEach { (interfaceMethodName, interfaceMethodReturnType, classMethodName) ->
-                    methods.add(
-                        ImmutableMethod(
-                            type,
-                            interfaceMethodName,
-                            listOf(),
-                            interfaceMethodReturnType,
-                            AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
-                            null,
-                            null,
-                            MutableMethodImplementation(2),
-                        ).toMutable().apply {
-                            addInstructions(
-                                0,
-                                """
-                                    invoke-virtual {p0}, $type->$classMethodName()$interfaceMethodReturnType
-                                    move-result-object v0
-                                    return-object v0
-                                """
-                            )
-                        }
-                    )
+                    if (methods.none { it.name == interfaceMethodName }) {
+                        methods.add(
+                            ImmutableMethod(
+                                type,
+                                interfaceMethodName,
+                                listOf(),
+                                interfaceMethodReturnType,
+                                AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
+                                null,
+                                null,
+                                MutableMethodImplementation(2),
+                            ).toMutable().apply {
+                                addInstructions(
+                                    0,
+                                    """
+                                        invoke-virtual {p0}, $type->$classMethodName()$interfaceMethodReturnType
+                                        move-result-object v0
+                                        return-object v0
+                                    """
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }

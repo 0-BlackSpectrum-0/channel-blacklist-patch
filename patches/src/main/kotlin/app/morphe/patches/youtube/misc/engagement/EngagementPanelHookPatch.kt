@@ -7,6 +7,7 @@ import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
 import app.morphe.patches.youtube.misc.extension.sharedExtensionPatch
 import app.morphe.patches.youtube.shared.EngagementPanelControllerFingerprint
 import app.morphe.util.getReference
+import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import java.lang.ref.WeakReference
@@ -59,16 +60,21 @@ val engagementPanelHookPatch = bytecodePatch(
                         integrationMethodName = "close"
                     }
 
-                    method.addInstructionsWithLabels(
-                        targetInstructionIndex,
-                        """
-                            if-eqz $smaliIntructionPanelRegister, :null_check
-                            ${panelIdSmaliInstruction(smaliIntructionPanelIdRegister,  smaliIntructionPanelRegister)}
-                            invoke-static { $smaliIntructionPanelIdRegister }, $EXTENSION_CLASS->$integrationMethodName(Ljava/lang/String;)V
-                            :null_check
-                            nop
-                        """
-                    )
+                    val alreadyHooked = method.implementation?.instructions?.any { inst ->
+                        (inst as? ReferenceInstruction)?.reference?.toString()?.contains("EngagementPanel->$integrationMethodName") == true
+                    } == true
+                    if (!alreadyHooked) {
+                        method.addInstructionsWithLabels(
+                            targetInstructionIndex,
+                            """
+                                if-eqz $smaliIntructionPanelRegister, :null_check
+                                ${panelIdSmaliInstruction(smaliIntructionPanelIdRegister,  smaliIntructionPanelRegister)}
+                                invoke-static { $smaliIntructionPanelIdRegister }, $EXTENSION_CLASS->$integrationMethodName(Ljava/lang/String;)V
+                                :null_check
+                                nop
+                            """
+                        )
+                    }
                 }
             }
         }
@@ -78,8 +84,14 @@ val engagementPanelHookPatch = bytecodePatch(
 fun panelIdSmaliInstruction(panelIdRegister: String, panelRegister: String) =
     "iget-object $panelIdRegister, $panelRegister, $panelIdField"
 
-fun addEngagementPanelIdHook(descriptor: String) =
-    panelControllerMethodRef.get()!!.addInstructionsWithLabels(
+fun addEngagementPanelIdHook(descriptor: String) {
+    val method = panelControllerMethodRef.get()!!
+    val alreadyHooked = method.implementation?.instructions?.any { inst ->
+        (inst as? ReferenceInstruction)?.reference?.toString()?.contains(descriptor) == true
+    } == true
+    if (alreadyHooked) return
+
+    method.addInstructionsWithLabels(
         panelIdIndex,
         """
             if-eqz $panelRegister, :null_check
@@ -94,3 +106,4 @@ fun addEngagementPanelIdHook(descriptor: String) =
             nop
         """
     )
+}

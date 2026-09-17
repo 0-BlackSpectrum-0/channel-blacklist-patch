@@ -104,6 +104,11 @@ val navigationBarHookPatch = bytecodePatch(description = "Hooks the active navig
 
     execute {
         fun MutableMethod.addHook(hook: NavigationHook, insertPredicate: Instruction.() -> Boolean) {
+            val alreadyHooked = instructions.any { inst ->
+                (inst as? ReferenceInstruction)?.reference?.toString()?.contains(hook.methodName) == true
+            }
+            if (alreadyHooked) return
+
             val filtered = instructions.filter(insertPredicate)
             if (filtered.isEmpty()) throw PatchException("Could not find insert indexes")
             filtered.forEach {
@@ -156,25 +161,35 @@ val navigationBarHookPatch = bytecodePatch(description = "Hooks the active navig
 
         PivotBarButtonsViewSetSelectedFingerprint.let {
             it.method.apply {
-                val index = it.instructionMatches.first().index
-                val instruction = getInstruction<FiveRegisterInstruction>(index)
-                val viewRegister = instruction.registerC
-                val isSelectedRegister = instruction.registerD
+                val alreadyHooked = implementation?.instructions?.any { inst ->
+                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("navigationTabSelected") == true
+                } == true
+                if (!alreadyHooked) {
+                    val index = it.instructionMatches.first().index
+                    val instruction = getInstruction<FiveRegisterInstruction>(index)
+                    val viewRegister = instruction.registerC
+                    val isSelectedRegister = instruction.registerD
 
-                addInstruction(
-                    index + 1,
-                    "invoke-static { v$viewRegister, v$isSelectedRegister }, " +
-                            "$EXTENSION_CLASS->navigationTabSelected(Landroid/view/View;Z)V",
-                )
+                    addInstruction(
+                        index + 1,
+                        "invoke-static { v$viewRegister, v$isSelectedRegister }, " +
+                                "$EXTENSION_CLASS->navigationTabSelected(Landroid/view/View;Z)V",
+                    )
+                }
             }
         }
 
         // Hook onto back button pressed. Needed to fix race problem with
         // Litho filtering based on navigation tab before the tab is updated.
-        YouTubeMainActivityOnBackPressedFingerprint.method.addInstruction(
-            0,
-            "invoke-static { p0 }, $EXTENSION_CLASS->onBackPressed(Landroid/app/Activity;)V",
-        )
+        val backAlreadyHooked = YouTubeMainActivityOnBackPressedFingerprint.method.implementation?.instructions?.any { inst ->
+            (inst as? ReferenceInstruction)?.reference?.toString()?.contains("NavigationBar;->onBackPressed") == true
+        } == true
+        if (!backAlreadyHooked) {
+            YouTubeMainActivityOnBackPressedFingerprint.method.addInstruction(
+                0,
+                "invoke-static { p0 }, $EXTENSION_CLASS->onBackPressed(Landroid/app/Activity;)V",
+            )
+        }
 
         // Hook the search bar.
 
@@ -184,14 +199,19 @@ val navigationBarHookPatch = bytecodePatch(description = "Hooks the active navig
         ActionBarSearchResultsFingerprint.let {
             it.clearMatch()
             it.method.apply {
-                val instructionIndex = it.instructionMatches[1].index
-                val viewRegister = getInstruction<FiveRegisterInstruction>(instructionIndex).registerC
+                val alreadyHooked = implementation?.instructions?.any { inst ->
+                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("searchBarResultsViewLoaded") == true
+                } == true
+                if (!alreadyHooked) {
+                    val instructionIndex = it.instructionMatches[1].index
+                    val viewRegister = getInstruction<FiveRegisterInstruction>(instructionIndex).registerC
 
-                addInstruction(
-                    instructionIndex,
-                    "invoke-static { v$viewRegister }, " +
-                            "$EXTENSION_CLASS->searchBarResultsViewLoaded(Landroid/view/View;)V",
-                )
+                    addInstruction(
+                        instructionIndex,
+                        "invoke-static { v$viewRegister }, " +
+                                "$EXTENSION_CLASS->searchBarResultsViewLoaded(Landroid/view/View;)V",
+                    )
+                }
             }
         }
 
@@ -199,46 +219,55 @@ val navigationBarHookPatch = bytecodePatch(description = "Hooks the active navig
 
         ToolbarLayoutFingerprint.let {
             it.method.apply {
-                val index = it.instructionMatches.last().index
-                val register = getInstruction<OneRegisterInstruction>(index).registerA
+                val alreadyHooked = implementation?.instructions?.any { inst ->
+                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("setToolbar") == true
+                } == true
+                if (!alreadyHooked) {
+                    val index = it.instructionMatches.last().index
+                    val register = getInstruction<OneRegisterInstruction>(index).registerA
 
-                addInstruction(
-                    index + 1,
-                    "invoke-static { v$register }, $EXTENSION_CLASS->setToolbar(Landroid/widget/FrameLayout;)V"
-                )
+                    addInstruction(
+                        index + 1,
+                        "invoke-static { v$register }, $EXTENSION_CLASS->setToolbar(Landroid/widget/FrameLayout;)V"
+                    )
+                }
             }
         }
 
         // Add interface for extensions code to call obfuscated methods.
         AppCompatToolbarBackButtonFingerprint.let {
             it.classDef.apply {
-                interfaces.add(EXTENSION_TOOLBAR_INTERFACE)
+                if (!interfaces.contains(EXTENSION_TOOLBAR_INTERFACE)) {
+                    interfaces.add(EXTENSION_TOOLBAR_INTERFACE)
+                }
 
-                val definingClass = type
-                val obfuscatedMethodName = it.originalMethod.name
-                val returnType = "Landroid/graphics/drawable/Drawable;"
+                if (methods.none { m -> m.name == "patch_getNavigationIcon" }) {
+                    val definingClass = type
+                    val obfuscatedMethodName = it.originalMethod.name
+                    val returnType = "Landroid/graphics/drawable/Drawable;"
 
-                methods.add(
-                    ImmutableMethod(
-                        definingClass,
-                        "patch_getNavigationIcon",
-                        listOf(),
-                        returnType,
-                        AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
-                        null,
-                        null,
-                        MutableMethodImplementation(2),
-                    ).toMutable().apply {
-                        addInstructions(
-                            0,
-                            """
-                                invoke-virtual { p0 }, $definingClass->$obfuscatedMethodName()$returnType
-                                move-result-object v0
-                                return-object v0
-                            """
-                        )
-                    }
-                )
+                    methods.add(
+                        ImmutableMethod(
+                            definingClass,
+                            "patch_getNavigationIcon",
+                            listOf(),
+                            returnType,
+                            AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
+                            null,
+                            null,
+                            MutableMethodImplementation(2),
+                        ).toMutable().apply {
+                            addInstructions(
+                                0,
+                                """
+                                    invoke-virtual { p0 }, $definingClass->$obfuscatedMethodName()$returnType
+                                    move-result-object v0
+                                    return-object v0
+                                """
+                            )
+                        }
+                    )
+                }
             }
         }
 
@@ -261,18 +290,23 @@ val navigationBarHookPatch = bytecodePatch(description = "Hooks the active navig
 
         SetEnumMapFingerprint.let {
             it.method.apply {
-                val setEnumIntegerIndex = it.instructionMatches.last().index
-                val enumMapRegister = getInstruction<FiveRegisterInstruction>(setEnumIntegerIndex).registerC
-                val insertIndex = setEnumIntegerIndex + 1
-                val freeRegister = findFreeRegister(insertIndex, enumMapRegister)
+                val alreadyHooked = implementation?.instructions?.any { inst ->
+                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("setCairoNotificationFilledIcon") == true
+                } == true
+                if (!alreadyHooked) {
+                    val setEnumIntegerIndex = it.instructionMatches.last().index
+                    val enumMapRegister = getInstruction<FiveRegisterInstruction>(setEnumIntegerIndex).registerC
+                    val insertIndex = setEnumIntegerIndex + 1
+                    val freeRegister = findFreeRegister(insertIndex, enumMapRegister)
 
-                addInstructions(
-                    insertIndex,
-                    """
-                        sget-object v$freeRegister, $cairoNotificationEnumReference
-                        invoke-static { v$enumMapRegister, v$freeRegister }, $EXTENSION_CLASS->setCairoNotificationFilledIcon(Ljava/util/EnumMap;Ljava/lang/Enum;)V
-                    """
-                )
+                    addInstructions(
+                        insertIndex,
+                        """
+                            sget-object v$freeRegister, $cairoNotificationEnumReference
+                            invoke-static { v$enumMapRegister, v$freeRegister }, $EXTENSION_CLASS->setCairoNotificationFilledIcon(Ljava/util/EnumMap;Ljava/lang/Enum;)V
+                        """
+                    )
+                }
             }
         }
     }

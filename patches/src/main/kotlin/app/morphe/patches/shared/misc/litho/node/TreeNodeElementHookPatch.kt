@@ -64,19 +64,24 @@ internal fun createTreeNodeElementHookPatch(
 
     execute {
         TreeNodeResultListFingerprint.method.apply {
-            val insertIndex = implementation!!.instructions.lastIndex
-            val listRegister = getInstruction<OneRegisterInstruction>(insertIndex).registerA
+            val alreadyHooked = implementation?.instructions?.any { inst ->
+                (inst as? ReferenceInstruction)?.reference?.toString()?.contains("onTreeNodeResultLoaded") == true
+            } == true
+            if (!alreadyHooked) {
+                val insertIndex = implementation!!.instructions.lastIndex
+                val listRegister = getInstruction<OneRegisterInstruction>(insertIndex).registerA
 
-            val registerProvider = getFreeRegisterProvider(insertIndex, 1)
-            val freeRegister = registerProvider.getFreeRegister()
+                val registerProvider = getFreeRegisterProvider(insertIndex, 1)
+                val freeRegister = registerProvider.getFreeRegister()
 
-            addInstructionsAtControlFlowLabel(
-                insertIndex,
-                """
-                    move-object/from16 v$freeRegister, p2
-                    invoke-static { v$freeRegister, v$listRegister }, $EXTENSION_CLASS->onTreeNodeResultLoaded(${EXTENSION_CONTEXT_INTERFACE}Ljava/util/List;)V
-                """
-            )
+                addInstructionsAtControlFlowLabel(
+                    insertIndex,
+                    """
+                        move-object/from16 v$freeRegister, p2
+                        invoke-static { v$freeRegister, v$listRegister }, $EXTENSION_CLASS->onTreeNodeResultLoaded(${EXTENSION_CONTEXT_INTERFACE}Ljava/util/List;)V
+                    """
+                )
+            }
         }
 
         val componentLoadedMethod = ComponentPatchFingerprint.method
@@ -90,27 +95,32 @@ internal fun createTreeNodeElementHookPatch(
             reference: FieldReference
         ) {
             clazz.apply {
-                interfaces.add(EXTENSION_LITHO_CONTAINER_INTERFACE)
-                methods.add(
-                    ImmutableMethod(
-                        type,
-                        "patch_getContainer",
-                        listOf(),
-                        "Ljava/lang/Object;",
-                        AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
-                        null,
-                        null,
-                        MutableMethodImplementation(2),
-                    ).toMutable().apply {
-                        addInstructions(
-                            0,
-                            """
-                                iget-object v0, p0, $reference
-                                return-object v0
-                            """
-                        )
-                    }
-                )
+                if (!interfaces.contains(EXTENSION_LITHO_CONTAINER_INTERFACE)) {
+                    interfaces.add(EXTENSION_LITHO_CONTAINER_INTERFACE)
+                }
+
+                if (methods.none { it.name == "patch_getContainer" }) {
+                    methods.add(
+                        ImmutableMethod(
+                            type,
+                            "patch_getContainer",
+                            listOf(),
+                            "Ljava/lang/Object;",
+                            AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
+                            null,
+                            null,
+                            MutableMethodImplementation(2),
+                        ).toMutable().apply {
+                            addInstructions(
+                                0,
+                                """
+                                    iget-object v0, p0, $reference
+                                    return-object v0
+                                """
+                            )
+                        }
+                    )
+                }
             }
         }
 
@@ -147,6 +157,11 @@ fun hookTreeNodeResult(
 ) {
     val method = if (isLazilyConvertedElement) lazilyConvertedElementLoadedMethodRef.get()!!
     else componentLoadedMethodRef.get()!!
+
+    val alreadyHooked = method.implementation?.instructions?.any { inst ->
+        (inst as? ReferenceInstruction)?.reference?.toString()?.contains(descriptor) == true
+    } == true
+    if (alreadyHooked) return
 
     method.addInstruction(
         0,
