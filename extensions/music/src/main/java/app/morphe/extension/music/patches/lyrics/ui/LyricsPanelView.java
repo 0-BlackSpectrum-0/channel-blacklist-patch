@@ -27,6 +27,7 @@ import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.StaticLayout;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.ReplacementSpan;
@@ -280,14 +281,12 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
         private float[] lineMaxSungX;
 
         private Layout cachedLayout;
-        private float[] cachedWordX;
-        private float[] cachedWordWidth;
+        /** Where the word starts and ends being sung, in the direction its script runs. */
+        private float[] cachedWordLeadX;
+        private float[] cachedWordTrailX;
         private int[] cachedWordLine;
         private int cachedWordCount;
         private int cachedLineCount;
-        private int[] cachedLineStart;
-        private int[] cachedLineEnd;
-        private float[] cachedLineBaseline;
         private int[] cachedLineTop;
         private int[] cachedLineBottom;
         private float[] cachedLineLeft;
@@ -296,6 +295,13 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
 
         private CharSequence cachedText;
         private String cachedTextStr;
+
+        /** The same text painted in the sung color, drawn clipped over the unsung text. */
+        private Layout sungLayout;
+        private CharSequence sungLayoutText;
+        private int sungLayoutWidth = -1;
+        private int sungLayoutColor;
+        private int sungLayoutOrigStart = -1;
 
         LyricsLineView(Context context) {
             super(context);
@@ -320,6 +326,7 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
             this.originalTextStart = origStart;
             if (structuralChange) {
                 cachedLayout = null;
+                sungLayout = null;
             }
             invalidate();
         }
@@ -333,8 +340,8 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
             cachedLayout = layout;
             cachedWordCount = timings.size();
             cachedOrigStart = origStart;
-            cachedWordX = new float[cachedWordCount];
-            cachedWordWidth = new float[cachedWordCount];
+            cachedWordLeadX = new float[cachedWordCount];
+            cachedWordTrailX = new float[cachedWordCount];
             cachedWordLine = new int[cachedWordCount];
             for (int i = 0; i < cachedWordCount; i++) {
                 final WordTiming timing = timings.get(i);
@@ -343,35 +350,81 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
                 if (s >= text.length() || s >= e) {
                     continue;
                 }
-                final float x = layout.getPrimaryHorizontal(s);
-                cachedWordX[i] = x;
-                float w = layout.getPrimaryHorizontal(e) - x;
-                if (w <= 0f) {
-                    w = paint.measureText(text, s, e);
+                final int line = layout.getLineForOffset(s);
+                final float lead = layout.getPrimaryHorizontal(s);
+                float trail = layout.getPrimaryHorizontal(e);
+                // A word broken across visual lines, or one whose end falls on a bidi
+                // boundary, gets its width measured instead of read off the layout.
+                if (trail == lead || layout.getLineForOffset(e) != line) {
+                    final float width = paint.measureText(text, s, e);
+                    trail = layout.isRtlCharAt(s) ? lead - width : lead + width;
                 }
-                cachedWordWidth[i] = w;
-                cachedWordLine[i] = layout.getLineForOffset(s);
+                cachedWordLeadX[i] = lead;
+                cachedWordTrailX[i] = trail;
+                cachedWordLine[i] = line;
             }
             final int lineCount = layout.getLineCount();
             if (cachedLineCount != lineCount) {
                 cachedLineCount = lineCount;
-                cachedLineStart = new int[lineCount];
-                cachedLineEnd = new int[lineCount];
-                cachedLineBaseline = new float[lineCount];
                 cachedLineTop = new int[lineCount];
                 cachedLineBottom = new int[lineCount];
                 cachedLineLeft = new float[lineCount];
                 cachedLineRight = new float[lineCount];
             }
             for (int ln = 0; ln < lineCount; ln++) {
-                cachedLineStart[ln] = layout.getLineStart(ln);
-                cachedLineEnd[ln] = layout.getLineEnd(ln);
-                cachedLineBaseline[ln] = layout.getLineBaseline(ln);
                 cachedLineTop[ln] = layout.getLineTop(ln);
                 cachedLineBottom[ln] = layout.getLineBottom(ln);
                 cachedLineLeft[ln] = layout.getLineLeft(ln);
                 cachedLineRight[ln] = layout.getLineRight(ln);
             }
+        }
+
+        /**
+         * Builds the sung copy of the text. Drawing it as a layout keeps Arabic and Hebrew
+         * shaped and ordered, which {@link Canvas#drawText} cannot do because it paints the
+         * characters in logical order from a single left edge.
+         */
+        private Layout ensureSungLayout(Layout base, CharSequence text, int origStart) {
+            if (sungLayout != null && sungLayoutText == text
+                    && sungLayoutWidth == base.getWidth()
+                    && sungLayoutColor == sungColor
+                    && sungLayoutOrigStart == origStart) {
+                return sungLayout;
+            }
+
+            SpannableString copy = new SpannableString(text);
+            final int end = originalEnd(copy, origStart);
+            if (origStart < end) {
+                for (ForegroundColorSpan span : copy.getSpans(origStart, end, ForegroundColorSpan.class)) {
+                    copy.removeSpan(span);
+                }
+                copy.setSpan(new ForegroundColorSpan(sungColor), origStart, end,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+            sungLayout = StaticLayout.Builder
+                    .obtain(copy, 0, copy.length(), getPaint(), base.getWidth())
+                    .setAlignment(base.getAlignment())
+                    .setLineSpacing(getLineSpacingExtra(), getLineSpacingMultiplier())
+                    .setIncludePad(getIncludeFontPadding())
+                    .setBreakStrategy(getBreakStrategy())
+                    .setHyphenationFrequency(getHyphenationFrequency())
+                    .build();
+            sungLayoutText = text;
+            sungLayoutWidth = base.getWidth();
+            sungLayoutColor = sungColor;
+            sungLayoutOrigStart = origStart;
+            return sungLayout;
+        }
+
+        /** End of the lyric line itself, before any translation or romanization below it. */
+        private int originalEnd(CharSequence text, int origStart) {
+            if (text != cachedText) {
+                cachedText = text;
+                cachedTextStr = text.toString();
+            }
+            final int newline = cachedTextStr.indexOf('\n', origStart);
+            return newline >= 0 ? newline : cachedTextStr.length();
         }
 
         @Override
@@ -392,12 +445,13 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
 
             ensureWordCache(layout, text, tp, wordTimings, origStart);
 
-            // Track sung extent per visual line for multi-line wrap support.
+            // Track how far the highlight reached on each visual line, so wrapped lines
+            // and right to left scripts both fill from the edge their text starts at.
             final int lineCount = cachedLineCount;
             if (lineMaxSungX == null || lineMaxSungX.length != lineCount) {
                 lineMaxSungX = new float[lineCount];
             }
-            Arrays.fill(lineMaxSungX, 0, lineCount, -1f);
+            Arrays.fill(lineMaxSungX, 0, lineCount, Float.NaN);
             int firstSungLine = -1;
 
             for (int i = 0; i < cachedWordCount; i++) {
@@ -425,48 +479,55 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
                 if (firstSungLine < 0) {
                     firstSungLine = lineNum;
                 }
-                final float x = cachedWordX[i];
-                final float wordWidth = cachedWordWidth[i];
-                if (wordWidth > 0f) {
-                    lineMaxSungX[lineNum] = Math.max(lineMaxSungX[lineNum],
-                            x + wordWidth * progress);
-                }
+                final float lead = cachedWordLeadX[i];
+                final float edge = lead + (cachedWordTrailX[i] - lead) * progress;
+                lineMaxSungX[lineNum] = extendSung(lineMaxSungX[lineNum], edge,
+                        isRightToLeftLine(layout, lineNum));
             }
 
             if (allSung && firstSungLine < 0 && origStart < text.length()) {
-                if (text != cachedText) {
-                    cachedText = text;
-                    cachedTextStr = text.toString();
-                }
-                final int origEnd = cachedTextStr.indexOf('\n', origStart);
-                final int lastChar = (origEnd >= 0 ? origEnd : cachedTextStr.length()) - 1;
+                final int lastChar = originalEnd(text, origStart) - 1;
                 final int firstLine = layout.getLineForOffset(origStart);
-                final int lastLine = layout.getLineForOffset(
-                        Math.max(lastChar, origStart));
-                System.arraycopy(cachedLineRight, firstLine, lineMaxSungX, firstLine,
-                        lastLine - firstLine + 1);
+                final int lastLine = layout.getLineForOffset(Math.max(lastChar, origStart));
+                for (int ln = firstLine; ln <= lastLine && ln < lineCount; ln++) {
+                    lineMaxSungX[ln] = isRightToLeftLine(layout, ln)
+                            ? cachedLineLeft[ln] : cachedLineRight[ln];
+                }
             }
+
+            Layout sung = ensureSungLayout(layout, text, origStart);
 
             canvas.save();
             canvas.translate(paddingLeft, paddingTop);
             for (int ln = 0; ln < lineCount; ln++) {
-                if (lineMaxSungX[ln] <= 0f) {
+                final float edge = lineMaxSungX[ln];
+                if (Float.isNaN(edge)) {
                     continue;
                 }
-                if (!allSung) {
-                    canvas.save();
+                canvas.save();
+                if (isRightToLeftLine(layout, ln)) {
+                    canvas.clipRect(edge, cachedLineTop[ln],
+                            cachedLineRight[ln], cachedLineBottom[ln]);
+                } else {
                     canvas.clipRect(cachedLineLeft[ln], cachedLineTop[ln],
-                            lineMaxSungX[ln], cachedLineBottom[ln]);
+                            edge, cachedLineBottom[ln]);
                 }
-                tp.setColor(sungColor);
-                tp.setShader(null);
-                canvas.drawText(text, cachedLineStart[ln], cachedLineEnd[ln],
-                        cachedLineLeft[ln], cachedLineBaseline[ln], tp);
-                if (!allSung) {
-                    canvas.restore();
-                }
+                sung.draw(canvas);
+                canvas.restore();
             }
             canvas.restore();
+        }
+
+        private static boolean isRightToLeftLine(Layout layout, int line) {
+            return layout.getParagraphDirection(line) == Layout.DIR_RIGHT_TO_LEFT;
+        }
+
+        /** Right to left lines fill leftwards, so their furthest point is the smallest one. */
+        private static float extendSung(float current, float edge, boolean rightToLeft) {
+            if (Float.isNaN(current)) {
+                return edge;
+            }
+            return rightToLeft ? Math.min(current, edge) : Math.max(current, edge);
         }
     }
 
