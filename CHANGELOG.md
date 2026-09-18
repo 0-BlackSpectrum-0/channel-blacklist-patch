@@ -1,3 +1,9 @@
+## [1.3.3](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.2...v1.3.3) (2026-09-18)
+
+### 🐛 Bug Fixes
+
+* remove unused engagementPanelHookPatch and add idempotency to flyout hooks ([ebd1f8a](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/ebd1f8a461aae8f036484c479932a92ffa358f31))
+
 ## [1.3.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.1...v1.3.2) (2026-09-17)
 
 ### 🐛 Bug Fixes

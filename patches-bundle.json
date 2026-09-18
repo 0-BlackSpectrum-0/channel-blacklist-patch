@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-17T23:21:07",
-  "description": "## [1.3.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.1...v1.3.2) (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* correct Litho filter idempotency check and make all bytecode dependency hooks idempotent ([5a4b3f5](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/5a4b3f5ed625f79d6385a857534d06a695a7d4ed))",
-  "download_url": "https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/download/v1.3.2/patches-1.3.2.mpp",
+  "created_at": "2026-09-18T00:05:30",
+  "description": "## [1.3.3](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.2...v1.3.3) (2026-09-18)\n\n### 🐛 Bug Fixes\n\n* remove unused engagementPanelHookPatch and add idempotency to flyout hooks ([ebd1f8a](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/ebd1f8a461aae8f036484c479932a92ffa358f31))",
+  "download_url": "https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/download/v1.3.3/patches-1.3.3.mpp",
   "signature_download_url": "",
-  "version": "1.3.2"
+  "version": "1.3.3"
 }
