@@ -1,3 +1,20 @@
+## [1.44.0-dev.5](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.4...v1.44.0-dev.5) (2026-09-18)
+
+### 🐛 Bug Fixes
+
+* **YouTube Music - Download in app:** Downloads fail when 'Spoof video streams' is turned off ([#3034](https://github.com/MorpheApp/morphe-patches/issues/3034)) ([64249b8](https://github.com/MorpheApp/morphe-patches/commit/64249b8471dd508351b9e7cfb13586812525993e))
+* **YouTube Music - Third-party lyrics:** Lyrics are not shown in a panel that has no heading ([#3033](https://github.com/MorpheApp/morphe-patches/issues/3033)) ([4d5988b](https://github.com/MorpheApp/morphe-patches/commit/4d5988b0eff3bce79b2ab3301d203f27e1318b43))
+* **YouTube Music - Third-party lyrics:** Musixmatch cannot be turned on and Deezer returns no lyrics ([f6c0213](https://github.com/MorpheApp/morphe-patches/commit/f6c021343a3aa9ddf62c1cc0ec168765cfc57882))
+* **YouTube Music - Third-party lyrics:** Right to left lyrics are garbled while being highlighted ([72798cb](https://github.com/MorpheApp/morphe-patches/commit/72798cb704b886cdd5606e6a29298e8338f5f312))
+* **YouTube:** Hide player time bar backgrounds ([#3030](https://github.com/MorpheApp/morphe-patches/issues/3030)) ([a11b9b1](https://github.com/MorpheApp/morphe-patches/commit/a11b9b1248b0f4232b7892ad4dbe4de19caa4d2b))
+* **YouTube:** Preserve fullscreen button when scale button is hidden ([#3027](https://github.com/MorpheApp/morphe-patches/issues/3027)) ([7d4ab61](https://github.com/MorpheApp/morphe-patches/commit/7d4ab619163fba7c20dd4666ca0fe2240eb16380))
+* **YouTube:** Support Unicode AISList channel handles ([#3028](https://github.com/MorpheApp/morphe-patches/issues/3028)) ([fcf415f](https://github.com/MorpheApp/morphe-patches/commit/fcf415f43d78cb6833e2ae14db245989240f7f5e))
+
+### ✨ New Features
+
+* **YouTube Music - Third-party lyrics:** Animate the panel buttons between their states ([abec544](https://github.com/MorpheApp/morphe-patches/commit/abec5445a13bb366a63109a003d8a9444f96cdf7))
+* **YouTube:** Add `Force fullscreen landscape mode` patch ([#2431](https://github.com/MorpheApp/morphe-patches/issues/2431)) ([a037335](https://github.com/MorpheApp/morphe-patches/commit/a03733538e5a56957b525a17668253eb5da404da))
+
 ## [1.44.0-dev.4](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.3...v1.44.0-dev.4) (2026-09-17)
 
 ### 🐛 Bug Fixes
