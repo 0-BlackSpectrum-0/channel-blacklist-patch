@@ -9,10 +9,14 @@ package app.morphe.extension.music.patches.lyrics.ui;
 
 import static app.morphe.extension.shared.StringRef.str;
 
+import android.animation.ArgbEvaluator;
+import android.animation.LayoutTransition;
+import android.animation.ValueAnimator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -125,6 +129,9 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
     private static final int ACTIVE_BUTTON_BG_COLOR = 0xFFFFFFFF;
     /** Active (feature on) button foreground: pure black, readable on white. */
     private static final int ACTIVE_BUTTON_FG_COLOR = 0xFF000000;
+    /** How long a button takes to cross between its inactive and active colors. */
+    private static final long BUTTON_STATE_FADE_MILLISECONDS = 150;
+    private static final ArgbEvaluator BUTTON_COLOR_EVALUATOR = new ArgbEvaluator();
 
     /** Alpha channel for the unsung (not-yet-sung) word color. */
     private static final int UNSUNG_ALPHA = 0x66;
@@ -617,6 +624,12 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
         buttonRow = new LinearLayout(context);
         buttonRow.setOrientation(LinearLayout.HORIZONTAL);
         buttonRow.setGravity(Gravity.CENTER);
+        LayoutTransition buttonTransition = new LayoutTransition();
+        buttonTransition.enableTransitionType(LayoutTransition.CHANGING);
+        buttonTransition.setDuration(LayoutTransition.CHANGING, BUTTON_STATE_FADE_MILLISECONDS);
+        // Without this the panel around the row animates along with the buttons.
+        buttonTransition.setAnimateParentHierarchy(false);
+        buttonRow.setLayoutTransition(buttonTransition);
         buttonRow.setVisibility(GONE);
 
         if (Settings.LYRICS_SHOW_COPY_BUTTON.get()) {
@@ -1820,27 +1833,73 @@ public final class LyricsPanelView extends FrameLayout implements LyricsManager.
     }
 
     private void applyButtonAppearance(TextView button, boolean active) {
-        GradientDrawable background = new GradientDrawable();
-        background.setShape(GradientDrawable.RECTANGLE);
-        background.setCornerRadius(Dim.dp20);
-        background.setColor(active ? ACTIVE_BUTTON_BG_COLOR
-                : ResourceUtils.getColor(APP_BUTTON_BACKGROUND_COLOR, 0x1AFFFFFF));
-        button.setBackground(background);
-        ViewAnimations.applyPressEffect(button);
-
-        final int fg = active ? ACTIVE_BUTTON_FG_COLOR : lineTextColor();
         Drawable icon = button.getCompoundDrawablesRelative()[0];
         if (icon != null) {
-            icon = icon.mutate();
-            icon.setTint(fg);
-            button.setCompoundDrawablesRelative(icon, null, null, null);
             // Reserve padding for the label only when one is actually shown, otherwise
             // the reserved space pushes the icon to the left of the pill.
             CharSequence currentText = button.getText();
             button.setCompoundDrawablePadding(
                     currentText != null && currentText.length() > 0 ? Dim.dp8 : 0);
         }
-        button.setTextColor(fg);
+
+        fadeButtonColors(button,
+                active ? ACTIVE_BUTTON_BG_COLOR
+                        : ResourceUtils.getColor(APP_BUTTON_BACKGROUND_COLOR, 0x1AFFFFFF),
+                active ? ACTIVE_BUTTON_FG_COLOR : lineTextColor());
+    }
+
+    /**
+     * Eases a button between its inactive and active colors. The pill, the label and the
+     * icon all change at once, so they are driven by a single animator.
+     */
+    private static void fadeButtonColors(TextView button, int background, int foreground) {
+        // The tag is free on these buttons and keeps the running animator with its view.
+        if (button.getTag() instanceof ValueAnimator running) {
+            running.cancel();
+        }
+
+        GradientDrawable pill;
+        if (button.getBackground() instanceof GradientDrawable existing) {
+            pill = existing;
+        } else {
+            pill = new GradientDrawable();
+            pill.setShape(GradientDrawable.RECTANGLE);
+            pill.setCornerRadius(Dim.dp20);
+            button.setBackground(pill);
+        }
+
+        final ColorStateList pillColor = pill.getColor();
+        final int fromBackground = pillColor == null ? background : pillColor.getDefaultColor();
+        final int fromForeground = button.getCurrentTextColor();
+        final Drawable icon = button.getCompoundDrawablesRelative()[0];
+
+        // Nothing to ease from before the panel is on screen, or when nothing changed.
+        if (!button.isAttachedToWindow()
+                || (fromBackground == background && fromForeground == foreground)) {
+            setButtonColors(button, pill, icon, background, foreground);
+            return;
+        }
+
+        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
+        animator.setDuration(BUTTON_STATE_FADE_MILLISECONDS);
+        animator.addUpdateListener(update -> {
+            final float fraction = update.getAnimatedFraction();
+            setButtonColors(button, pill, icon,
+                    (int) BUTTON_COLOR_EVALUATOR.evaluate(fraction, fromBackground, background),
+                    (int) BUTTON_COLOR_EVALUATOR.evaluate(fraction, fromForeground, foreground));
+        });
+        button.setTag(animator);
+        animator.start();
+    }
+
+    private static void setButtonColors(TextView button, GradientDrawable pill,
+                                        @Nullable Drawable icon, int background, int foreground) {
+        pill.setColor(background);
+        button.setTextColor(foreground);
+        if (icon != null) {
+            icon.mutate().setTint(foreground);
+            button.invalidate();
+        }
     }
 
     /**
