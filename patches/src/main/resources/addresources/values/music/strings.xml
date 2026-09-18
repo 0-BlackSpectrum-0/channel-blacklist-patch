@@ -423,7 +423,7 @@ Steps:
     <string name="morphe_music_spotify_token_toast_saved">Spotify: sp_dc saved</string>
     <string name="morphe_music_spotify_token_toast_cleared">Spotify: sp_dc cleared</string>
     <string name="morphe_music_spotify_token_toast_invalid">Spotify: invalid sp_dc — please check and try again</string>
-    <string name="morphe_music_apple_token_optional_hint">Apple Music token is optional. Without it, Lyrically will be used as fallback.</string>
+    <string name="morphe_music_apple_token_optional_hint">Apple Music token is optional. Without it, Lyrically will be used as fallback</string>
     <string name="morphe_music_deezer_arl_title">Deezer ARL</string>
     <string name="morphe_music_deezer_arl_dialog_instruction">"Paste the arl cookie from Deezer.
 
@@ -436,12 +436,9 @@ Steps:
     <string name="morphe_music_deezer_arl_toast_cleared">Deezer: arl cleared</string>
     <string name="morphe_music_deezer_arl_toast_invalid">Deezer: invalid arl — please check and try again</string>
     <string name="morphe_music_musixmatch_token_title">Musixmatch Token</string>
-    <string name="morphe_music_musixmatch_token_dialog_instruction">"Paste your Musixmatch user token.
+    <string name="morphe_music_musixmatch_token_dialog_instruction">"Musixmatch works without a token, so this field can stay empty.
 
-Steps:
-1. Visit musixmatch.com and sign in
-2. Open DevTools → Application → Local Storage
-3. Copy the value of the user token"</string>
+Add a token only to use your own account. It has to come from the Musixmatch Android app: tokens copied from musixmatch.com belong to the retired desktop client and the API refuses them"</string>
     <string name="morphe_music_musixmatch_token_dialog_hint">user token</string>
     <string name="morphe_music_musixmatch_token_toast_saved">Musixmatch: user token saved</string>
     <string name="morphe_music_musixmatch_token_toast_cleared">Musixmatch: user token cleared</string>

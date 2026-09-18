@@ -155,7 +155,7 @@ public class LyricsTokenDialogPreference extends Preference {
     }
 
     public static LyricsTokenDialogPreference musixmatch(Context context) {
-        return new LyricsTokenDialogPreference(context,
+        LyricsTokenDialogPreference preference = new LyricsTokenDialogPreference(context,
                 "morphe_music_musixmatch_token_title",
                 "morphe_music_musixmatch_token_dialog_instruction",
                 "morphe_music_musixmatch_token_dialog_hint",
@@ -167,6 +167,8 @@ public class LyricsTokenDialogPreference extends Preference {
                 false,
                 MusixmatchProvider::validateToken,
                 null);
+        preference.onTokenChanged = MusixmatchProvider::invalidateToken;
+        return preference;
     }
 
     @Override

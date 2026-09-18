@@ -52,6 +52,7 @@ public final class MusixmatchProvider implements LyricsProvider {
     private static final AtomicLong lastRequestTime = new AtomicLong(0);
     private static final Object TOKEN_LOCK = new Object();
     private static String cachedToken = null;
+    private static String rejectedUserToken = null;
     private static String[] cachedLanguages = null;
 
     @Override
@@ -110,7 +111,8 @@ public final class MusixmatchProvider implements LyricsProvider {
     private String ensureToken() throws IOException, JSONException {
         synchronized (TOKEN_LOCK) {
             final String userToken = Settings.MUSIXMATCH_TOKEN.get();
-            if (!userToken.isBlank() && isUsableToken(userToken)) {
+            if (!userToken.isBlank() && isUsableToken(userToken)
+                    && !userToken.equals(rejectedUserToken)) {
                 cachedToken = userToken;
                 ensureLanguagesPopulated();
                 return cachedToken;
@@ -249,10 +251,9 @@ public final class MusixmatchProvider implements LyricsProvider {
             final int status = headerStatus(root);
             final String hint = headerHint(root);
             if (status == 401) {
+                // A captcha is a limit on the address, not on the token, so the token is kept.
                 if ("renew".equalsIgnoreCase(hint)) {
-                    synchronized (TOKEN_LOCK) { cachedToken = null; }
-                } else if ("captcha".equalsIgnoreCase(hint)) {
-                    synchronized (TOKEN_LOCK) { cachedToken = null; }
+                    rejectToken();
                 }
                 return Collections.emptyList();
             }
@@ -307,10 +308,9 @@ public final class MusixmatchProvider implements LyricsProvider {
             final int status = headerStatus(root);
             final String hint = headerHint(root);
             if (status == 401) {
+                // A captcha is a limit on the address, not on the token, so the token is kept.
                 if ("renew".equalsIgnoreCase(hint)) {
-                    synchronized (TOKEN_LOCK) { cachedToken = null; }
-                } else if ("captcha".equalsIgnoreCase(hint)) {
-                    synchronized (TOKEN_LOCK) { cachedToken = null; }
+                    rejectToken();
                 }
                 return null;
             }
@@ -396,10 +396,9 @@ public final class MusixmatchProvider implements LyricsProvider {
             final int status = headerStatus(root);
             final String hint = headerHint(root);
             if (status == 401) {
+                // A captcha is a limit on the address, not on the token, so the token is kept.
                 if ("renew".equalsIgnoreCase(hint)) {
-                    synchronized (TOKEN_LOCK) { cachedToken = null; }
-                } else if ("captcha".equalsIgnoreCase(hint)) {
-                    synchronized (TOKEN_LOCK) { cachedToken = null; }
+                    rejectToken();
                 }
                 return null;
             }
@@ -675,6 +674,27 @@ public final class MusixmatchProvider implements LyricsProvider {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
+    /**
+     * Drops the cached token. A stored user token that the API refused is not tried again
+     * until the user changes it, so the self minted token can take over instead.
+     */
+    private static void rejectToken() {
+        synchronized (TOKEN_LOCK) {
+            if (cachedToken != null && cachedToken.equals(Settings.MUSIXMATCH_TOKEN.get())) {
+                rejectedUserToken = cachedToken;
+            }
+            cachedToken = null;
+        }
+    }
+
+    /** Called when the stored token changes, so the next request picks it up. */
+    public static void invalidateToken() {
+        synchronized (TOKEN_LOCK) {
+            cachedToken = null;
+            rejectedUserToken = null;
+        }
+    }
+
     private static boolean isUsableToken(String token) {
         if (token == null || token.isEmpty() || "null".equals(token)) {
             return false;
@@ -723,11 +743,12 @@ public final class MusixmatchProvider implements LyricsProvider {
             final int status = headerStatus(root);
             final String hint = headerHint(root);
             connection.disconnect();
-            return status == 200
-                    && !"renew".equalsIgnoreCase(hint)
-                    && !"captcha".equalsIgnoreCase(hint);
+            // A 401 with "renew" is the only answer that means the token itself is refused.
+            // Everything else (captcha, rate limits, network errors) says nothing about the
+            // token, and failing closed there would leave the provider unusable.
+            return status != 401 || !"renew".equalsIgnoreCase(hint);
         } catch (Exception ex) {
-            return false;
+            return true;
         }
     }
 
