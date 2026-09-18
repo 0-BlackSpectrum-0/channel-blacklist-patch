@@ -1,3 +1,9 @@
+## [1.44.0-dev.6](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.5...v1.44.0-dev.6) (2026-09-18)
+
+### 🚀 Updated App Support
+
+* **YouTube:** Add support for `21.16.256` ([900575c](https://github.com/MorpheApp/morphe-patches/commit/900575ccc97cb8faf831786afd693c30d28e4f9f))
+
 ## [1.44.0-dev.5](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.4...v1.44.0-dev.5) (2026-09-18)
 
 ### 🐛 Bug Fixes
