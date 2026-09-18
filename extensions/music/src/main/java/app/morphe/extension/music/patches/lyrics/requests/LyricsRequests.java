@@ -152,6 +152,19 @@ final class LyricsRequests {
         return URLEncoder.encode(value, "UTF-8");
     }
 
+    /** Walks nested objects, returning null as soon as a link of the chain is missing. */
+    @Nullable
+    static JSONObject optPath(@Nullable JSONObject root, String... keys) {
+        JSONObject node = root;
+        for (String key : keys) {
+            if (node == null) {
+                return null;
+            }
+            node = node.optJSONObject(key);
+        }
+        return node;
+    }
+
     @Nullable
     static String optString(JSONObject object, String key) {
         if (object.isNull(key)) {

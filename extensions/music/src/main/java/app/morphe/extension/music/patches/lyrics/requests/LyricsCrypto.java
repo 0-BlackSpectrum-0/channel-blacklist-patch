@@ -247,7 +247,8 @@ final class LyricsCrypto {
             while ((read = input.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
             }
-            return out.toString("UTF-8");
+            //noinspection CharsetObjectCanBeUsed
+            return out.toString(StandardCharsets.UTF_8.name());
         } catch (IOException ex) {
             return "";
         }

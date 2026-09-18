@@ -50,6 +50,9 @@ public final class SpotifyProvider implements LyricsProvider {
     private static final String LYRICS_URL = "https://spclient.wg.spotify.com/color-lyrics/v2/track/";
     private static final String CLIENT_VERSION = "1.2.57.183.g8c1b7eb0";
 
+    private static final int SEARCH_RETRIES = 2;
+    private static final int SECRET_FETCH_RETRIES = 2;
+
     private static final String USER_AGENT =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                     + "(KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36";
@@ -83,7 +86,7 @@ public final class SpotifyProvider implements LyricsProvider {
     @Override
     public Lyrics fetch(TrackInfo track) throws Exception {
         final String spDc = Settings.SPOTIFY_TOKEN.get();
-        if (spDc == null || spDc.isBlank()) {
+        if (spDc.isBlank()) {
             return null;
         }
 
@@ -127,7 +130,7 @@ public final class SpotifyProvider implements LyricsProvider {
                             .put("offset", 0))
                     .toString();
 
-            final String trackId = executeSearch(accessToken, clientToken, body, hash);
+            final String trackId = executeSearch(accessToken, clientToken, body);
             if (trackId != null) {
                 return trackId;
             }
@@ -138,31 +141,22 @@ public final class SpotifyProvider implements LyricsProvider {
 
     @Nullable
     private String executeSearch(String accessToken, @Nullable String clientToken,
-                                  String body, String hash) throws Exception {
-        for (int attempt = 0; attempt <= 2; attempt++) {
-            final HttpURLConnection connection = (HttpURLConnection)
-                    new java.net.URL(PARTNER_GRAPHQL_URL).openConnection();
-            connection.setRequestMethod("POST");
-            connection.setConnectTimeout(5000);
-            connection.setReadTimeout(8000);
-            connection.setDoOutput(true);
-            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestProperty("app-platform", "WebPlayer");
-            connection.setRequestProperty("User-Agent", USER_AGENT);
-            connection.setRequestProperty("Referer", "https://open.spotify.com/");
-            connection.setRequestProperty("Origin", "https://open.spotify.com");
-            connection.setRequestProperty("spotify-app-version", CLIENT_VERSION);
-            if (clientToken != null) {
-                connection.setRequestProperty("client-token", clientToken);
+                                  String body) throws Exception {
+        final byte[] bodyBytes = body.getBytes(StandardCharsets.UTF_8);
+        long retryAfterMs = 0;
+
+        for (int attempt = 0; attempt <= SEARCH_RETRIES; attempt++) {
+            if (retryAfterMs > 0) {
+                try {
+                    Thread.sleep(retryAfterMs);
+                } catch (InterruptedException ignored) {
+                    Thread.currentThread().interrupt();
+                    return null;
+                }
             }
 
-            final byte[] bodyBytes = body.getBytes(StandardCharsets.UTF_8);
-            connection.setFixedLengthStreamingMode(bodyBytes.length);
-            try (java.io.OutputStream os = connection.getOutputStream()) {
-                os.write(bodyBytes);
-            }
+            final HttpURLConnection connection =
+                    openSearchConnection(accessToken, clientToken, bodyBytes);
 
             final int code = connection.getResponseCode();
 
@@ -174,18 +168,13 @@ public final class SpotifyProvider implements LyricsProvider {
                 if (trackId != null) {
                     return trackId;
                 }
-                break; // got 200 but no tracks — don't retry, try next hash
+                break; // got 200 but no tracks - don't retry, try next hash
             }
 
-            if (code == 429 && attempt < 2) {
-                final long retryAfterMs = parseRetryAfter(connection);
+            if (code == 429) {
+                // The loop bound decides whether a retry is left.
+                retryAfterMs = parseRetryAfter(connection);
                 connection.disconnect();
-                try {
-                    Thread.sleep(retryAfterMs);
-                } catch (InterruptedException ignored) {
-                    Thread.currentThread().interrupt();
-                    return null;
-                }
                 continue;
             }
 
@@ -194,6 +183,34 @@ public final class SpotifyProvider implements LyricsProvider {
         }
 
         return null;
+    }
+
+    private static HttpURLConnection openSearchConnection(String accessToken,
+                                                          @Nullable String clientToken,
+                                                          byte[] bodyBytes) throws IOException {
+        final HttpURLConnection connection = (HttpURLConnection)
+                new java.net.URL(PARTNER_GRAPHQL_URL).openConnection();
+        connection.setRequestMethod("POST");
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(8000);
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("app-platform", "WebPlayer");
+        connection.setRequestProperty("User-Agent", USER_AGENT);
+        connection.setRequestProperty("Referer", "https://open.spotify.com/");
+        connection.setRequestProperty("Origin", "https://open.spotify.com");
+        connection.setRequestProperty("spotify-app-version", CLIENT_VERSION);
+        if (clientToken != null) {
+            connection.setRequestProperty("client-token", clientToken);
+        }
+
+        connection.setFixedLengthStreamingMode(bodyBytes.length);
+        try (java.io.OutputStream os = connection.getOutputStream()) {
+            os.write(bodyBytes);
+        }
+        return connection;
     }
 
     @Nullable
@@ -469,10 +486,14 @@ public final class SpotifyProvider implements LyricsProvider {
         HttpURLConnection connection = null;
         try {
             ensureTotpSecrets();
+            final String[] totpSecrets = cachedTotpSecrets;
+            if (totpSecrets == null || totpSecrets.length == 0) {
+                return null;
+            }
 
             final long serverTimeMs = getServerTime(spDc);
 
-            final String totpValue = generateTotp(serverTimeMs);
+            final String totpValue = generateTotp(serverTimeMs, totpSecrets[0]);
 
             final String url = TOKEN_URL
                     + "?reason=init&productType=web-player"
@@ -631,7 +652,7 @@ public final class SpotifyProvider implements LyricsProvider {
         return System.currentTimeMillis();
     }
 
-    private void ensureTotpSecrets() throws Exception {
+    private void ensureTotpSecrets() {
         final long now = System.currentTimeMillis();
         if (cachedTotpSecrets != null && cachedTotpVersion != null
                 && (now - lastSecretFetchTime) < SECRET_REFRESH_INTERVAL_MS) {
@@ -639,7 +660,7 @@ public final class SpotifyProvider implements LyricsProvider {
         }
 
         try {
-            final String body = fetchUrlWithRetry(SECRETS_URL, 2);
+            final String body = fetchSecrets();
             if (body != null) {
                 JSONObject secrets = new JSONObject(body);
 
@@ -691,7 +712,8 @@ public final class SpotifyProvider implements LyricsProvider {
         }
     }
 
-    private String generateTotp(long timestampMs) throws NoSuchAlgorithmException, InvalidKeyException {
+    private static String generateTotp(long timestampMs, String secret)
+            throws NoSuchAlgorithmException, InvalidKeyException {
         final long epochSeconds = timestampMs / 1000;
         final long counter = epochSeconds / 30;
 
@@ -703,7 +725,7 @@ public final class SpotifyProvider implements LyricsProvider {
         }
 
         final Mac mac = Mac.getInstance("HmacSHA1");
-        final byte[] secretBytes = cachedTotpSecrets[0].getBytes(StandardCharsets.UTF_8);
+        final byte[] secretBytes = secret.getBytes(StandardCharsets.UTF_8);
         mac.init(new SecretKeySpec(secretBytes, "HmacSHA1"));
         final byte[] hash = mac.doFinal(counterBytes);
 
@@ -718,12 +740,12 @@ public final class SpotifyProvider implements LyricsProvider {
     }
 
     @Nullable
-    private static String fetchUrlWithRetry(String url, int maxRetries) {
-        for (int attempt = 0; attempt <= maxRetries; attempt++) {
+    private static String fetchSecrets() {
+        for (int attempt = 0; attempt <= SECRET_FETCH_RETRIES; attempt++) {
             HttpURLConnection connection = null;
             try {
                 connection = (HttpURLConnection)
-                        new java.net.URL(url).openConnection();
+                        new java.net.URL(SECRETS_URL).openConnection();
                 connection.setRequestMethod("GET");
                 connection.setConnectTimeout(5000);
                 connection.setReadTimeout(8000);
@@ -738,7 +760,7 @@ public final class SpotifyProvider implements LyricsProvider {
             } finally {
                 if (connection != null) connection.disconnect();
             }
-            if (attempt < maxRetries) {
+            if (attempt < SECRET_FETCH_RETRIES) {
                 try {
                     Thread.sleep(1000L * (attempt + 1));
                 } catch (InterruptedException ignored) {

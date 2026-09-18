@@ -31,7 +31,7 @@ public final class LrcParser {
 
     static final Set<String> CREDIT_META_KEYS = Set.of("ti", "ar", "al", "au");
 
-    static final Pattern LRC_META = Pattern.compile("^\\[(\\w+):([^\\]]*)]$");
+    static final Pattern LRC_META = Pattern.compile("^\\[(\\w+):([^]]*)]$");
 
     public static final class LrcParseResult {
         public final List<LyricsLine> lines;

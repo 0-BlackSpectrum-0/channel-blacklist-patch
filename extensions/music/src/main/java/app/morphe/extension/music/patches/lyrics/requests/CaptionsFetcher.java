@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.OutputStream;
@@ -876,28 +877,7 @@ public final class CaptionsFetcher {
         final boolean hasCookies = cookies != null && !cookies.isEmpty();
 
         try {
-            JSONObject body = new JSONObject();
-
-            JSONObject client = new JSONObject();
-            client.put("clientName", "WEB");
-            client.put("clientVersion", "2.20250101.00.00");
-            client.put("hl", "en");
-            client.put("gl", "US");
-
-            JSONObject context = new JSONObject();
-            context.put("client", client);
-            body.put("context", context);
-
-            body.put("videoId", videoId);
-
-            JSONObject captionParams = new JSONObject();
-            captionParams.put("captionsEnabled", true);
-            body.put("captionParams", captionParams);
-
-            body.put("contentCheckOk", true);
-            body.put("racyCheckOk", true);
-
-            String bodyStr = body.toString();
+            String bodyStr = buildPlayerRequestBody(videoId);
 
             HttpURLConnection conn = null;
             try {
@@ -944,6 +924,28 @@ public final class CaptionsFetcher {
         }
     }
 
+    private static String buildPlayerRequestBody(String videoId) throws JSONException {
+        JSONObject client = new JSONObject();
+        client.put("clientName", "WEB");
+        client.put("clientVersion", "2.20250101.00.00");
+        client.put("hl", "en");
+        client.put("gl", "US");
+
+        JSONObject context = new JSONObject();
+        context.put("client", client);
+
+        JSONObject captionParams = new JSONObject();
+        captionParams.put("captionsEnabled", true);
+
+        JSONObject body = new JSONObject();
+        body.put("context", context);
+        body.put("videoId", videoId);
+        body.put("captionParams", captionParams);
+        body.put("contentCheckOk", true);
+        body.put("racyCheckOk", true);
+        return body.toString();
+    }
+
     /**
      * @param preferredLangs Languages to try before the defaults. Nothing asks for a
      *                       preference yet, so the branch it drives is dormant.
@@ -952,6 +954,25 @@ public final class CaptionsFetcher {
     @SuppressWarnings("SameParameterValue")
     private static Lyrics fetchViaTimedtext(String videoId, @Nullable String poToken,
                                            @Nullable List<String> preferredLangs) {
+        List<String> langs = timedtextLanguages(preferredLangs);
+
+        String pot = (poToken != null && !poToken.isEmpty()) ? "&pot=" + poToken : "";
+        for (String lang : langs) {
+            try {
+                String url = TIMEDTEXT_URL + "?lang=" + lang + "&v=" + videoId
+                        + "&kind=asr&fmt=json3" + pot;
+                String json = fetchCaptionUrl(url);
+                List<LyricsLine> lines = parseJson3(json);
+                if (!lines.isEmpty()) {
+                    return new Lyrics(lines, Lyrics.CAPTIONS_PROVIDER, true, null, null, null, null, json, "json3", null);
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        return null;
+    }
+
+    private static List<String> timedtextLanguages(@Nullable List<String> preferredLangs) {
         List<String> langs = new ArrayList<>();
         if (preferredLangs != null) {
             for (String lang : preferredLangs) {
@@ -969,21 +990,7 @@ public final class CaptionsFetcher {
         if (!sysRegion.equals(sysLang) && !langs.contains(sysRegion)) {
             langs.add(sysRegion);
         }
-
-        String pot = (poToken != null && !poToken.isEmpty()) ? "&pot=" + poToken : "";
-        for (String lang : langs) {
-            try {
-                String url = TIMEDTEXT_URL + "?lang=" + lang + "&v=" + videoId
-                        + "&kind=asr&fmt=json3" + pot;
-                String json = fetchCaptionUrl(url);
-                List<LyricsLine> lines = parseJson3(json);
-                if (!lines.isEmpty()) {
-                    return new Lyrics(lines, Lyrics.CAPTIONS_PROVIDER, true, null, null, null, null, json, "json3", null);
-                }
-            } catch (Exception ignored) {
-            }
-        }
-        return null;
+        return langs;
     }
 
     private static List<LyricsLine> parseJson3(String json) throws Exception {

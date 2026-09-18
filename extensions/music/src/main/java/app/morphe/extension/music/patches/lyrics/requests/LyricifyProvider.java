@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
@@ -72,14 +73,7 @@ public final class LyricifyProvider implements LyricsProvider {
                 + "?username=" + username
                 + "&isrc=" + isrcEncoded;
 
-        final HttpURLConnection conn =
-                (HttpURLConnection) new java.net.URL(url).openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("User-Agent", USER_AGENT);
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setRequestProperty("Accept-Encoding", "gzip");
-        conn.setConnectTimeout(5000);
-        conn.setReadTimeout(8000);
+        final HttpURLConnection conn = openApi(url);
 
         final int code = conn.getResponseCode();
         if (code != 200) {
@@ -167,6 +161,18 @@ public final class LyricifyProvider implements LyricsProvider {
                 text,
                 formatType,
                 null);
+    }
+
+    private static HttpURLConnection openApi(String url) throws IOException {
+        final HttpURLConnection conn =
+                (HttpURLConnection) new java.net.URL(url).openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("User-Agent", USER_AGENT);
+        conn.setRequestProperty("Accept", "application/json");
+        conn.setRequestProperty("Accept-Encoding", "gzip");
+        conn.setConnectTimeout(5000);
+        conn.setReadTimeout(8000);
+        return conn;
     }
 
     @Nullable

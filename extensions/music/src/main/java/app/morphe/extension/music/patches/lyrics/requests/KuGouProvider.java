@@ -308,7 +308,8 @@ public final class KuGouProvider implements LyricsProvider {
             out.write(buffer, 0, read);
         }
         input.close();
-        return out.toString("UTF-8");
+        //noinspection CharsetObjectCanBeUsed
+        return out.toString(StandardCharsets.UTF_8.name());
     }
 
     private record SongInfo(String hash, String id) {

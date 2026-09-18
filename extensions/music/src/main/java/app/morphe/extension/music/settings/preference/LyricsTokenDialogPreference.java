@@ -56,6 +56,8 @@ public class LyricsTokenDialogPreference extends Preference {
     private final boolean multiline;
     private final TokenValidator validator;
     private final String belowHintRes;
+    /** Providers that cache credentials of their own have to drop them when the token changes. */
+    private Runnable onTokenChanged;
 
     private LyricsTokenDialogPreference(Context context, String titleRes, String instructionRes,
                                         String hintRes, String toastSavedRes, String toastClearedRes, String toastInvalidRes,
@@ -78,6 +80,16 @@ public class LyricsTokenDialogPreference extends Preference {
         setPersistent(false);
     }
 
+    private void saveToken(String token) {
+        setting.save(token);
+        if (onTokenChanged != null) onTokenChanged.run();
+    }
+
+    private void clearToken() {
+        setting.resetToDefault();
+        if (onTokenChanged != null) onTokenChanged.run();
+    }
+
     // --- Factory methods ---
 
     public static LyricsTokenDialogPreference apple(Context context) {
@@ -96,7 +108,7 @@ public class LyricsTokenDialogPreference extends Preference {
     }
 
     public static LyricsTokenDialogPreference spotify(Context context) {
-        return new LyricsTokenDialogPreference(context,
+        LyricsTokenDialogPreference preference = new LyricsTokenDialogPreference(context,
                 "morphe_music_spotify_token_title",
                 "morphe_music_spotify_token_dialog_instruction",
                 "morphe_music_spotify_token_dialog_hint",
@@ -108,6 +120,8 @@ public class LyricsTokenDialogPreference extends Preference {
                 false,
                 SpotifyProvider::validateToken,
                 null);
+        preference.onTokenChanged = SpotifyProvider::invalidateToken;
+        return preference;
     }
 
     public static LyricsTokenDialogPreference youtube(Context context) {
@@ -223,7 +237,7 @@ public class LyricsTokenDialogPreference extends Preference {
                 () -> {
                     String token = tokenInput.getText().toString().trim();
                     if (token.isEmpty()) {
-                        setting.resetToDefault();
+                        clearToken();
                         Utils.showToastShort(str(toastClearedRes));
                         if (onDismissed != null) onDismissed.run();
                     } else if (validator != null) {
@@ -235,13 +249,13 @@ public class LyricsTokenDialogPreference extends Preference {
                                     if (onDismissed != null) onDismissed.run();
                                     return;
                                 }
-                                setting.save(token);
+                                saveToken(token);
                                 Utils.showToastShort(str(toastSavedRes));
                                 if (onDismissed != null) onDismissed.run();
                             });
                         });
                     } else {
-                        setting.save(token);
+                        saveToken(token);
                         Utils.showToastShort(str(toastSavedRes));
                         if (onDismissed != null) onDismissed.run();
                     }
@@ -249,7 +263,7 @@ public class LyricsTokenDialogPreference extends Preference {
                 null,
                 str("morphe_music_scrobbling_log_out"),
                 configured ? () -> {
-                    setting.resetToDefault();
+                    clearToken();
                     Utils.showToastShort(str(toastClearedRes));
                     if (onDismissed != null) onDismissed.run();
                 } : null,
