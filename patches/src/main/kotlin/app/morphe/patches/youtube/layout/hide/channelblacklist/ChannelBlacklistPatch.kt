@@ -19,12 +19,9 @@ import app.morphe.patches.shared.misc.settings.preference.PreferenceScreenPrefer
 import app.morphe.patches.shared.misc.settings.preference.SwitchPreference
 import app.morphe.patches.shared.misc.settings.preference.TextPreference
 import app.morphe.patches.youtube.layout.flyout.addToQueuePatch
-import app.morphe.patches.youtube.misc.engagement.engagementPanelHookPatch
 import app.morphe.patches.youtube.misc.litho.filter.lithoFilterPatch
-import app.morphe.patches.youtube.misc.litho.node.treeNodeElementHookPatch
 import app.morphe.patches.youtube.misc.navigation.navigationBarHookPatch
 import app.morphe.patches.youtube.misc.playservice.versionCheckPatch
-import app.morphe.patches.youtube.misc.proto.elementProtoParserHookPatch
 import app.morphe.patches.youtube.misc.settings.PreferenceScreen
 import app.morphe.patches.youtube.misc.settings.settingsPatch
 import app.morphe.patches.youtube.shared.Constants.COMPATIBILITY_YOUTUBE
@@ -39,13 +36,10 @@ val channelBlacklistPatch = bytecodePatch(
     dependsOn(
         lithoFilterPatch,
         settingsPatch,
-        engagementPanelHookPatch,
         navigationBarHookPatch,
         versionCheckPatch,
         resourceMappingPatch,
-        elementProtoParserHookPatch,
         fixProtoLibraryPatch,
-        treeNodeElementHookPatch,
         addToQueuePatch
     )
 

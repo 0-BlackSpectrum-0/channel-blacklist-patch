@@ -23,9 +23,6 @@ import app.morphe.patches.shared.misc.settings.preference.SwitchPreference
 import app.morphe.patches.shared.misc.settings.preference.noTitleUnsortedPreferenceCategory
 import app.morphe.patches.youtube.layout.hide.general.ContextualMenuItemBuilderFingerprint
 import app.morphe.patches.youtube.layout.hide.general.ContextualMenuItemBuilderOnClickFingerprint
-import app.morphe.patches.youtube.layout.hide.general.hideLayoutComponentsPatch
-import app.morphe.patches.youtube.layout.hide.player.flyoutmenu.hidePlayerFlyoutMenuComponentsPatch
-import app.morphe.patches.youtube.misc.auth.authHookPatch
 import app.morphe.patches.youtube.misc.extension.sharedExtensionPatch
 import app.morphe.patches.youtube.misc.litho.filter.lithoFilterPatch
 import app.morphe.patches.youtube.misc.playservice.is_21_05_or_greater
@@ -75,14 +72,10 @@ val addToQueuePatch = bytecodePatch(
     dependsOn(
         settingsPatch,
         sharedExtensionPatch,
-        settingsPatch,
         lithoFilterPatch,
-        hideLayoutComponentsPatch,
-        hidePlayerFlyoutMenuComponentsPatch,
         versionCheckPatch,
         videoInformationPatch,
-        elementProtoParserHookPatch,
-        authHookPatch
+        elementProtoParserHookPatch
     )
 
     compatibleWith(COMPATIBILITY_YOUTUBE)
@@ -102,27 +95,31 @@ val addToQueuePatch = bytecodePatch(
             val bufferField = it.instructionMatches.last().getFieldAccessed()
 
             mutableClassDefBy(bufferField.definingClass).apply {
-                interfaces.add(EXTENSION_PROTOCOL_BUFFER_INTERFACE)
-                methods.add(
-                    ImmutableMethod(
-                        type,
-                        "patch_getBuffer",
-                        listOf(),
-                        "[B",
-                        AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
-                        null,
-                        null,
-                        MutableMethodImplementation(2),
-                    ).toMutable().apply {
-                        addInstructions(
-                            0,
-                            """
-                                iget-object v0, p0, $bufferField
-                                return-object v0      
-                            """
-                        )
-                    }
-                )
+                if (!interfaces.contains(EXTENSION_PROTOCOL_BUFFER_INTERFACE)) {
+                    interfaces.add(EXTENSION_PROTOCOL_BUFFER_INTERFACE)
+                }
+                if (methods.none { it.name == "patch_getBuffer" }) {
+                    methods.add(
+                        ImmutableMethod(
+                            type,
+                            "patch_getBuffer",
+                            listOf(),
+                            "[B",
+                            AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
+                            null,
+                            null,
+                            MutableMethodImplementation(2),
+                        ).toMutable().apply {
+                            addInstructions(
+                                0,
+                                """
+                                    iget-object v0, p0, $bufferField
+                                    return-object v0      
+                                """
+                            )
+                        }
+                    )
+                }
             }
         }
 
@@ -143,27 +140,31 @@ val addToQueuePatch = bytecodePatch(
             ).instructionMatches.last().getFieldAccessed()
 
             mutableClassDefBy(messageType).apply {
-                interfaces.add(EXTENSION_FLYOUT_MENU_VIDEO_ID_INTERFACE)
-                methods.add(
-                    ImmutableMethod(
-                        type,
-                        "patch_getVideoId",
-                        listOf(),
-                        "Ljava/lang/String;",
-                        AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
-                        null,
-                        null,
-                        MutableMethodImplementation(2),
-                    ).toMutable().apply {
-                        addInstructions(
-                            0,
-                            """
-                                iget-object v0, p0, $videoIdStringField
-                                return-object v0
-                            """
-                        )
-                    }
-                )
+                if (!interfaces.contains(EXTENSION_FLYOUT_MENU_VIDEO_ID_INTERFACE)) {
+                    interfaces.add(EXTENSION_FLYOUT_MENU_VIDEO_ID_INTERFACE)
+                }
+                if (methods.none { it.name == "patch_getVideoId" }) {
+                    methods.add(
+                        ImmutableMethod(
+                            type,
+                            "patch_getVideoId",
+                            listOf(),
+                            "Ljava/lang/String;",
+                            AccessFlags.PUBLIC.value or AccessFlags.FINAL.value,
+                            null,
+                            null,
+                            MutableMethodImplementation(2),
+                        ).toMutable().apply {
+                            addInstructions(
+                                0,
+                                """
+                                    iget-object v0, p0, $videoIdStringField
+                                    return-object v0
+                                """
+                            )
+                        }
+                    )
+                }
             }
         }
 
@@ -186,35 +187,52 @@ val addToQueuePatch = bytecodePatch(
         )
 
         // region Hook flyout menu protocol buffer object.
-        FeedFlyoutBufferObjectFingerprint.method.addInstruction(
-            0,
-            "invoke-static/range { p2 .. p2 }, $EXTENSION_UTILS_CLASS->" +
-                    "extractFlyoutIdFromMap(Ljava/util/Map;)V"
-        )
+        FeedFlyoutBufferObjectFingerprint.method.apply {
+            val alreadyHooked = implementation?.instructions?.any { inst ->
+                (inst as? ReferenceInstruction)?.reference?.toString()?.contains("extractFlyoutIdFromMap") == true
+            } == true
+            if (!alreadyHooked) {
+                addInstruction(
+                    0,
+                    "invoke-static/range { p2 .. p2 }, $EXTENSION_UTILS_CLASS->" +
+                            "extractFlyoutIdFromMap(Ljava/util/Map;)V"
+                )
+            }
+        }
 
         OnClickLithoButtonBufferObjectFingerprint.let {
-            val match = it.instructionMatches[3]
-            val index = match.index
-            val register = match.getInstruction<FiveRegisterInstruction>().registerC
+            val alreadyHooked = it.method.implementation?.instructions?.any { inst ->
+                (inst as? ReferenceInstruction)?.reference?.toString()?.contains("extractFlyoutIdFromLithoButton") == true
+            } == true
+            if (!alreadyHooked) {
+                val match = it.instructionMatches[3]
+                val index = match.index
+                val register = match.getInstruction<FiveRegisterInstruction>().registerC
 
-            it.method.addInstruction(
-                index + 1,
-                "invoke-static { v$register }, $EXTENSION_UTILS_CLASS->" +
-                        "extractFlyoutIdFromLithoButton(Ljava/util/Map;)V"
-            )
+                it.method.addInstruction(
+                    index + 1,
+                    "invoke-static { v$register }, $EXTENSION_UTILS_CLASS->" +
+                            "extractFlyoutIdFromLithoButton(Ljava/util/Map;)V"
+                )
+            }
         }
 
         FullHistoryFlyoutBufferObjectFingerprint.let {
             it.method.apply {
-                val match = it.instructionMatches[2]
-                val index = match.index
-                val register = match.getInstruction<OneRegisterInstruction>().registerA
+                val alreadyHooked = implementation?.instructions?.any { inst ->
+                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("extractFlyoutIdFromObject") == true
+                } == true
+                if (!alreadyHooked) {
+                    val match = it.instructionMatches[2]
+                    val index = match.index
+                    val register = match.getInstruction<OneRegisterInstruction>().registerA
 
-                addInstruction(
-                    index + 1,
-                    "invoke-static { v$register }, $EXTENSION_UTILS_CLASS->" +
-                            "extractFlyoutIdFromObject(Ljava/lang/Object;)V"
-                )
+                    addInstruction(
+                        index + 1,
+                        "invoke-static { v$register }, $EXTENSION_UTILS_CLASS->" +
+                                "extractFlyoutIdFromObject(Ljava/lang/Object;)V"
+                    )
+                }
             }
         }
 
@@ -230,47 +248,57 @@ val addToQueuePatch = bytecodePatch(
             val runnableIndex = mainFingerprintMatches.last().index
             val charCheckRegister = mainFingerprintMatches.last().getInstruction<OneRegisterInstruction>().registerA
 
-            mainFingerprint.method.apply {
-                val runnableRegister = getInstruction<TwoRegisterInstruction>(runnableIndex).registerA
-                addInstructions(
-                    runnableIndex,
-                    """
-                        invoke-static { v$runnableRegister }, $EXTENSION_CLASS->replaceButtonRunnable(Ljava/lang/Runnable;)Ljava/lang/Runnable;
-                        move-result-object v$runnableRegister
-                    """
-                )
+            val alreadyHooked = mainFingerprint.method.implementation?.instructions?.any { inst ->
+                (inst as? ReferenceInstruction)?.reference?.toString()?.contains("replaceButtonRunnable") == true
+            } == true
+            if (!alreadyHooked) {
+                mainFingerprint.method.apply {
+                    val runnableRegister = getInstruction<TwoRegisterInstruction>(runnableIndex).registerA
+                    addInstructions(
+                        runnableIndex,
+                        """
+                            invoke-static { v$runnableRegister }, $EXTENSION_CLASS->replaceButtonRunnable(Ljava/lang/Runnable;)Ljava/lang/Runnable;
+                            move-result-object v$runnableRegister
+                        """
+                    )
 
-                val freeRegister = findFreeRegister(charCheckIndex, charCheckRegister, enumMethodRegister)
-                addInstructions(
-                    charCheckIndex,
-                    """
-                        iget v$freeRegister, v$enumMethodRegister, $enumIntField
-                        invoke-static { v$freeRegister }, $enumMethodCall
-                        move-result-object v$freeRegister
-                        invoke-static { v$freeRegister, v$charCheckRegister }, $EXTENSION_UTILS_CLASS->setCurrentButtonInfo(Ljava/lang/Enum;Ljava/lang/Object;)V
-                    """
-                )
+                    val freeRegister = findFreeRegister(charCheckIndex, charCheckRegister, enumMethodRegister)
+                    addInstructions(
+                        charCheckIndex,
+                        """
+                            iget v$freeRegister, v$enumMethodRegister, $enumIntField
+                            invoke-static { v$freeRegister }, $enumMethodCall
+                            move-result-object v$freeRegister
+                            invoke-static { v$freeRegister, v$charCheckRegister }, $EXTENSION_UTILS_CLASS->setCurrentButtonInfo(Ljava/lang/Enum;Ljava/lang/Object;)V
+                        """
+                    )
+                }
             }
 
             ContextualMenuItemBuilderFingerprint.let {
-                it.method.cloneParameters().apply {
-                    val targetInstructionIndex = it.instructionMatches[3].index + numberOfParameterRegisters
-                    val targetInstructionRegister = it.instructionMatches[3]
-                        .getInstruction<FiveRegisterInstruction>().registerC
-                    val secondButtonInfoParameterRegister = it.instructionMatches[2]
-                        .getInstruction<FiveRegisterInstruction>().registerC
+                val alreadyHookedMenuItem = it.method.implementation?.instructions?.any { inst ->
+                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("setCurrentButtonInfo") == true
+                } == true
+                if (!alreadyHookedMenuItem) {
+                    it.method.cloneParameters().apply {
+                        val targetInstructionIndex = it.instructionMatches[3].index + numberOfParameterRegisters
+                        val targetInstructionRegister = it.instructionMatches[3]
+                            .getInstruction<FiveRegisterInstruction>().registerC
+                        val secondButtonInfoParameterRegister = it.instructionMatches[2]
+                            .getInstruction<FiveRegisterInstruction>().registerC
 
-                    addInstructions(
-                        targetInstructionIndex,
+                        addInstructions(
+                            targetInstructionIndex,
+                                """
+                                invoke-static { v$targetInstructionRegister }, $getCharSequenceReference
+                                move-result-object p0
+                                iget p0, p0, $enumIntField
+                                invoke-static { p0 }, $enumMethodCall
+                                move-result-object p0
+                                invoke-static { p0, v$secondButtonInfoParameterRegister }, $EXTENSION_UTILS_CLASS->setCurrentButtonInfo(Ljava/lang/Enum;Ljava/lang/Object;)V
                             """
-                            invoke-static { v$targetInstructionRegister }, $getCharSequenceReference
-                            move-result-object p0
-                            iget p0, p0, $enumIntField
-                            invoke-static { p0 }, $enumMethodCall
-                            move-result-object p0
-                            invoke-static { p0, v$secondButtonInfoParameterRegister }, $EXTENSION_UTILS_CLASS->setCurrentButtonInfo(Ljava/lang/Enum;Ljava/lang/Object;)V
-                        """
-                    )
+                        )
+                    }
                 }
             }
 
@@ -287,35 +315,45 @@ val addToQueuePatch = bytecodePatch(
             """
 
             ContextualMenuItemBuilderOnClickFingerprint.let {
-                val enumMethodParameterClassReference = it.instructionMatches.first()
-                    .getInstruction<ReferenceInstruction>().reference
-                val enumMethodParameterClassName = it.instructionMatches[1]
-                    .getInstruction<ReferenceInstruction>().reference
+                val alreadyHookedOnClick = it.method.implementation?.instructions?.any { inst ->
+                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("replaceOnItemClick") == true
+                } == true
+                if (!alreadyHookedOnClick) {
+                    val enumMethodParameterClassReference = it.instructionMatches.first()
+                        .getInstruction<ReferenceInstruction>().reference
+                    val enumMethodParameterClassName = it.instructionMatches[1]
+                        .getInstruction<ReferenceInstruction>().reference
 
-                it.method.addInstructions(
-                    0,
-                    """
-                        iget-object v0, p0, $enumMethodParameterClassReference
-                        check-cast v0, $enumMethodParameterClassName
-                        invoke-static { v0 }, $getCharSequenceReference
-                        move-result-object v0
-                        iget v0, v0, $enumIntField
-                        invoke-static { v0 }, $enumMethodCall
-                        move-result-object v0
-                        invoke-virtual {v0}, Ljava/lang/Enum;->name()Ljava/lang/String;
-                        move-result-object v0
-                    """ + getReplaceOnItemClickPatch("v0", "v0")
-                )
+                    it.method.addInstructions(
+                        0,
+                        """
+                            iget-object v0, p0, $enumMethodParameterClassReference
+                            check-cast v0, $enumMethodParameterClassName
+                            invoke-static { v0 }, $getCharSequenceReference
+                            move-result-object v0
+                            iget v0, v0, $enumIntField
+                            invoke-static { v0 }, $enumMethodCall
+                            move-result-object v0
+                            invoke-virtual {v0}, Ljava/lang/Enum;->name()Ljava/lang/String;
+                            move-result-object v0
+                        """ + getReplaceOnItemClickPatch("v0", "v0")
+                    )
+                }
             }
 
             if (!is_21_05_or_greater) {
-                FeedFlyoutButtonsInitializerOnItemClickFingerprint.method.addInstructionsWithLabels(
-                    0,
-                    """
-                        invoke-static { p3 }, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
-                        move-result-object p2
-                    """ + getReplaceOnItemClickPatch("p2", "p2")
-                )
+                val alreadyHookedFlyoutClick = FeedFlyoutButtonsInitializerOnItemClickFingerprint.method.implementation?.instructions?.any { inst ->
+                    (inst as? ReferenceInstruction)?.reference?.toString()?.contains("replaceOnItemClick") == true
+                } == true
+                if (!alreadyHookedFlyoutClick) {
+                    FeedFlyoutButtonsInitializerOnItemClickFingerprint.method.addInstructionsWithLabels(
+                        0,
+                        """
+                            invoke-static { p3 }, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+                            move-result-object p2
+                        """ + getReplaceOnItemClickPatch("p2", "p2")
+                    )
+                }
             }
         }
 
