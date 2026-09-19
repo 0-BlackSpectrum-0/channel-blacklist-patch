@@ -1,3 +1,9 @@
+## [1.44.0-dev.8](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.7...v1.44.0-dev.8) (2026-09-19)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Theme:** Experimental app targets can show white Shorts seekbar ([aaeca6a](https://github.com/MorpheApp/morphe-patches/commit/aaeca6a75bf7d1e14e6c31fbbeffa50bda55ac0f))
+
 ## [1.44.0-dev.7](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.6...v1.44.0-dev.7) (2026-09-19)
 
 ### 🐛 Bug Fixes
