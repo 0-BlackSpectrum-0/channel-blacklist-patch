@@ -115,7 +115,7 @@ public final class MinimalMiniplayerPatch {
     private static final int PAUSE_DESCRIPTION = ResourceUtils.
             getStringIdentifier("accessibility_pause");
 
-    private static final long MORPH_MILLIS = 220;
+    private static final long MORPH_MILLIS = 300;
 
     /**
      * Reused, because the bounds hooks run for every frame of a drag.
@@ -499,15 +499,9 @@ public final class MinimalMiniplayerPatch {
             barBoundsFor(lastBounds);
             morphTo.set(barBounds);
             barShapeApplied = true;
-            showControls(true);
-
-            if (morphFrom.equals(morphTo)) {
-                setBounds(controller, morphTo);
-                updateVideoClip();
-                return;
-            }
 
             setContentAlpha(0f);
+            showControls(true);
             runMorph(true, () -> setContentAlpha(1f));
         } catch (Exception ex) {
             morphing = false;
@@ -515,6 +509,7 @@ public final class MinimalMiniplayerPatch {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static void setBounds(MiniplayerBoundsController controller, Rect bounds) {
         applyingBounds = true;
         try {
