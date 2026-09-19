@@ -1,3 +1,9 @@
+## [1.44.0-dev.10](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.9...v1.44.0-dev.10) (2026-09-19)
+
+### 🚀 Updated App Support
+
+* **YouTube Music:** Add experimental support for `9.37.54` ([04f67ae](https://github.com/MorpheApp/morphe-patches/commit/04f67ae150d23b1c888061e9d723459736f8f52c))
+
 ## [1.44.0-dev.9](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.8...v1.44.0-dev.9) (2026-09-19)
 
 ### 🐛 Bug Fixes
