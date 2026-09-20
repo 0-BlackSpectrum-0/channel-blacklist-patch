@@ -1,3 +1,9 @@
+## [1.44.0-dev.13](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.12...v1.44.0-dev.13) (2026-09-20)
+
+### ✨ New Features
+
+* **YouTube - Return YouTube Dislike:** Show like and dislike counts on the icon only video action bar ([#3075](https://github.com/MorpheApp/morphe-patches/issues/3075)) ([6934e0c](https://github.com/MorpheApp/morphe-patches/commit/6934e0c06dc8e6797f3217e8d609f7a6823b12c9))
+
 ## [1.44.0-dev.12](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.11...v1.44.0-dev.12) (2026-09-20)
 
 ### 🐛 Bug Fixes
