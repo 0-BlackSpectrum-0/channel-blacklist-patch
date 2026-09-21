@@ -205,19 +205,19 @@ public class ReturnYouTubeDislike {
                             "previously created dislike span of data: " + videoId);
                     return replacementLikeDislikeSpan;
                 }
-
-                // No replacement span exist, create it now.
-
-                if (userVote != null) {
-                    votingData.updateUsingVote(userVote);
-                }
-                originalDislikeSpan = original;
-                replacementLikeDislikeSpan = createDislikeSpan(original, votingData);
-                Logger.printDebug(() -> "Replaced: '" + originalDislikeSpan + "' with: '"
-                        + replacementLikeDislikeSpan + "'" + " using video: " + videoId);
-
-                return replacementLikeDislikeSpan;
             }
+
+            // No replacement span exist, create it now.
+
+            if (userVote != null) {
+                votingData.updateUsingVote(userVote);
+            }
+            originalDislikeSpan = original;
+            replacementLikeDislikeSpan = createDislikeSpan(original, votingData);
+            Logger.printDebug(() -> "Replaced: '" + originalDislikeSpan + "' with: '"
+                    + replacementLikeDislikeSpan + "'" + " using video: " + videoId);
+
+            return replacementLikeDislikeSpan;
         } catch (Exception ex) {
             Logger.printException(() -> "waitForFetchAndUpdateReplacementSpan failure", ex);
         }
