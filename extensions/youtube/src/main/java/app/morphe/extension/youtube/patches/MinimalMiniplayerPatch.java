@@ -47,7 +47,6 @@ import app.morphe.extension.shared.Utils;
 import app.morphe.extension.shared.theme.ThemeUtils;
 import app.morphe.extension.shared.ui.Dim;
 import app.morphe.extension.shared.ui.ViewAnimations;
-import app.morphe.extension.youtube.settings.Settings;
 import app.morphe.extension.youtube.shared.PlayerType;
 import kotlin.Unit;
 
@@ -81,10 +80,6 @@ public final class MinimalMiniplayerPatch {
     // this and the type the rest of the class reads disagreeing.
     private static final boolean ENABLED = getCurrentMiniplayerType() == MINIMAL_BAR
             || getCurrentMiniplayerType() == MINIMAL_BAR_2;
-
-    private static final boolean HIDE_TITLE =
-            getCurrentMiniplayerType() == MINIMAL_BAR_2
-                    && Settings.MINIPLAYER_HIDE_TITLE.get();
 
     /**
      * YouTube's own {@code floaty_bar_height}.
@@ -120,7 +115,7 @@ public final class MinimalMiniplayerPatch {
     private static final int PAUSE_DESCRIPTION = ResourceUtils.
             getStringIdentifier("accessibility_pause");
 
-    private static final long MORPH_MILLIS = 300;
+    private static final long MORPH_MILLIS = 220;
 
     /**
      * Reused, because the bounds hooks run for every frame of a drag.
@@ -216,9 +211,6 @@ public final class MinimalMiniplayerPatch {
 
             TextView title = Utils.getChildViewByResourceName(controlsLayout, "floaty_title");
             titleRef = new WeakReference<>(title);
-            if (title != null && HIDE_TITLE) {
-                title.setVisibility(View.GONE);
-            }
 
             TextView subtitle = Utils.getChildViewByResourceName(controlsLayout, "floaty_subtitle_text");
             subtitleRef = new WeakReference<>(subtitle);
@@ -330,31 +322,11 @@ public final class MinimalMiniplayerPatch {
             Rect docked = fullWidthSpan(original);
             lastBounds.set(docked);
 
-            barBoundsFor(docked);
-
-            PlayerType currentType = PlayerType.getCurrent();
-            if (currentType == PlayerType.WATCH_WHILE_MINIMIZED) {
+            if (PlayerType.getCurrent() == PlayerType.WATCH_WHILE_MINIMIZED) {
+                barBoundsFor(docked);
                 currentBounds.set(barBounds);
                 barShapeApplied = true;
                 return barBounds;
-            }
-            if (currentType.isMaximizedOrFullscreen()) {
-                barShapeApplied = false;
-                currentBounds.set(docked);
-                return docked;
-            }
-
-            // Interpolate bounds during player minimization.
-            int targetTop = barBounds.top;
-            if (targetTop > 0 && docked.top > 0) {
-                float fraction = Math.min(1f, Math.max(0f, (float) docked.top / targetTop));
-                currentBounds.set(
-                        interpolate(docked.left, barBounds.left, fraction),
-                        interpolate(docked.top, barBounds.top, fraction),
-                        interpolate(docked.right, barBounds.right, fraction),
-                        interpolate(docked.bottom, barBounds.bottom, fraction)
-                );
-                return currentBounds;
             }
 
             currentBounds.set(docked);
@@ -507,9 +479,15 @@ public final class MinimalMiniplayerPatch {
             barBoundsFor(lastBounds);
             morphTo.set(barBounds);
             barShapeApplied = true;
+            showControls(true);
+
+            if (morphFrom.equals(morphTo)) {
+                setBounds(controller, morphTo);
+                updateVideoClip();
+                return;
+            }
 
             setContentAlpha(0f);
-            showControls(true);
             runMorph(true, () -> setContentAlpha(1f));
         } catch (Exception ex) {
             morphing = false;
@@ -517,7 +495,6 @@ public final class MinimalMiniplayerPatch {
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     private static void setBounds(MiniplayerBoundsController controller, Rect bounds) {
         applyingBounds = true;
         try {
