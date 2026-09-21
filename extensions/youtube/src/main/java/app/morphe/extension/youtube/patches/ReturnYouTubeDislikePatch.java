@@ -99,10 +99,10 @@ public class ReturnYouTubeDislikePatch {
      * Injection point.
      * <p>
      * Called when a litho text component is created, and also when a Span is later reused
-     * (such as scrolling off and back on screen).  Usually called off the main thread, and
+     * (such as scrolling off and back on screen). Usually called off the main thread, and
      * can be called several times for the same element.
      * <p>
-     * Only a segmented button that YouTube lays out itself is handled here.  When the old action
+     * Only a segmented button that YouTube lays out itself is handled here. When the old action
      * bar is restored the dislike count is drawn over the button instead.
      *
      * @param original Original char sequence created or reused by Litho.
@@ -146,9 +146,20 @@ public class ReturnYouTubeDislikePatch {
             RYD_ENABLED && Settings.RESTORE_OLD_VIDEO_ACTION_BAR.get();
 
     private static final int OLD_BAR_DISLIKE_ICON_WIDTH = Dim.dp16;
-    private static final int OLD_BAR_SEPARATOR_WIDTH = Dim.dp1;
+    /**
+     * {@link Dim} truncates, while Litho rounds, so at a density such as 2.75 a 1dp width is
+     * 2 there and 3 in the layout. The widths of the layout are matched against the exact size.
+     */
+    private static final float OLD_BAR_DISLIKE_ICON_EXACT_WIDTH = exactDp(16);
+    private static final float OLD_BAR_SEPARATOR_EXACT_WIDTH = exactDp(1);
     private static final float OLD_BAR_COUNT_TEXT_SIZE_SP = 12;
-    private static final int OLD_BAR_COUNT_SIDE_MARGIN = Dim.dp4;
+    /**
+     * The like icon has more empty space beside it, so the dislike count needs a wider gap to sit
+     * as far from its icon. The end gap brings the padding after it up to what YouTube leaves
+     * after text.
+     */
+    private static final int OLD_BAR_COUNT_START_MARGIN = Dim.dp(9);
+    private static final int OLD_BAR_COUNT_END_MARGIN = Dim.dp(5);
 
     /**
      * Nothing identifies the button, since the whole bar is a single Litho component, so it is
@@ -158,7 +169,11 @@ public class ReturnYouTubeDislikePatch {
 
     private static Paint oldBarCountPaint;
 
-    private static boolean isDimension(float width, int dimension) {
+    private static float exactDp(float dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Dim.getMetrics());
+    }
+
+    private static boolean isDimension(float width, float dimension) {
         return Math.abs(width - dimension) < 1;
     }
 
@@ -176,13 +191,13 @@ public class ReturnYouTubeDislikePatch {
     }
 
     private static int oldBarWidthOf(String count) {
-        return 2 * OLD_BAR_COUNT_SIDE_MARGIN
+        return OLD_BAR_COUNT_START_MARGIN + OLD_BAR_COUNT_END_MARGIN
                 + (int) Math.ceil(oldBarCountPaint().measureText(count));
     }
 
     /**
      * The count of the segmented button is drawn by the layout engine and not by the text view
-     * beside it, so its color cannot be changed.  The count drawn here takes the color of that
+     * beside it, so its color cannot be changed. The count drawn here takes the color of that
      * view instead, which is the one the engine draws with.
      */
     private static int oldBarCountColor(View host) {
@@ -234,9 +249,9 @@ public class ReturnYouTubeDislikePatch {
             }
 
             final boolean afterSeparator = Boolean.TRUE.equals(previousWidthWasSeparator.get());
-            previousWidthWasSeparator.set(isDimension(width, OLD_BAR_SEPARATOR_WIDTH));
+            previousWidthWasSeparator.set(isDimension(width, OLD_BAR_SEPARATOR_EXACT_WIDTH));
 
-            if (!afterSeparator || !isDimension(width, OLD_BAR_DISLIKE_ICON_WIDTH)) {
+            if (!afterSeparator || !isDimension(width, OLD_BAR_DISLIKE_ICON_EXACT_WIDTH)) {
                 return;
             }
 
@@ -539,7 +554,7 @@ public class ReturnYouTubeDislikePatch {
 
         /**
          * @return If the count goes beside the icon, which only the dislike button of the old
-         *         action bar has room for.  Every other button is square.
+         *         action bar has room for. Every other button is square.
          */
         private boolean drawsBeside() {
             return !isLike && hasOwnLabel() && host.getWidth() > host.getHeight();
@@ -572,14 +587,13 @@ public class ReturnYouTubeDislikePatch {
         }
 
         /**
-         * @return Where to center the count, in the space the margin freed.  The insets the
-         *         button had while it was square cancel out, leaving half of the icon.
+         * @return Where to center the count, in the space the margin freed. The insets the
+         *         button had while it was square cancel out, leaving half of the icon and the gap.
          */
         private float countCenterX() {
-            final int icon = Utils.isRightToLeftLocale()
-                    ? -OLD_BAR_DISLIKE_ICON_WIDTH
-                    : OLD_BAR_DISLIKE_ICON_WIDTH;
-            return (host.getWidth() + icon) / 2f;
+            final int start = OLD_BAR_DISLIKE_ICON_WIDTH
+                    + OLD_BAR_COUNT_START_MARGIN - OLD_BAR_COUNT_END_MARGIN;
+            return (host.getWidth() + (Utils.isRightToLeftLocale() ? -start : start)) / 2f;
         }
 
         /**
@@ -693,7 +707,7 @@ public class ReturnYouTubeDislikePatch {
     //
 
     /**
-     * Injection point.  Uses 'playback response' video ID hook to preload RYD.
+     * Injection point. Uses 'playback response' video ID hook to preload RYD.
      */
     public static void preloadVideoId(String videoId, boolean isShortAndOpeningOrPlaying) {
         try {
@@ -783,8 +797,8 @@ public class ReturnYouTubeDislikePatch {
      * <p>
      * Called when the user likes or dislikes.
      *
-     * @param endpoint      string that matches {@link Vote#endpoint}
-     * @param videoId       video ID included in the endpoint request body
+     * @param endpoint string that matches {@link Vote#endpoint}.
+     * @param videoId  video ID included in the endpoint request body.
      */
     public static void sendVote(String endpoint, String videoId) {
         try {
