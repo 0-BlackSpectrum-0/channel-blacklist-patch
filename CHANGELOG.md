@@ -1,3 +1,9 @@
+## [1.44.0-dev.17](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.16...v1.44.0-dev.17) (2026-09-21)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Minimal miniplayer:** Remove one frame flicker when minimizing and missing play/pause icon with an app language set ([10e9c9f](https://github.com/MorpheApp/morphe-patches/commit/10e9c9f9084ea8c7e0f04e77f995a4c28ab98411))
+
 ## [1.44.0-dev.16](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.15...v1.44.0-dev.16) (2026-09-21)
 
 ### 🐛 Bug Fixes
