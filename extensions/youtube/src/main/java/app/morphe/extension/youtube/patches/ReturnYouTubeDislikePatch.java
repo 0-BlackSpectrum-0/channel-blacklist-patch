@@ -37,6 +37,7 @@ import com.facebook.litho.TextContent;
 import com.facebook.yoga.YogaNative;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.WeakHashMap;
 
 import app.morphe.extension.shared.Logger;
@@ -135,15 +136,8 @@ public class ReturnYouTubeDislikePatch {
     }
 
     //
-    // Dislike button width of the old action bar.
+    // Dislike button width of the segmented button, which the old action bar and tablets show.
     //
-
-    /**
-     * The segmented button of the old action bar has a count for the likes only, so the dislike
-     * count is drawn over the button and the button is given room for it.
-     */
-    private static final boolean OLD_ACTION_BAR_ENABLED =
-            RYD_ENABLED && Settings.RESTORE_OLD_VIDEO_ACTION_BAR.get();
 
     private static final int OLD_BAR_DISLIKE_ICON_WIDTH = Dim.dp16;
     /**
@@ -152,6 +146,7 @@ public class ReturnYouTubeDislikePatch {
      */
     private static final float OLD_BAR_DISLIKE_ICON_EXACT_WIDTH = exactDp(16);
     private static final float OLD_BAR_SEPARATOR_EXACT_WIDTH = exactDp(1);
+    private static final float OLD_BAR_LIKE_ICON_EXACT_WIDTH = exactDp(25);
     private static final float OLD_BAR_COUNT_TEXT_SIZE_SP = 12;
     /**
      * The like icon has more empty space beside it, so the dislike count needs a wider gap to sit
@@ -163,9 +158,14 @@ public class ReturnYouTubeDislikePatch {
 
     /**
      * Nothing identifies the button, since the whole bar is a single Litho component, so it is
-     * found by the separator that is always laid out immediately before it.
+     * found by the separator that is always laid out immediately before it. A 1dp divider
+     * followed by a 16dp node is common in the feed too, so the like icon two nodes before the
+     * separator must also match.
+     * <p>
+     * The last three widths of the thread, oldest first.
      */
-    private static final ThreadLocal<Boolean> previousWidthWasSeparator = new ThreadLocal<>();
+    private static final ThreadLocal<float[]> previousWidths =
+            ThreadLocal.withInitial(() -> new float[3]);
 
     private static Paint oldBarCountPaint;
 
@@ -240,18 +240,24 @@ public class ReturnYouTubeDislikePatch {
      */
     public static void onYogaSetWidth(long nodePointer, float width) {
         try {
-            if (!OLD_ACTION_BAR_ENABLED) {
+            if (!RYD_ENABLED) {
                 return;
             }
+            // The segmented button has a count for the likes only, so it is given room for the dislikes.
             ReturnYouTubeDislike videoData = currentVideoData;
             if (videoData == null) {
                 return;
             }
 
-            final boolean afterSeparator = Boolean.TRUE.equals(previousWidthWasSeparator.get());
-            previousWidthWasSeparator.set(isDimension(width, OLD_BAR_SEPARATOR_EXACT_WIDTH));
+            float[] previous = Objects.requireNonNull(previousWidths.get());
+            final boolean afterLikeAndSeparator =
+                    isDimension(previous[0], OLD_BAR_LIKE_ICON_EXACT_WIDTH)
+                    && isDimension(previous[2], OLD_BAR_SEPARATOR_EXACT_WIDTH);
+            previous[0] = previous[1];
+            previous[1] = previous[2];
+            previous[2] = width;
 
-            if (!afterSeparator || !isDimension(width, OLD_BAR_DISLIKE_ICON_EXACT_WIDTH)) {
+            if (!afterLikeAndSeparator || !isDimension(width, OLD_BAR_DISLIKE_ICON_EXACT_WIDTH)) {
                 return;
             }
 
@@ -458,7 +464,7 @@ public class ReturnYouTubeDislikePatch {
     private static final int MAX_BAR_DEPTH = 6;
 
     /**
-     * The counts of the old action bar sit in the like button, a neighbor of the dislike button,
+     * The counts of the segmented button sit in the like button, a neighbor of the dislike button,
      * and Litho reports the text of one host only, so the whole bar is searched.
      *
      * @return If anything in the bar holding this button shows text, such as a count or a label.
@@ -529,7 +535,7 @@ public class ReturnYouTubeDislikePatch {
 
     /**
      * Draws the count below the icon of a compact action bar button, and beside the icon of the
-     * old action bar dislike button, in the margin {@link #onYogaSetWidth(long, float)} gave it.
+     * segmented dislike button, in the margin {@link #onYogaSetWidth(long, float)} gave it.
      */
     private static final class IconButtonCountDrawable extends Drawable {
         private final ComponentHost host;
@@ -569,7 +575,7 @@ public class ReturnYouTubeDislikePatch {
         }
 
         /**
-         * @return If the bar already shows the counts, which tablets and the old action bar do.
+         * @return If the bar already shows a count, which the segmented button does for the likes.
          *         Litho mounts the text after the description, so this is answered on the first draw.
          */
         private boolean hasOwnLabel() {

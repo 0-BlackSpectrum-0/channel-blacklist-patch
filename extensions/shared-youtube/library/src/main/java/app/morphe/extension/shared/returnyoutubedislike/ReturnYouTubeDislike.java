@@ -378,13 +378,6 @@ public class ReturnYouTubeDislike {
         }
     }
 
-    private static SpannableString newSpannableWithDislikes(Spanned sourceStyling, RYDVoteData voteData) {
-        return newSpanUsingStylingOfAnotherSpan(sourceStyling,
-                SharedYouTubeSettings.RYD_DISLIKE_PERCENTAGE.get()
-                        ? formatDislikePercentage(voteData.getDislikePercentage())
-                        : formatDislikeCount(voteData.getDislikeCount()));
-    }
-
     protected boolean isExpired(long now) {
         final long timeSinceCreation = now - timeFetched;
         if (timeSinceCreation < CACHE_TIMEOUT_FAILURE_MILLISECONDS) {
