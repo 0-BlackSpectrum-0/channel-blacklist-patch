@@ -1,3 +1,13 @@
+## [1.44.0-dev.19](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.18...v1.44.0-dev.19) (2026-09-21)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Hide layout components:** Hide Shorts surveys ([#3113](https://github.com/MorpheApp/morphe-patches/issues/3113)) ([18e54f6](https://github.com/MorpheApp/morphe-patches/commit/18e54f6adafeaaad62b970ef9d02186c52ecec33))
+
+### ✨ New Features
+
+* **Reddit:** Add `Start as guest` patch ([#3109](https://github.com/MorpheApp/morphe-patches/issues/3109)) ([c720c2a](https://github.com/MorpheApp/morphe-patches/commit/c720c2af26ea30423fcd0a96341fe916fdef1477))
+
 ## [1.44.0-dev.18](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.17...v1.44.0-dev.18) (2026-09-21)
 
 ### 🐛 Bug Fixes
