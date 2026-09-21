@@ -56,7 +56,6 @@ public class CommentsFilter extends Filter {
     private final StringFilterGroup comments;
     private final StringFilterGroup commentsFilterBar;
     private final StringFilterGroup emojiButton;
-    private final StringFilterGroup previewCommentDotsSelector;
 
     public CommentsFilter() {
         var channelGuidelines = new StringFilterGroup(
@@ -145,11 +144,6 @@ public class CommentsFilter extends Filter {
                 "comments_entry_point_simplebox"
         );
 
-        previewCommentDotsSelector = new StringFilterGroup(
-                Settings.HIDE_COMMENTS_PREVIEW_COMMENT,
-                VIDEO_METADATA_CAROUSEL_PATH
-        );
-
         var thanksButton = new StringFilterGroup(
                 Settings.HIDE_COMMENTS_THANKS_BUTTON,
                 "super_thanks_button.e"
@@ -179,7 +173,6 @@ public class CommentsFilter extends Filter {
                 emojiButton,
                 giftAnimationAndCards,
                 previewComment,
-                previewCommentDotsSelector,
                 thanksButton,
                 timestampButton,
                 topFansButton
@@ -216,10 +209,6 @@ public class CommentsFilter extends Filter {
 
         if (matchedGroup == commentsFilterBar) {
             return Settings.HIDE_FILTER_BAR_IN_COMMENTS.get() && PlayerType.getCurrent().isMaximizedOrFullscreen();
-        }
-
-        if (matchedGroup == previewCommentDotsSelector) {
-            return path.contains("carousel_header") && path.endsWith("|ContainerType|ContainerType|ContainerType|");
         }
 
         return true;
