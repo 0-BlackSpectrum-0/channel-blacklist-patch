@@ -1,3 +1,11 @@
+## [1.44.0-dev.15](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.14...v1.44.0-dev.15) (2026-09-21)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Hide layout components:** Hide Auto-dubbed label in feed ([#3101](https://github.com/MorpheApp/morphe-patches/issues/3101)) ([5e2af7f](https://github.com/MorpheApp/morphe-patches/commit/5e2af7fbed2e35123c4a4a82c47b0dbb4bd46bbb))
+* **YouTube - Return YouTube Dislike:** Show dislikes of the old action bar at every screen density and match the like count spacing ([0ce1259](https://github.com/MorpheApp/morphe-patches/commit/0ce1259bd1d455932c4f9bf0d2dba37d6e5de21b))
+* **YouTube - Voice over translation:** Add button accessibility label ([#3099](https://github.com/MorpheApp/morphe-patches/issues/3099)) ([1c6f2dd](https://github.com/MorpheApp/morphe-patches/commit/1c6f2ddd178212cca2cbc33ff5cc495822da0607))
+
 ## [1.44.0-dev.14](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.13...v1.44.0-dev.14) (2026-09-21)
 
 ### 🐛 Bug Fixes

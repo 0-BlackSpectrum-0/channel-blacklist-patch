@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-21T07:25:46",
-  "description": "## [1.44.0-dev.14](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.13...v1.44.0-dev.14) (2026-09-21)\n\n### 🐛 Bug Fixes\n\n* **YouTube - Minimal miniplayer:** Restored commit [#6e1ca28](https://github.com/MorpheApp/morphe-patches/issues/6e1ca28) ([33595a2](https://github.com/MorpheApp/morphe-patches/commit/33595a279bd0ee2870d390152f86a9615a99153c))\n* **YouTube - Minimal miniplayer:** Restored commit [#6e1ca28](https://github.com/MorpheApp/morphe-patches/issues/6e1ca28) ([1101cad](https://github.com/MorpheApp/morphe-patches/commit/1101cad85f4213eec2cfb6c420e018854fa208b0))\n* **YouTube - Minimal miniplayer:** Reverted last changes to commit [#aaa1211](https://github.com/MorpheApp/morphe-patches/issues/aaa1211) ([64caec5](https://github.com/MorpheApp/morphe-patches/commit/64caec55020841014dea23c5a773b4372e6883e6))\n* **YouTube - Return YouTube Dislike:** Dislike vertical text alignment may not be correct ([320aca2](https://github.com/MorpheApp/morphe-patches/commit/320aca2d9785305e81fea17967a3eb5ed39bff9a))",
-  "download_url": "https://github.com/MorpheApp/morphe-patches/releases/download/v1.44.0-dev.14/patches-1.44.0-dev.14.mpp",
+  "created_at": "2026-09-21T08:38:05",
+  "description": "## [1.44.0-dev.15](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.14...v1.44.0-dev.15) (2026-09-21)\n\n### 🐛 Bug Fixes\n\n* **YouTube - Hide layout components:** Hide Auto-dubbed label in feed ([#3101](https://github.com/MorpheApp/morphe-patches/issues/3101)) ([5e2af7f](https://github.com/MorpheApp/morphe-patches/commit/5e2af7fbed2e35123c4a4a82c47b0dbb4bd46bbb))\n* **YouTube - Return YouTube Dislike:** Show dislikes of the old action bar at every screen density and match the like count spacing ([0ce1259](https://github.com/MorpheApp/morphe-patches/commit/0ce1259bd1d455932c4f9bf0d2dba37d6e5de21b))\n* **YouTube - Voice over translation:** Add button accessibility label ([#3099](https://github.com/MorpheApp/morphe-patches/issues/3099)) ([1c6f2dd](https://github.com/MorpheApp/morphe-patches/commit/1c6f2ddd178212cca2cbc33ff5cc495822da0607))",
+  "download_url": "https://github.com/MorpheApp/morphe-patches/releases/download/v1.44.0-dev.15/patches-1.44.0-dev.15.mpp",
   "signature_download_url": "",
-  "version": "1.44.0-dev.14"
+  "version": "1.44.0-dev.15"
 }
