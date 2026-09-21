@@ -1,3 +1,14 @@
+## [1.44.0-dev.16](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.15...v1.44.0-dev.16) (2026-09-21)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Hide ads:** Hide new product cards ([#3103](https://github.com/MorpheApp/morphe-patches/issues/3103)) ([ea4a310](https://github.com/MorpheApp/morphe-patches/commit/ea4a310f1a06bf60804d774fcd40219a2a93aaca))
+* **YouTube - Hide layout components:** Hide new expandable cards ([#3102](https://github.com/MorpheApp/morphe-patches/issues/3102)) ([1f79c62](https://github.com/MorpheApp/morphe-patches/commit/1f79c62e2dc3f0210cf73f29b65e1c94b3c105ec))
+* **YouTube - Return YouTube Dislike:** Dislikes are not shown on the old action bar of some devices ([258cbe6](https://github.com/MorpheApp/morphe-patches/commit/258cbe6fe66f432156aa7ef6bcb73f5932a9d672))
+* **YouTube - Return YouTube Dislike:** Estimated likes are not shown on the segmented like button ([bf58420](https://github.com/MorpheApp/morphe-patches/commit/bf5842044a46a53263f178624c5fa1a59f18eecc))
+* **YouTube - Return YouTube Dislike:** Show dislikes on the segmented like button of tablets and do not widen matching nodes in the feed ([d8717cd](https://github.com/MorpheApp/morphe-patches/commit/d8717cd9a5c67668c928e410d70b28b974ee08e5))
+* **YouTube - Return YouTube Dislike:** Show estimated likes on the compact action bar when the like count is hidden ([a6efacf](https://github.com/MorpheApp/morphe-patches/commit/a6efacfd0cdb0c8aa11312c33900a4ab70689ae1))
+
 ## [1.44.0-dev.15](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.14...v1.44.0-dev.15) (2026-09-21)
 
 ### 🐛 Bug Fixes
