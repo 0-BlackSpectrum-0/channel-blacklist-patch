@@ -391,6 +391,8 @@ To ensure scrobbling is synced during background playback, ensure that YouTube M
     <!-- layout.lyrics.lyricsPatch -->
     <string name="morphe_music_lyrics_enabled_title">Use third-party lyrics</string>
     <string name="morphe_music_lyrics_enabled_summary">Shows lyrics from a third-party service, falling back to the built-in lyrics when none are found</string>
+    <string name="morphe_music_lyrics_keep_screen_on_title">Keep screen on while viewing lyrics</string>
+    <string name="morphe_music_lyrics_keep_screen_on_summary">Prevents the display from turning off while the lyrics panel is open</string>
     <string name="morphe_music_lyrics_section_service_title">Lyrics service</string>
     <string name="morphe_music_lyrics_section_overlay_title">Overlay</string>
     <string name="morphe_music_lyrics_section_sync_title">Synchronisation</string>

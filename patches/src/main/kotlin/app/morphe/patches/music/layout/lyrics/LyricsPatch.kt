@@ -152,6 +152,7 @@ val lyricsPatch = bytecodePatch(
                         selectable = true,
                         dependency = "morphe_music_lyrics_enabled"
                     ),
+                    SwitchPreference("morphe_music_lyrics_keep_screen_on", summary = true),
                     SwitchPreference("morphe_music_lyrics_miniplayer"),
                     SwitchPreference("morphe_music_lyrics_mediasession"),
                     SwitchPreference("morphe_music_lyrics_display_artist_first", summary = true)
