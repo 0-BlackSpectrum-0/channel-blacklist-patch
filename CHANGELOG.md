@@ -1,3 +1,12 @@
+## [1.44.0-dev.14](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.13...v1.44.0-dev.14) (2026-09-21)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Minimal miniplayer:** Restored commit [#6e1ca28](https://github.com/MorpheApp/morphe-patches/issues/6e1ca28) ([33595a2](https://github.com/MorpheApp/morphe-patches/commit/33595a279bd0ee2870d390152f86a9615a99153c))
+* **YouTube - Minimal miniplayer:** Restored commit [#6e1ca28](https://github.com/MorpheApp/morphe-patches/issues/6e1ca28) ([1101cad](https://github.com/MorpheApp/morphe-patches/commit/1101cad85f4213eec2cfb6c420e018854fa208b0))
+* **YouTube - Minimal miniplayer:** Reverted last changes to commit [#aaa1211](https://github.com/MorpheApp/morphe-patches/issues/aaa1211) ([64caec5](https://github.com/MorpheApp/morphe-patches/commit/64caec55020841014dea23c5a773b4372e6883e6))
+* **YouTube - Return YouTube Dislike:** Dislike vertical text alignment may not be correct ([320aca2](https://github.com/MorpheApp/morphe-patches/commit/320aca2d9785305e81fea17967a3eb5ed39bff9a))
+
 ## [1.44.0-dev.13](https://github.com/MorpheApp/morphe-patches/compare/v1.44.0-dev.12...v1.44.0-dev.13) (2026-09-20)
 
 ### ✨ New Features
