@@ -393,7 +393,7 @@ public final class LayoutComponentsFilter extends Filter {
 
         videoLabels = new StringFilterGroup(
                 null,
-                "|badge.e"
+                "badge.e"
         );
         videoLabelsGroupList.addAll(
                 new ByteArrayFilterGroup(
