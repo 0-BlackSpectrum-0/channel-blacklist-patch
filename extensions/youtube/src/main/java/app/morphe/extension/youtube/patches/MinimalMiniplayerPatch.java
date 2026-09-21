@@ -162,6 +162,7 @@ public final class MinimalMiniplayerPatch {
     private static boolean ticking;
     private static boolean playing;
     private static boolean morphing;
+    private static float contentAlpha = 1f;
 
     /**
      * Whether the bar container is currently moved in front of the player, and what it has to
@@ -287,10 +288,9 @@ public final class MinimalMiniplayerPatch {
     public static int getLegacyControlsVisibility(int original) {
         // Any other shape and these would sit across the whole screen.
         if (ENABLED && inBarMode()) {
-            // The morph owns the alpha while it runs.
-            if (!morphing) {
-                setContentAlpha(1f);
-            }
+            // YouTube sets its own alpha on these right before, which the morph owns while it
+            // runs. Left alone, the contents are drawn fully opaque for a frame.
+            setContentAlpha(morphing ? contentAlpha : 1f);
 
             return View.VISIBLE;
         }
@@ -320,11 +320,17 @@ public final class MinimalMiniplayerPatch {
                 return original;
             }
 
-            if (morphing || applyingBounds) {
+            if (applyingBounds) {
                 // Ours, YouTube is only being told where the player is. Recording it as the
                 // resting bounds would leave the next collapse with nothing to animate.
                 currentBounds.set(original);
                 return original;
+            }
+
+            if (morphing) {
+                // YouTube settles its own corner miniplayer after reporting minimized, which is
+                // after the morph began. Let through, that shape is drawn for a frame.
+                return currentBounds;
             }
 
             Rect docked = fullWidthSpan(original);
@@ -577,6 +583,8 @@ public final class MinimalMiniplayerPatch {
     }
 
     private static void setContentAlpha(float alpha) {
+        contentAlpha = alpha;
+
         ViewGroup controls = controlsRef.get();
         if (controls != null) {
             controls.setAlpha(alpha);
@@ -1044,10 +1052,15 @@ public final class MinimalMiniplayerPatch {
                 ? "player_play_pause_vector_transition"
                 : "player_pause_play_vector_transition";
 
-        final int drawableIdentifier = ResourceUtils.getDrawableIdentifier(name + "_delhi");
-        Drawable drawable = drawableIdentifier == 0
-                ? ResourceUtils.getDrawable(name)
-                : Utils.getContext().getDrawable(drawableIdentifier);
+        int drawableIdentifier = ResourceUtils.getDrawableIdentifier(name + "_delhi");
+        if (drawableIdentifier == 0) {
+            drawableIdentifier = ResourceUtils.getDrawableIdentifier(name);
+        }
+        if (drawableIdentifier == 0) return false;
+
+        // Its fill is a YouTube theme attribute. The extension context has no theme once an app
+        // language is set, so the icon would come out transparent.
+        Drawable drawable = view.getContext().getDrawable(drawableIdentifier);
 
         if (!(drawable instanceof AnimatedVectorDrawable morph)) return false;
 
