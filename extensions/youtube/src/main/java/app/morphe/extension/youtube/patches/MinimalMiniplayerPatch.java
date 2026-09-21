@@ -80,6 +80,9 @@ public final class MinimalMiniplayerPatch {
     // this and the type the rest of the class reads disagreeing.
     private static final boolean ENABLED = getCurrentMiniplayerType() == MINIMAL_BAR
             || getCurrentMiniplayerType() == MINIMAL_BAR_2;
+    private static final boolean HIDE_TITLE =
+            getCurrentMiniplayerType() == MINIMAL_BAR_2
+                    && Settings.MINIPLAYER_HIDE_TITLE.get();
 
     /**
      * YouTube's own {@code floaty_bar_height}.
@@ -213,6 +216,10 @@ public final class MinimalMiniplayerPatch {
             titleRef = new WeakReference<>(title);
 
             TextView subtitle = Utils.getChildViewByResourceName(controlsLayout, "floaty_subtitle_text");
+            if (title != null && HIDE_TITLE) {
+                title.setVisibility(View.GONE);
+            }
+            
             subtitleRef = new WeakReference<>(subtitle);
 
             ImageView playPause = Utils.getChildViewByResourceName(controlsLayout, "floaty_play_pause_button");
