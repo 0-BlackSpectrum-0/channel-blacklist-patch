@@ -96,14 +96,9 @@ public class ReturnYouTubeDislikePatch {
     }
 
     /**
-     * Injection point.
-     * <p>
      * Called when a litho text component is created, and also when a Span is later reused
      * (such as scrolling off and back on screen). Usually called off the main thread, and
      * can be called several times for the same element.
-     * <p>
-     * Only a segmented button that YouTube lays out itself is handled here. When the old action
-     * bar is restored the dislike count is drawn over the button instead.
      *
      * @param original Original char sequence created or reused by Litho.
      * @return The original char sequence, or a replacement that contains the dislikes.
@@ -111,7 +106,12 @@ public class ReturnYouTubeDislikePatch {
     public static CharSequence onLithoTextLoaded(ContextInterface contextInterface,
                                                  CharSequence original) {
         try {
-            if (!RYD_ENABLED || OLD_ACTION_BAR_ENABLED) {
+            if (!RYD_ENABLED) {
+                return original;
+            }
+
+            String identifier = contextInterface.patch_getIdentifier();
+            if (identifier == null || !identifier.contains("video_action_bar.e")) {
                 return original;
             }
 
@@ -127,7 +127,7 @@ public class ReturnYouTubeDislikePatch {
             if (!(original instanceof Spanned)) {
                 original = new SpannableString(original);
             }
-            return videoData.getDislikesSpanForRegularVideo((Spanned) original, true, false);
+            return videoData.getDislikesSpanForRegularVideo((Spanned) original);
         } catch (Exception ex) {
             Logger.printException(() -> "onLithoTextLoaded failure", ex);
         }
