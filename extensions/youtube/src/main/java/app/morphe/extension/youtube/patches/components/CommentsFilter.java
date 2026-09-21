@@ -95,7 +95,8 @@ public class CommentsFilter extends Filter {
         comments = new StringFilterGroup(
                 null,
                 "video_metadata_carousel",
-                "_comments"
+                "_comments",
+                "teaser_carousel_with_controller"
         );
 
         var commentsByMembers = new StringFilterGroup(
