@@ -387,6 +387,74 @@ public class ReturnYouTubeDislikePatch {
     }
 
     /**
+     * YouTube gives the like button no description when the creator hides the likes, so the hook
+     * never sees it. It is the button laid out just before the dislike button.
+     */
+    private static void addCountToUnlabeledLikeButton(ComponentHost dislikeHost) {
+        try {
+            ComponentHost likeHost = buttonBefore(dislikeHost);
+            if (likeHost == null || iconButtonCounts.containsKey(likeHost)
+                    || !TextUtils.isEmpty(likeHost.getContentDescription())) {
+                return;
+            }
+            String accessibilityId = accessibilityIdOf(likeHost);
+            if (accessibilityId != null && !accessibilityId.startsWith(LIKE_BUTTON_ACCESSIBILITY_ID)) {
+                return;
+            }
+
+            IconButtonCountDrawable drawable = new IconButtonCountDrawable(likeHost);
+            likeHost.getOverlay().add(drawable);
+            iconButtonCounts.put(likeHost, drawable);
+            drawable.setButton("", true);
+            Logger.printDebug(() -> "Like button without a description: " + accessibilityId);
+            refreshIconButtonCounts();
+        } catch (Exception ex) {
+            Logger.printException(() -> "addCountToUnlabeledLikeButton failure", ex);
+        }
+    }
+
+    /**
+     * Each button of the compact action bar sits in wrappers of its own width, so the first
+     * ancestor with an earlier sibling of that width holds the previous button.
+     */
+    @Nullable
+    private static ComponentHost buttonBefore(View button) {
+        View view = button;
+        for (int i = 0; i < MAX_BAR_PARENTS; i++) {
+            if (!(view.getParent() instanceof ViewGroup parent)) {
+                return null;
+            }
+            final int index = parent.indexOfChild(view);
+            if (index > 0) {
+                View sibling = parent.getChildAt(index - 1);
+                return sibling.getWidth() == view.getWidth()
+                        ? clickableHostOfSize(sibling, button, 0)
+                        : null;
+            }
+            view = parent;
+        }
+        return null;
+    }
+
+    @Nullable
+    private static ComponentHost clickableHostOfSize(View view, View button, int depth) {
+        if (view instanceof ComponentHost host && host.isClickable()
+                && host.getWidth() == button.getWidth() && host.getHeight() == button.getHeight()) {
+            return host;
+        }
+        if (depth >= MAX_BAR_DEPTH || !(view instanceof ViewGroup group)) {
+            return null;
+        }
+        for (int i = 0, childCount = group.getChildCount(); i < childCount; i++) {
+            ComponentHost host = clickableHostOfSize(group.getChildAt(i), button, depth + 1);
+            if (host != null) {
+                return host;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Redraws the counts now, and again once the fetch completes if it is still loading.
      */
     private static void refreshIconButtonCounts() {
@@ -551,6 +619,10 @@ public class ReturnYouTubeDislikePatch {
          * Like count from the label, {@link #LIKES_HIDDEN} or {@link #LIKES_UNKNOWN}.
          */
         private long youTubeLikes;
+        /**
+         * If the like button beside this dislike button was looked for, which needs the layout.
+         */
+        private boolean likeButtonSearched;
 
         IconButtonCountDrawable(ComponentHost host) {
             this.host = host;
@@ -572,6 +644,7 @@ public class ReturnYouTubeDislikePatch {
             youTubeLikes = isLike ? parseLabelCount(label) : LIKES_UNKNOWN;
             hasOwnLabel = null;
             spokenLabel = null;
+            likeButtonSearched = false;
         }
 
         /**
@@ -661,8 +734,17 @@ public class ReturnYouTubeDislikePatch {
         @Override
         public void draw(@NonNull Canvas canvas) {
             // In case a recycled host was given a new description without passing through the hook.
+            // A like button without a description is given an empty label.
             CharSequence current = host.getContentDescription();
+            if (current == null) {
+                current = "";
+            }
             final boolean beside = drawsBeside();
+            if (!isLike && !beside && !likeButtonSearched && host.getWidth() > 0) {
+                likeButtonSearched = true;
+                // Not while drawing, since this adds to the overlay of another view.
+                host.post(() -> addCountToUnlabeledLikeButton(host));
+            }
             if ((!TextUtils.equals(current, label) && !TextUtils.equals(current, spokenLabel))
                     || (hasOwnLabel() && !beside)) {
                 return;
