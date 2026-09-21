@@ -391,8 +391,12 @@ public final class MinimalMiniplayerPatch {
         // a position taken mid-slide leaves the bar underneath it once it comes back.
         final int top = windowLocation[1] - Math.round(navigationBar.getTranslationY());
 
-        // Never pull the bar up, only close the gap underneath it.
-        return Math.max(top, resting.bottom);
+        // A rail beside the content says nothing about where the bar ends.
+        if (navigationBar.getWidth() < navigationBar.getHeight()) return resting.bottom;
+
+        // Docked against it even when YouTube rests lower. After a recreated activity its
+        // resting bounds are still the ones from before the system insets moved everything up.
+        return top;
     }
 
     /**
@@ -799,9 +803,36 @@ public final class MinimalMiniplayerPatch {
                 controls.getRootView(), "bottom_bar_container");
         if (navigationBar != null) {
             navigationBarRef = new WeakReference<>(navigationBar);
+            navigationBar.removeOnLayoutChangeListener(navigationBarLayoutListener);
+            navigationBar.addOnLayoutChangeListener(navigationBarLayoutListener);
         }
 
         return navigationBar;
+    }
+
+    /**
+     * Without the translucent navigation bar, a recreated activity lays the navigation bar out
+     * before the system insets move it up, and a bar placed against that stays underneath it.
+     */
+    private static final View.OnLayoutChangeListener navigationBarLayoutListener =
+            (view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+                if (top != oldTop || bottom != oldBottom) {
+                    // Not from inside the layout pass the change is reported from.
+                    Utils.runOnMainThread(MinimalMiniplayerPatch::reapplyBarBounds);
+                }
+            };
+
+    private static void reapplyBarBounds() {
+        if (!barShapeApplied || morphing || lastBounds.isEmpty()) return;
+
+        MiniplayerBoundsController controller = boundsControllerRef.get();
+        if (controller == null) return;
+
+        barBoundsFor(lastBounds);
+        if (barBounds.equals(currentBounds)) return;
+
+        setBounds(controller, barBounds);
+        updateVideoClip();
     }
 
     private static void startTicking(boolean start) {
