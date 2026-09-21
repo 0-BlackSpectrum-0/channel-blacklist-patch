@@ -20,7 +20,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.AnimatedVectorDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.InsetDrawable;
@@ -99,8 +98,10 @@ public final class MinimalMiniplayerPatch {
      * Type 2 draws the bar on the video, which is dimmed but never light, so the app colors
      * cannot be used. These are what YouTube puts on its own player overlays.
      */
-    private static final int OVERLAY_SCRIM_COLOR = Color.argb(100, 0, 0, 0);
+    private static final int OVERLAY_SCRIM_COLOR = Color.argb(80, 0, 0, 0);
     private static final int OVERLAY_BUTTON_COLOR = Color.argb(80, 255, 255, 255);
+    private static final int OVERLAY_DARK_BUTTON_COLOR = Color.argb(120, 0, 0, 0);
+    private static final int OVERLAY_TEXT_SHADOW_COLOR = Color.argb(180, 0, 0, 0);
     private static final int OVERLAY_PRIMARY_COLOR = Color.WHITE;
     private static final int OVERLAY_SECONDARY_COLOR = Color.argb(180, 255, 255, 255);
 
@@ -172,9 +173,6 @@ public final class MinimalMiniplayerPatch {
     private static boolean barDrawsOverPlayer;
     @Nullable
     private static Drawable originalBarBackground;
-    private static final Drawable customType2BarBackground = new ColorDrawable(
-            Color.argb(70, 0, 0, 0)
-    );
     private static int barIndexInParent;
 
     /**
@@ -247,7 +245,7 @@ public final class MinimalMiniplayerPatch {
 
             View subtitleBar = Utils.getChildViewByResourceName(controlsLayout, "floaty_subtitle_bar");
             if (subtitleBar != null) {
-                subtitleBar.setVisibility(View.VISIBLE);
+                subtitleBar.setVisibility(HIDE_TITLE ? View.GONE : View.VISIBLE);
             }
 
             if (getCurrentMiniplayerType() == MINIMAL_BAR) {
@@ -255,10 +253,10 @@ public final class MinimalMiniplayerPatch {
                 startAfterVideo(subtitleBar);
             } else {
                 // The contents sit on the video rather than beside it, so it is dimmed, and
-                // they take the overlay colors.
-                controlsLayout.setBackgroundColor(OVERLAY_SCRIM_COLOR);
-                setTextColor(title, OVERLAY_PRIMARY_COLOR);
-                setTextColor(subtitle, OVERLAY_SECONDARY_COLOR);
+                // they take the overlay colors. The buttons alone have a backdrop of their own.
+                controlsLayout.setBackgroundColor(HIDE_TITLE ? Color.TRANSPARENT : OVERLAY_SCRIM_COLOR);
+                setOverlayTextColor(title, OVERLAY_PRIMARY_COLOR);
+                setOverlayTextColor(subtitle, OVERLAY_SECONDARY_COLOR);
                 setIconColor(playPause);
                 setIconColor(close);
             }
@@ -957,9 +955,8 @@ public final class MinimalMiniplayerPatch {
                 barIndexInParent = parent.indexOfChild(barContainer);
 
                 originalBarBackground = barContainer.getBackground();
-                // Here the video, with a slight shading effect to increase
-                // the text readability, is the background for the bar.
-                barContainer.setBackground(customType2BarBackground);
+                // The video is the background, the controls on top of it already dim it.
+                barContainer.setBackground(null);
                 parent.bringChildToFront(barContainer);
             } else {
                 barContainer.setBackground(originalBarBackground);
@@ -1058,8 +1055,9 @@ public final class MinimalMiniplayerPatch {
         circle.setShape(GradientDrawable.OVAL);
         // Beside the video this follows the theme, so a custom app color carries into the bar.
         // On the video it is a translucent scrim instead, which the video shows through.
+        // Without text the video is not dimmed, and a light circle is lost on a light video.
         circle.setColor(overVideo
-                ? OVERLAY_BUTTON_COLOR
+                ? (HIDE_TITLE ? OVERLAY_DARK_BUTTON_COLOR : OVERLAY_BUTTON_COLOR)
                 : Utils.adjustColorBrightness(ThemeUtils.getAppBackgroundColor(), 0.9f, 1.25f));
 
         // 48dp is the touch target, 40dp the button, which also keeps the circles apart.
@@ -1101,9 +1099,11 @@ public final class MinimalMiniplayerPatch {
         return true;
     }
 
-    private static void setTextColor(@Nullable TextView view, int color) {
+    private static void setOverlayTextColor(@Nullable TextView view, int color) {
         if (view != null) {
             view.setTextColor(color);
+            // The dimming alone is too light for white text on a light video.
+            view.setShadowLayer(Dim.dp4, 0, 0, OVERLAY_TEXT_SHADOW_COLOR);
         }
     }
 
