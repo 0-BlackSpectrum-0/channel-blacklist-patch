@@ -141,7 +141,6 @@ public class CommentsFilter extends Filter {
 
         var previewComment = new StringFilterGroup(
                 Settings.HIDE_COMMENTS_PREVIEW_COMMENT,
-                "|carousel_item",
                 "comments_entry_point_teaser",
                 "comments_entry_point_simplebox"
         );
