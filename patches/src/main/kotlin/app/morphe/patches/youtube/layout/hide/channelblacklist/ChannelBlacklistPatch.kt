@@ -18,7 +18,6 @@ import app.morphe.patches.shared.misc.settings.preference.PreferenceScreenPrefer
 import app.morphe.patches.shared.misc.settings.preference.PreferenceScreenPreference.Sorting
 import app.morphe.patches.shared.misc.settings.preference.SwitchPreference
 import app.morphe.patches.shared.misc.settings.preference.TextPreference
-import app.morphe.patches.youtube.layout.flyout.addToQueuePatch
 import app.morphe.patches.youtube.misc.litho.filter.lithoFilterPatch
 import app.morphe.patches.youtube.misc.navigation.navigationBarHookPatch
 import app.morphe.patches.youtube.misc.playservice.versionCheckPatch
@@ -39,8 +38,7 @@ val channelBlacklistPatch = bytecodePatch(
         navigationBarHookPatch,
         versionCheckPatch,
         resourceMappingPatch,
-        fixProtoLibraryPatch,
-        addToQueuePatch
+        fixProtoLibraryPatch
     )
 
     compatibleWith(COMPATIBILITY_YOUTUBE)
