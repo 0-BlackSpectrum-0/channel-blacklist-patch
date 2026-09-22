@@ -1,3 +1,9 @@
+## [1.3.4](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.3...v1.3.4) (2026-09-22)
+
+### 🐛 Bug Fixes
+
+* remove addToQueuePatch dependency to resolve multi-source fingerprint conflicts ([c3c012b](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/c3c012b9fc6242724fdbd82a03d9f565bee2653f))
+
 ## [1.3.3](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v1.3.2...v1.3.3) (2026-09-18)
 
 ### 🐛 Bug Fixes

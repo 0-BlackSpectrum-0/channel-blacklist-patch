@@ -37,7 +37,7 @@ A Morphe patch to filter and hide videos from blacklisted channels across YouTub
 ## 🩹 Patches List
 
 <!-- PATCHES_START -->
-> **[v1.3.3](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/tag/v1.3.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;1 patches total
+> **[v1.3.4](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/tag/v1.3.4)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;1 patches total
 <details open>
 <summary>📦 YouTube&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
