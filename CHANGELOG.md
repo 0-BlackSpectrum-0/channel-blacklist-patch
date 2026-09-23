@@ -1,3 +1,9 @@
+## [2.1.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.0.0...v2.1.0) (2026-09-23)
+
+### ✨ New Features
+
+* trim bundle to YouTube only and integrate Channel Blacklist ([e8a0372](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/e8a03720d211090b5979693a7201bc181a3410a9))
+
 ## [1.45.0-dev.4](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.3...v1.45.0-dev.4) (2026-09-23)
 
 ### 🐛 Bug Fixes
