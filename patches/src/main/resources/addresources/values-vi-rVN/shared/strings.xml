@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -75,7 +75,7 @@ Bạn có thể yêu cầu thêm ngôn ngữ hoặc cải thiện bản dịch h
   <string name="morphe_settings_export_file_failed">Không thể xuất cài đặt</string>
   <!-- String is also duplicated in Reddit about preference -->
   <string name="morphe_settings_about_links_body_version_current">Bạn đang dùng bản vá Morphe phiên bản &lt;i&gt;%s&lt;/i&gt;</string>
-  <string name="morphe_settings_about_links_body_version_outdated">Bạn đang dùng bản vá Morphe phiên bản &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Đã có bản cập nhật mới: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Để cập nhật các bản vá của bạn, hãy dùng Morphe để vá lại ứng dụng này</string>
+  <string name="morphe_settings_about_links_body_version_outdated">Bạn đang dùng bản vá Spectre phiên bản &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Đã có bản cập nhật mới: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Để cập nhật các bản vá của bạn, hãy dùng Spectre để vá lại ứng dụng này</string>
   <string name="morphe_settings_about_links_dev_header">Lưu ý</string>
   <string name="morphe_settings_about_links_dev_body">Đây là phiên bản phát hành trước và bạn có thể gặp phải các sự cố không mong muốn</string>
   <string name="morphe_settings_about_links_header">Liên kết chính chủ</string>

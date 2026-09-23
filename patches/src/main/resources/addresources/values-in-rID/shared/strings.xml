@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -75,7 +75,7 @@ Untuk menerjemahkan bahasa baru atau meningkatkan terjemahan yang sudah ada, kun
   <string name="morphe_settings_export_file_failed">Gagal mengekspor setelan</string>
   <!-- String is also duplicated in Reddit about preference -->
   <string name="morphe_settings_about_links_body_version_current">Anda menggunakan Tambalan Morphe terbaru versi &lt;i&gt;%s&lt;/i&gt;</string>
-  <string name="morphe_settings_about_links_body_version_outdated">Anda menggunakan Tambalan Morphe versi &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Pembaruan tersedia: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Untuk memperbarui tambalan Anda, gunakan Morphe untuk menambal ulang aplikasi ini</string>
+  <string name="morphe_settings_about_links_body_version_outdated">Anda menggunakan Tambalan Spectre versi &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Pembaruan tersedia: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Untuk memperbarui tambalan Anda, gunakan Spectre untuk menambal ulang aplikasi ini</string>
   <string name="morphe_settings_about_links_dev_header">Catatan</string>
   <string name="morphe_settings_about_links_dev_body">Versi ini adalah pra-rilis dan Anda mungkin mengalami masalah yang tidak terduga</string>
   <string name="morphe_settings_about_links_header">Tautan resmi</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -74,8 +74,8 @@ Second \"item\" text"</string>
   <string name="morphe_settings_export_file_success">הגדרות יובאו בהצלחה</string>
   <string name="morphe_settings_export_file_failed">נכשל לייצא הגדרות</string>
   <!-- String is also duplicated in Reddit about preference -->
-  <string name="morphe_settings_about_links_body_version_current">אתה משתמש בגרסה האחרונה של Morphe Patches &lt;i&gt;%s&lt;/i&gt;</string>
-  <string name="morphe_settings_about_links_body_version_outdated">אתה משתמש בגרסת Morphe Patches &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;עדכון זמין: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;כדי לעדכן את התיקונים שלך, השתמש ב-Morphe כדי לתקן מחדש את האפליקציה הזו</string>
+  <string name="morphe_settings_about_links_body_version_current">אתה משתמש בגרסה האחרונה של Spectre Patches &lt;i&gt;%s&lt;/i&gt;</string>
+  <string name="morphe_settings_about_links_body_version_outdated">אתה משתמש בגרסת Spectre Patches &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;עדכון זמין: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;כדי לעדכן את התיקונים שלך, השתמש ב-Spectre כדי לתקן מחדש את האפליקציה הזו</string>
   <string name="morphe_settings_about_links_dev_header">הערה</string>
   <string name="morphe_settings_about_links_dev_body">גרסה זו היא קדם-הפצה וייתכן שתיתקל בבעיות בלתי צפויות</string>
   <string name="morphe_settings_about_links_header">קישורים רשמיים</string>

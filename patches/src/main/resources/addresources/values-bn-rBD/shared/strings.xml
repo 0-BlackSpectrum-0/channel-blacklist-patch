@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -75,7 +75,7 @@ Second \"item\" text"</string>
   <string name="morphe_settings_export_file_failed">সেটিং এক্সপোর্ট করা যায়নি</string>
   <!-- String is also duplicated in Reddit about preference -->
   <string name="morphe_settings_about_links_body_version_current">আপনি Morphe প্যাচ সংস্করণ &lt;i&gt;%s&lt;/i&gt; ব্যবহার করছেন</string>
-  <string name="morphe_settings_about_links_body_version_outdated">আপনি Morphe প্যাচ সংস্করণ &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;আপডেট উপলব্ধ: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;আপনার প্যাচগুলি আপডেট করতে, Morphe ব্যবহার করে এই অ্যাপ্লিকেশনটিকে পুনরায় প্যাচ করুন</string>
+  <string name="morphe_settings_about_links_body_version_outdated">আপনি Spectre প্যাচ সংস্করণ &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;আপডেট উপলব্ধ: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;আপনার প্যাচগুলি আপডেট করতে, Spectre ব্যবহার করে এই অ্যাপ্লিকেশনটিকে পুনরায় প্যাচ করুন</string>
   <string name="morphe_settings_about_links_dev_header">দ্রষ্টব্য</string>
   <string name="morphe_settings_about_links_dev_body">এই সংস্করণ একটি প্রাক-প্রকাশনা এবং এতে আপনি অনাকাঙ্খিত সমস্যার সম্মুখিন হতে পারেন</string>
   <string name="morphe_settings_about_links_header">অফিশ্যাল লিংকসমূহ</string>

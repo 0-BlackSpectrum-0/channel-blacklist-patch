@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -74,8 +74,8 @@ Second \"item\" text"</string>
   <string name="morphe_settings_export_file_success">設定のファイル出力に成功しました</string>
   <string name="morphe_settings_export_file_failed">設定のファイル出力に失敗しました</string>
   <!-- String is also duplicated in Reddit about preference -->
-  <string name="morphe_settings_about_links_body_version_current">Morphe Patches の最新バージョン &lt;i&gt;%s&lt;/i&gt; を使用しています</string>
-  <string name="morphe_settings_about_links_body_version_outdated">Morphe Patches のバージョン &lt;i&gt;%1$s&lt;/i&gt; を使用しています&lt;br&gt;&lt;br&gt;&lt;b&gt;更新が利用可能です: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;パッチを更新するには、Morphe を使ってアプリを再パッチしてください</string>
+  <string name="morphe_settings_about_links_body_version_current">Spectre Patches の最新バージョン &lt;i&gt;%s&lt;/i&gt; を使用しています</string>
+  <string name="morphe_settings_about_links_body_version_outdated">Spectre Patches のバージョン &lt;i&gt;%1$s&lt;/i&gt; を使用しています&lt;br&gt;&lt;br&gt;&lt;b&gt;更新が利用可能です: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;パッチを更新するには、Spectre を使ってアプリを再パッチしてください</string>
   <string name="morphe_settings_about_links_dev_header">注意</string>
   <string name="morphe_settings_about_links_dev_body">このバージョンはプレリリース版であり、予期しない問題が発生する可能性があります</string>
   <string name="morphe_settings_about_links_header">公式リンク</string>

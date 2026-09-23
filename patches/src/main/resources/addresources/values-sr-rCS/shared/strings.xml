@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -75,7 +75,7 @@ Da biste preveli nove jezike ili poboljšali postojeće prevode, posetite morphe
   <string name="morphe_settings_export_file_failed">Nije uspelo izvođenje podešavanja</string>
   <!-- String is also duplicated in Reddit about preference -->
   <string name="morphe_settings_about_links_body_version_current">Koristite najnoviju verziju &lt;i&gt;%s&lt;/i&gt; Morphe pečeva</string>
-  <string name="morphe_settings_about_links_body_version_outdated">Koristite verziju &lt;i&gt;%1$s&lt;/i&gt; Morphe pečeva&lt;br&gt;&lt;br&gt;&lt;b&gt;Dostupna je ažurirana verzija: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Da biste ažurirali svoje pečeve, upotrebite Morphe da biste ponovo zakrpali ovu aplikaciju</string>
+  <string name="morphe_settings_about_links_body_version_outdated">Koristite verziju &lt;i&gt;%1$s&lt;/i&gt; Spectre pečeva&lt;br&gt;&lt;br&gt;&lt;b&gt;Dostupna je ažurirana verzija: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Da biste ažurirali svoje pečeve, upotrebite Spectre da biste ponovo zakrpali ovu aplikaciju</string>
   <string name="morphe_settings_about_links_dev_header">Napomena</string>
   <string name="morphe_settings_about_links_dev_body">Ova verzija je predizdanje i možda ćete imati neočekivane probleme</string>
   <string name="morphe_settings_about_links_header">Zvanični linkovi</string>

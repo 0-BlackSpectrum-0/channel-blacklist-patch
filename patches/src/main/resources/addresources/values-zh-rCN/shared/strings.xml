@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -74,8 +74,8 @@ Second \"item\" text"</string>
   <string name="morphe_settings_export_file_success">设置导出成功</string>
   <string name="morphe_settings_export_file_failed">导出设置失败</string>
   <!-- String is also duplicated in Reddit about preference -->
-  <string name="morphe_settings_about_links_body_version_current">您正在使用最新的Morphe Patches版本 &lt;i&gt;%s&lt;/i&gt;</string>
-  <string name="morphe_settings_about_links_body_version_outdated">您正在使用Morphe Patches版本 &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;可用更新版本: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;要更新您的补丁,请使用Morphe重新修补此应用程序</string>
+  <string name="morphe_settings_about_links_body_version_current">您正在使用最新的Spectre Patches版本 &lt;i&gt;%s&lt;/i&gt;</string>
+  <string name="morphe_settings_about_links_body_version_outdated">您正在使用Spectre Patches版本 &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;可用更新版本: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;要更新您的补丁,请使用Spectre重新修补此应用程序</string>
   <string name="morphe_settings_about_links_dev_header">注意</string>
   <string name="morphe_settings_about_links_dev_body">此版本是预发布版本，您可能会遇到意外问题</string>
   <string name="morphe_settings_about_links_header">官方链接</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -74,8 +74,8 @@ Para traduzir novos idiomas ou melhorar as traduções existentes, visite morphe
   <string name="morphe_settings_export_file_success">Configurações exportadas com sucesso</string>
   <string name="morphe_settings_export_file_failed">Falha ao exportar configurações</string>
   <!-- String is also duplicated in Reddit about preference -->
-  <string name="morphe_settings_about_links_body_version_current">Está a utilizar a versão Morphe Patches mais recente &lt;i&gt;%s&lt;/i&gt;</string>
-  <string name="morphe_settings_about_links_body_version_outdated">Está a utilizar a versão Morphe Patches &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Atualização disponível: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Para atualizar os seus patches, use o Morphe para voltar a aplicar o patch nesta aplicação</string>
+  <string name="morphe_settings_about_links_body_version_current">Está a utilizar a versão Spectre Patches mais recente &lt;i&gt;%s&lt;/i&gt;</string>
+  <string name="morphe_settings_about_links_body_version_outdated">Está a utilizar a versão Spectre Patches &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Atualização disponível: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Para atualizar os seus patches, use o Spectre para voltar a aplicar o patch nesta aplicação</string>
   <string name="morphe_settings_about_links_dev_header">Observação</string>
   <string name="morphe_settings_about_links_dev_body">Esta versão está em pré-lançamento e poderá ter problemas inesperados</string>
   <string name="morphe_settings_about_links_header">Links oficiais</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -75,7 +75,7 @@ Second \"item\" text"</string>
   <string name="morphe_settings_export_file_failed">匯出設定失敗</string>
   <!-- String is also duplicated in Reddit about preference -->
   <string name="morphe_settings_about_links_body_version_current">您正在使用 Morphe 修補版本 <i>%s</i></string>
-  <string name="morphe_settings_about_links_body_version_outdated">您正在使用 Morphe 修補版本 &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;有可用更新: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;若要更新您的修補程式，請使用 Morphe 重新修補此應用程式</string>
+  <string name="morphe_settings_about_links_body_version_outdated">您正在使用 Spectre 修補版本 &lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;有可用更新: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;若要更新您的修補程式，請使用 Spectre 重新修補此應用程式</string>
   <string name="morphe_settings_about_links_dev_header">注意</string>
   <string name="morphe_settings_about_links_dev_body">這個版本為預先發布版，你可能會遇到非預期的問題</string>
   <string name="morphe_settings_about_links_header">官方連結</string>

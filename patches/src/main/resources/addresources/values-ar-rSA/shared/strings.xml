@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Strings with new lines must be raw strings where they're wrapped in quotes and new lines are not encoded.
@@ -75,7 +75,7 @@ Second \"item\" text"</string>
   <string name="morphe_settings_export_file_failed">فشل تصدير الإعدادات</string>
   <!-- String is also duplicated in Reddit about preference -->
   <string name="morphe_settings_about_links_body_version_current">أنت تستخدم أحدث إصدار من تعديلات مورڤِي &lt;i&gt;%s&lt;/i&gt;</string>
-  <string name="morphe_settings_about_links_body_version_outdated">أنت تستخدم إصدار Morphe Patches&lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;تحديث متاح: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;لتحديث التعديلات الخاصة بك، استخدم Morphe لإعادة تعديل هذا التطبيق</string>
+  <string name="morphe_settings_about_links_body_version_outdated">أنت تستخدم إصدار Spectre Patches&lt;i&gt;%1$s&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;تحديث متاح: &lt;i&gt;%2$s&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;لتحديث التعديلات الخاصة بك، استخدم Spectre لإعادة تعديل هذا التطبيق</string>
   <string name="morphe_settings_about_links_dev_header">ملاحظة</string>
   <string name="morphe_settings_about_links_dev_body">هذه النسخة هي إصدار ما قبل الإطلاق وقد تواجه مشكلات غير متوقعة</string>
   <string name="morphe_settings_about_links_header">الروابط الرسمية</string>
