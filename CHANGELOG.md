@@ -1,3 +1,10 @@
+## [1.45.0-dev.7](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.6...v1.45.0-dev.7) (2026-09-23)
+
+### 🐛 Bug Fixes
+
+* Resolve startup crash for older Android devices ([b3391b4](https://github.com/MorpheApp/morphe-patches/commit/b3391b423dba14ceedccf5b6ae5e1abebcc80c5d))
+* **YouTube:** "Hide preview comment" breaks comment section text box ([#3187](https://github.com/MorpheApp/morphe-patches/issues/3187)) ([d592804](https://github.com/MorpheApp/morphe-patches/commit/d5928043b7982326a102aafa2993e3cb8872eaf7))
+
 ## [1.45.0-dev.6](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.5...v1.45.0-dev.6) (2026-09-23)
 
 ### 🐛 Bug Fixes
