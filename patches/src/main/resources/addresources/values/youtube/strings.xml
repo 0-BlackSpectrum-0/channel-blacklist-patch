@@ -324,6 +324,33 @@ Limitations:
     <string name="morphe_hide_stats_hidden_all_reset_title">Reset all time counter?</string>
     <string name="morphe_hide_about_category_title">About</string>
 
+    <string name="morphe_hide_channel_blacklist_screen_title">Channel blacklist</string>
+    <string name="morphe_hide_channel_blacklist_screen_summary">Hide videos from specific channels you have blacklisted</string>
+    <string name="morphe_hide_channel_blacklist_home_title">Hide Home videos by channel</string>
+    <string name="morphe_hide_channel_blacklist_search_title">Hide search results by channel</string>
+    <string name="morphe_hide_channel_blacklist_subscriptions_title">Hide Subscriptions videos by channel</string>
+    <string name="morphe_hide_channel_blacklist_comments_title">Hide comments by channel</string>
+    <string name="morphe_hide_channel_blacklist_channels_title">Blacklisted channels</string>
+    <string name="morphe_hide_channel_blacklist_channels_summary">"Channel names to hide, separated by new lines
+
+Tap the 3-dot menu on any video and select \'Add channel to blacklist\' to add channels easily"</string>
+    <string name="morphe_channel_blacklist_flyout_menu_title">Show blacklist button in menu</string>
+    <string name="morphe_channel_blacklist_flyout_menu_summary">Show \'Add channel to blacklist\' option in the 3-dot video menu</string>
+    <string name="morphe_channel_blacklist_flyout_add">Add channel to blacklist</string>
+    <string name="morphe_channel_blacklist_flyout_remove">Remove channel from blacklist</string>
+    <string name="morphe_channel_blacklist_channel_added">Channel added to blacklist</string>
+    <string name="morphe_channel_blacklist_channel_removed">Channel removed from blacklist</string>
+    <string name="morphe_hide_channel_blacklist_about_summary">"Home / Subscriptions / Search / Comments are filtered to hide content from channels you have blacklisted
+• Channel names are matched in the video data
+• Matching is case-insensitive
+• Some Shorts from blacklisted channels may still appear in search, as Shorts layouts may not include the channel name"</string>
+    <string name="morphe_hide_channel_blacklist_stats_hidden_breakdown">"• Home: %s
+• Subscriptions: %s
+• Search: %s
+• Comments: %s
+• Total: %s"</string>
+    <string name="morphe_channel_blacklist_toast_invalid_broad">Channel name will hide all videos: %s</string>
+
     <string name="morphe_hide_aislist_screen_title">AI channel filter</string>
     <string name="morphe_hide_aislist_screen_summary">Hide videos from channels flagged as AI-generated content by the AiSList community list</string>
     <string name="morphe_hide_aislist_blocklist_category_title">Blocklist: High confidence</string>

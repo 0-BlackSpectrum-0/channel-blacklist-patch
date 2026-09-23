@@ -54,6 +54,7 @@ import app.morphe.extension.shared.ui.Dim;
 import app.morphe.extension.youtube.patches.LegacyPlayerControlsPatch;
 import app.morphe.extension.youtube.patches.SaveToWatchLaterPatch;
 import app.morphe.extension.youtube.patches.VideoInformation;
+import app.morphe.extension.youtube.patches.components.ChannelBlacklistFilter;
 import app.morphe.extension.youtube.patches.components.PlayerFlyoutMenuComponentsFilter;
 import app.morphe.extension.youtube.patches.utils.requests.ChannelIdRequest;
 import app.morphe.extension.youtube.settings.Settings;
@@ -138,6 +139,12 @@ public final class FlyoutUtils {
             getSettingsScreenDrawable("morphe_settings_screen_01_ads");
     private static final Drawable playbackSpeedWhitelistDrawable =
             getSettingsScreenDrawable("morphe_settings_screen_12_video");
+    private static final Drawable channelBlacklistDrawable =
+            ResourceUtils.getDrawable(
+                    LegacyPlayerControlsPatch.RESTORE_OLD_PLAYER_BUTTONS
+                            ? "yt_outline_trash_can_black_24"
+                            : "yt_outline_experimental_circle_slash_vd_theme_24"
+            );
 
     private static final List<WeakReference<TextView>> customItemTextRefs = new ArrayList<>();
 
@@ -408,6 +415,13 @@ public final class FlyoutUtils {
                             nextButtonIndex
                     );
                 }
+
+                if (Settings.CHANNEL_BLACKLIST_FLYOUT_MENU.get()) {
+                    nextButtonIndex = addChannelBlacklistButton(
+                            flyoutPanel,
+                            nextButtonIndex
+                    );
+                }
             }
         }
 
@@ -486,6 +500,41 @@ public final class FlyoutUtils {
                             currentChannelId,
                             currentChannelName
                     );
+
+                    dismissFlyout();
+                },
+                index
+        );
+    }
+
+    private static int addChannelBlacklistButton(
+            Object flyoutPanel,
+            int index
+    ) {
+        String currentChannelName =
+                !flyoutChannelName.isEmpty()
+                        ? flyoutChannelName
+                        : VideoInformation.getChannelName();
+
+        if (currentChannelName.isEmpty()) {
+            return index;
+        }
+
+        final boolean isBlacklisted = ChannelBlacklistFilter.isChannelBlacklisted(currentChannelName);
+        return addFlyoutButton(
+                flyoutPanel,
+                channelBlacklistDrawable,
+                isBlacklisted
+                        ? str("morphe_channel_blacklist_flyout_remove")
+                        : str("morphe_channel_blacklist_flyout_add"),
+                v -> {
+                    if (isBlacklisted) {
+                        ChannelBlacklistFilter.removeChannel(currentChannelName);
+                        Utils.showToastShort(str("morphe_channel_blacklist_channel_removed"));
+                    } else {
+                        ChannelBlacklistFilter.addChannel(currentChannelName);
+                        Utils.showToastShort(str("morphe_channel_blacklist_channel_added"));
+                    }
 
                     dismissFlyout();
                 },

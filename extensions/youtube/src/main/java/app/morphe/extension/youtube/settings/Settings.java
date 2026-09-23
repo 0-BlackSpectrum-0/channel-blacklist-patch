@@ -215,6 +215,20 @@ public class Settings extends SharedYouTubeSettings {
     public static final LongSetting KEYWORD_HIDE_COUNT_COMMENTS = new LongSetting("morphe_keyword_hide_count_comments", 0L);
     public static final StringSetting KEYWORD_HIDES_24H = new StringSetting("morphe_keyword_hides_24h", "", false, false);
 
+    // Channel Blacklist
+    public static final BooleanSetting HIDE_CHANNEL_BLACKLIST_HOME = new BooleanSetting("morphe_hide_channel_blacklist_home", FALSE);
+    public static final BooleanSetting HIDE_CHANNEL_BLACKLIST_SEARCH = new BooleanSetting("morphe_hide_channel_blacklist_search", FALSE);
+    public static final BooleanSetting HIDE_CHANNEL_BLACKLIST_SUBSCRIPTIONS = new BooleanSetting("morphe_hide_channel_blacklist_subscriptions", FALSE);
+    public static final BooleanSetting HIDE_CHANNEL_BLACKLIST_COMMENTS = new BooleanSetting("morphe_hide_channel_blacklist_comments", FALSE);
+    public static final StringSetting HIDE_CHANNEL_BLACKLIST_CHANNELS = new StringSetting("morphe_hide_channel_blacklist_channels", "",
+            parentsAny(HIDE_CHANNEL_BLACKLIST_HOME, HIDE_CHANNEL_BLACKLIST_SEARCH, HIDE_CHANNEL_BLACKLIST_SUBSCRIPTIONS, HIDE_CHANNEL_BLACKLIST_COMMENTS));
+    public static final BooleanSetting CHANNEL_BLACKLIST_FLYOUT_MENU = new BooleanSetting("morphe_channel_blacklist_flyout_menu", TRUE);
+    public static final LongSetting CHANNEL_BLACKLIST_HIDE_COUNT_HOME = new LongSetting("morphe_channel_blacklist_hide_count_home", 0L);
+    public static final LongSetting CHANNEL_BLACKLIST_HIDE_COUNT_SUBSCRIPTIONS = new LongSetting("morphe_channel_blacklist_hide_count_subscriptions", 0L);
+    public static final LongSetting CHANNEL_BLACKLIST_HIDE_COUNT_SEARCH = new LongSetting("morphe_channel_blacklist_hide_count_search", 0L);
+    public static final LongSetting CHANNEL_BLACKLIST_HIDE_COUNT_COMMENTS = new LongSetting("morphe_channel_blacklist_hide_count_comments", 0L);
+    public static final StringSetting CHANNEL_BLACKLIST_HIDES_24H = new StringSetting("morphe_channel_blacklist_hides_24h", "", false, false);
+
     // Player
     public static final BooleanSetting DISABLE_CHAPTER_SKIP_DOUBLE_TAP = new BooleanSetting("morphe_disable_chapter_skip_double_tap", FALSE);
     public static final BooleanSetting DISABLE_HAPTIC_FEEDBACK_CHAPTERS = new BooleanSetting("morphe_disable_haptic_feedback_chapters", FALSE);

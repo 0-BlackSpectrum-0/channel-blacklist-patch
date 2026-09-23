@@ -42,6 +42,9 @@ jobs:
           node-version: 'lts/*'
           cache: 'npm'
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Install dependencies
         run: npm install
 
@@ -59,7 +62,7 @@ jobs:
           subject-path: patches/build/libs/patches-*.mpp
 
       - name: Generate website deploy token
-        if: steps.release.outputs.new_release_published == 'true'
+        if: steps.release.outputs.new_release_published == 'true' && github.repository_owner == 'MorpheApp'
         id: app-token
         uses: actions/create-github-app-token@v3
         with:
@@ -68,7 +71,7 @@ jobs:
           owner: MorpheApp
 
       - name: Trigger website deploy
-        if: steps.release.outputs.new_release_published == 'true'
+        if: steps.release.outputs.new_release_published == 'true' && github.repository_owner == 'MorpheApp'
         uses: actions/github-script@v9
         with:
           github-token: ${{ steps.app-token.outputs.token }}
@@ -80,17 +83,17 @@ jobs:
             })
 
       - name: Wait before sending FCM
-        if: steps.release.outputs.new_release_published == 'true' && (github.event_name == 'push' || inputs.send_fcm == true)
+        if: steps.release.outputs.new_release_published == 'true' && github.repository_owner == 'MorpheApp' && (github.event_name == 'push' || inputs.send_fcm == true)
         run: sleep 300
 
       - name: Setup Python for FCM
-        if: steps.release.outputs.new_release_published == 'true' && (github.event_name == 'push' || inputs.send_fcm == true)
+        if: steps.release.outputs.new_release_published == 'true' && github.repository_owner == 'MorpheApp' && (github.event_name == 'push' || inputs.send_fcm == true)
         uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
       - name: Send FCM push notification
-        if: steps.release.outputs.new_release_published == 'true' && (github.event_name == 'push' || inputs.send_fcm == true)
+        if: steps.release.outputs.new_release_published == 'true' && github.repository_owner == 'MorpheApp' && (github.event_name == 'push' || inputs.send_fcm == true)
         env:
           FCM_PROJECT_ID: ${{ secrets.FCM_PROJECT_ID }}
           FCM_SERVICE_ACCOUNT_JSON: ${{ secrets.FCM_SERVICE_ACCOUNT_JSON }}
