@@ -1,3 +1,9 @@
+## [2.1.3](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.1.2...v2.1.3) (2026-09-23)
+
+### 🐛 Bug Fixes
+
+* isolate package selection and target correct package for settings intent ([cc38b3e](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/cc38b3ea4f78003d9b11a30d8b27892aafe4ec4e))
+
 ## [2.1.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.1.1...v2.1.2) (2026-09-23)
 
 ### 🐛 Bug Fixes
