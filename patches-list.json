@@ -5500,6 +5500,7 @@
       "category": null,
       "dependencies": [
         "BytecodePatch",
+        "BytecodePatch",
         "ResourcePatch"
       ],
       "compatiblePackages": [

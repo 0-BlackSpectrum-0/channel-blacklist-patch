@@ -26,9 +26,14 @@ dependencies {
 
     // Android API stubs defined here.
     compileOnly(project(":patches:stub"))
+
+    testImplementation(kotlin("test"))
 }
 
 tasks {
+    test {
+        useJUnitPlatform()
+    }
     register<JavaExec>("checkStringResources") {
         description = "Checks resource strings for invalid formatting"
 
