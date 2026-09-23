@@ -1,3 +1,9 @@
+## [2.1.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.1.1...v2.1.2) (2026-09-23)
+
+### 🐛 Bug Fixes
+
+* restore change-header resources for YouTube header patch ([c46b145](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/c46b145ad5e80e83d4003bf7992f30c9b79a2304))
+
 ## [2.1.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.1.0...v2.1.1) (2026-09-23)
 
 ### 🐛 Bug Fixes
