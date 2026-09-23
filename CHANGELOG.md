@@ -1,3 +1,9 @@
+## [2.1.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.1.0...v2.1.1) (2026-09-23)
+
+### 🐛 Bug Fixes
+
+* restore navigationbuttons resource and rebrand to Spectre Patches ([6567e62](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/6567e629a255d6035793d464a9aa686d2aa40eaa))
+
 ## [2.1.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.0.0...v2.1.0) (2026-09-23)
 
 ### ✨ New Features
