@@ -1,3 +1,9 @@
+## [1.45.0-dev.11](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.10...v1.45.0-dev.11) (2026-09-24)
+
+### 🐛 Bug Fixes
+
+* **YouTube:** Fix patching non-experimental targets ([4625872](https://github.com/MorpheApp/morphe-patches/commit/46258727492fb31cd60db65e9322602408dd32a8))
+
 ## [1.45.0-dev.10](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.9...v1.45.0-dev.10) (2026-09-24)
 
 ### 🐛 Bug Fixes
