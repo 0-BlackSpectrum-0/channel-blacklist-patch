@@ -15,18 +15,18 @@ import app.morphe.patches.youtube.misc.extension.sharedExtensionPatch
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
 context(patchContext: BytecodePatchContext)
-fun addPlayerBottomButton(descriptor: String, methodName: String = "initializeButton") {
+fun addPlayerBottomButton(extensionClass: String, extensionMethod: String = "initializeButton") {
     // Update the insertion index after each add, as other patches
     // can insert code before the insertion point.
     ExploderUIFullscreenButtonFingerprint.let {
         it.clearMatch()
-        val matchFirst = it.instructionMatches[1]
-        val index = matchFirst.index + 1
-        val register = matchFirst.getInstruction<OneRegisterInstruction>().registerA
+        ExploderUIFullscreenButtonParentFingerprint.clearMatch() // FIXME: remove after bumping patcher.
+        val lastMatch = it.instructionMatches.last()
+        val register = lastMatch.getInstruction<OneRegisterInstruction>().registerA
 
         it.method.addInstruction(
-            index,
-            "invoke-static { v$register }, $descriptor->$methodName(Landroid/view/View;)V"
+            lastMatch.index + 1,
+            "invoke-static { v$register }, $extensionClass->$extensionMethod(Landroid/view/View;)V"
         )
     }
 }

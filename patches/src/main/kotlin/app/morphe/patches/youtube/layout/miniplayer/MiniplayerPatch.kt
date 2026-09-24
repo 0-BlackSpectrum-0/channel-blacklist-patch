@@ -203,11 +203,10 @@ val miniplayerPatch = bytecodePatch(
         // instead of white, making the fullscreen button appear gray instead of white.
         if (!is_21_29_or_greater) {
             addPlayerBottomButton(
-                descriptor = EXTENSION_CLASS,
-                methodName = "fixMinimalMiniplayerFullscreenButtonTint"
+                extensionClass = EXTENSION_CLASS,
+                extensionMethod = "fixMinimalMiniplayerFullscreenButtonTint"
             )
         }
-
 
         // region Enable tablet miniplayer.
         // Parts of the YT code is removed in 20.37+ and the legacy player no longer works.
