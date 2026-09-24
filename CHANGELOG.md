@@ -1,3 +1,10 @@
+## [1.45.0-dev.9](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.8...v1.45.0-dev.9) (2026-09-24)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Player overlay buttons:** Fix startup crash with a partial patch selection ([#3228](https://github.com/MorpheApp/morphe-patches/issues/3228)) ([aee4774](https://github.com/MorpheApp/morphe-patches/commit/aee47746643c948191b25435a8f1b4e96ffb6df7))
+* **YouTube Music - Third-party lyrics:** Keep the screen on after the track changes ([#3246](https://github.com/MorpheApp/morphe-patches/issues/3246)) ([e730ebf](https://github.com/MorpheApp/morphe-patches/commit/e730ebfa8be5b689e484eefa33b380554884a862))
+
 ## [1.45.0-dev.8](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.7...v1.45.0-dev.8) (2026-09-24)
 
 ### 🐛 Bug Fixes
