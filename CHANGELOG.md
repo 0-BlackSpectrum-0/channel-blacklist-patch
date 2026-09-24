@@ -1,3 +1,10 @@
+## [1.45.0-dev.10](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.9...v1.45.0-dev.10) (2026-09-24)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Hide layout components:** Open the correct channel tab when channel tabs are hidden ([#3200](https://github.com/MorpheApp/morphe-patches/issues/3200)) ([53cc35b](https://github.com/MorpheApp/morphe-patches/commit/53cc35b0552b59d0ff34ed057e4c167cb8881322))
+* **YouTube Music - Third-party lyrics:** Keep the token dialog buttons on screen with long cookies ([#3245](https://github.com/MorpheApp/morphe-patches/issues/3245)) ([1cf6be0](https://github.com/MorpheApp/morphe-patches/commit/1cf6be0051247409030199b54d864540f9e3f55a))
+
 ## [1.45.0-dev.9](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.8...v1.45.0-dev.9) (2026-09-24)
 
 ### 🐛 Bug Fixes
