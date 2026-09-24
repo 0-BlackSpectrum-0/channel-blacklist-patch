@@ -1,3 +1,10 @@
+## [1.45.0-dev.8](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.7...v1.45.0-dev.8) (2026-09-24)
+
+### 🐛 Bug Fixes
+
+* **YouTube Music - Disable dislike redirection:** Fix patch on 9.35+ ([#3226](https://github.com/MorpheApp/morphe-patches/issues/3226)) ([703ddde](https://github.com/MorpheApp/morphe-patches/commit/703ddde1733d3514993ae689dedd1795bf696d82))
+* **YouTube Music - Downloads:** Fix patching failure "Could not find conversion context field" ([#3231](https://github.com/MorpheApp/morphe-patches/issues/3231)) ([b4f2d7d](https://github.com/MorpheApp/morphe-patches/commit/b4f2d7d83c234b1f71ff4a6c8298a59ffe6ad240))
+
 ## [1.45.0-dev.7](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.6...v1.45.0-dev.7) (2026-09-23)
 
 ### 🐛 Bug Fixes
