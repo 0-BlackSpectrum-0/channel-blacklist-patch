@@ -16,8 +16,6 @@ import static app.morphe.extension.shared.patches.TextComponentPatch.newSpanUsin
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -71,6 +69,7 @@ public class CommentsFilter extends Filter {
     private final StringFilterGroup comments;
     private final StringFilterGroup commentsFilterBar;
     private final StringFilterGroup emojiButton;
+    private final StringFilterGroup commentCardsIndicator;
     private final StringFilterGroup menuButton;
     private final StringFilterGroup translateButton;
 
@@ -164,6 +163,17 @@ public class CommentsFilter extends Filter {
                 "gift_attribution_card_classic_live.e"
         );
 
+        var previewComment = new StringFilterGroup(
+                Settings.MINIMAL_COMMENTS_BUTTON,
+                "|carousel_item.e"
+        );
+
+        commentCardsIndicator = new StringFilterGroup(
+                Settings.MINIMAL_COMMENTS_BUTTON,
+                VIDEO_METADATA_CAROUSEL_PATH
+        );
+
+
         var thanksButton = new StringFilterGroup(
                 Settings.HIDE_COMMENTS_THANKS_BUTTON,
                 "super_thanks_button.e"
@@ -197,6 +207,8 @@ public class CommentsFilter extends Filter {
                 createAShortButton,
                 emojiButton,
                 giftAnimationAndCards,
+                previewComment,
+                commentCardsIndicator,
                 menuButton,
                 thanksButton,
                 timestampButton,
@@ -244,6 +256,11 @@ public class CommentsFilter extends Filter {
 
         if (matchedGroup == commentsFilterBar) {
             return Settings.HIDE_FILTER_BAR_IN_COMMENTS.get() && PlayerType.getCurrent().isMaximizedOrFullscreen();
+        }
+
+        if (matchedGroup == commentCardsIndicator) {
+            return Utils.contains(path, "carousel_header") &&
+                    Utils.endsWith(path, "|ContainerType|ContainerType|ContainerType|");
         }
 
         return true;
@@ -474,13 +491,11 @@ public class CommentsFilter extends Filter {
             if (!Settings.HIDE_COMMENTS_PREVIEW_COMMENT.get()) {
                 return original;
             }
-
             StringBuilder pathBuilder = contextInterface.patch_getPathBuilder();
-            if (pathBuilder.indexOf("comments_entry_point_teaser.e") < 0
-                    && pathBuilder.indexOf("comments_entry_point_simplebox.e") < 0) {
+            if (pathBuilder.indexOf("comments_entry_point_teaser.e") == -1
+                    && pathBuilder.indexOf("comments_entry_point_simplebox.e") == -1) {
                 return original;
             }
-
             Spanned originalSpanned = original instanceof Spanned spanned
                     ? spanned
                     : new SpannableString(original);
