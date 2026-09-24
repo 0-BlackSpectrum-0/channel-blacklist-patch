@@ -1,3 +1,11 @@
+## [1.45.0-dev.13](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.12...v1.45.0-dev.13) (2026-09-24)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Channel search:** Show a channel search hint in the search box ([#3262](https://github.com/MorpheApp/morphe-patches/issues/3262)) ([c5cce56](https://github.com/MorpheApp/morphe-patches/commit/c5cce56d16581024c2ee7dafdd4232e8383c922d))
+* **YouTube Music - Custom branding:** Keep the startup animation on screen until it ends ([6043416](https://github.com/MorpheApp/morphe-patches/commit/6043416854f9d0c3dc2201229fae62a4828a52f7))
+* **YouTube Music - Third-party lyrics:** Crash while trimming the lyrics cache ([#3272](https://github.com/MorpheApp/morphe-patches/issues/3272)) ([e450b7a](https://github.com/MorpheApp/morphe-patches/commit/e450b7a073b3d0b2c83d37509a7443f40a7b6369))
+
 ## [1.45.0-dev.12](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.11...v1.45.0-dev.12) (2026-09-24)
 
 ### ✨ New Features
