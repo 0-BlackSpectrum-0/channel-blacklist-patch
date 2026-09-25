@@ -1,3 +1,15 @@
+## [1.45.0-dev.15](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.14...v1.45.0-dev.15) (2026-09-25)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Channel Id Routes:** Straight requests videoDetails field ([60f640e](https://github.com/MorpheApp/morphe-patches/commit/60f640e2a7bd793623ed127b7c3900459ba73bf7))
+
+### ✨ New Features
+
+* **YouTube - Hide video action buttons:** Add "Hide channel and Subscribe button" ([#3289](https://github.com/MorpheApp/morphe-patches/issues/3289)) ([0c7cd56](https://github.com/MorpheApp/morphe-patches/commit/0c7cd56bd24c693b59aa3efd472730cee5df72c2))
+* **YouTube - Navigation bar:** Add patch options to hide the Search and Subscriptions app shortcuts ([#3270](https://github.com/MorpheApp/morphe-patches/issues/3270)) ([37585d1](https://github.com/MorpheApp/morphe-patches/commit/37585d17d1afdc9cd6c0d371664e5cf585c88043))
+* **YouTube Music:** Add `Media notification controls` patch ([#3288](https://github.com/MorpheApp/morphe-patches/issues/3288)) ([7c4431b](https://github.com/MorpheApp/morphe-patches/commit/7c4431b3b854cb145c540459fbde314b1a4d035a))
+
 ## [1.45.0-dev.14](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.13...v1.45.0-dev.14) (2026-09-25)
 
 ### 🐛 Bug Fixes
