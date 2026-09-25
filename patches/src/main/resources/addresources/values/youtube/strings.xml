@@ -1322,6 +1322,8 @@ Tap here to open DeArrow.ajay.app"</string>
     <!-- video.quality.button.videoQualityDialogButtonPatch -->
     <string name="morphe_video_quality_dialog_button_title">Show Quality button</string>
     <string name="morphe_video_quality_dialog_button_summary">Tap and hold to reset quality to default</string>
+    <string name="morphe_video_quality_dialog_button_resolution_title">Show resolution on Quality button</string>
+    <string name="morphe_video_quality_dialog_button_resolution_summary">Show the resolution, such as 1080, instead of a label such as FHD</string>
 
     <!-- video.speed.custom.customPlaybackSpeedPatch -->
     <string name="morphe_custom_speed_menu_title">Custom playback speed menu</string>
@@ -1419,4 +1421,19 @@ Video playback with AV1 may stutter or drop frames."</string>
     <string name="morphe_restore_old_video_action_bar_summary">"Fixes video action buttons cannot be hidden
 
 Limitation: Reverts to old style \'More videos\' overlay"</string>
+
+    <!-- layout.player.icons.playerIconStylePatch -->
+    <string name="morphe_player_icon_style_title">Player icon style</string>
+    <string name="morphe_player_icon_style_entry_auto">Automatic</string>
+    <string name="morphe_player_icon_style_entry_default">Default</string>
+    <string name="morphe_player_icon_style_entry_regular">Thin</string>
+    <string name="morphe_player_icon_style_entry_bold">Bold</string>
+    <string name="morphe_player_icon_style_entry_fluent" translatable="false">Fluent</string>
+    <string name="morphe_player_icon_style_entry_phosphor" translatable="false">Phosphor</string>
+    <string name="morphe_player_icon_style_entry_phosphor_light" translatable="false">Phosphor Light</string>
+    <string name="morphe_player_icon_style_entry_phosphor_fill" translatable="false">Phosphor Fill</string>
+    <string name="morphe_player_icon_style_entry_phosphor_duotone" translatable="false">Phosphor Duotone</string>
+    <string name="morphe_player_icon_style_entry_ionicons" translatable="false">Ionicons</string>
+    <string name="morphe_player_icon_style_entry_sharp" translatable="false">Sharp</string>
+    <string name="morphe_shorts_icon_style_title">Shorts icon style</string>
 </resources>
