@@ -70,8 +70,6 @@ public final class ChannelSearchPatch {
     private static final Map<String, Bitmap> thumbnailCache = Collections.synchronizedMap(
             Utils.createSizeRestrictedMap(40));
 
-    private static WeakReference<Activity> mainActivityRef = new WeakReference<>(null);
-
     /**
      * Browse id of the page the user is on. Channel pages use the channel id as their browse id.
      */
@@ -79,13 +77,6 @@ public final class ChannelSearchPatch {
 
     private static String lastQuery = "";
     private static long lastQueryTime;
-
-    /**
-     * Injection point.
-     */
-    public static void setMainActivity(Activity activity) {
-        mainActivityRef = new WeakReference<>(activity);
-    }
 
     /**
      * Injection point.
@@ -136,7 +127,7 @@ public final class ChannelSearchPatch {
                 return false;
             }
 
-            Activity activity = mainActivityRef.get();
+            Activity activity = Utils.getActivity();
             if (activity == null) {
                 return false;
             }

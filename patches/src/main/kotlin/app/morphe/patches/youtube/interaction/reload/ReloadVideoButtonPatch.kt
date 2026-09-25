@@ -22,7 +22,6 @@ import app.morphe.patches.youtube.misc.playercontrols.initializeTopControl
 import app.morphe.patches.youtube.misc.playercontrols.legacyPlayerControlsPatch
 import app.morphe.patches.youtube.misc.settings.settingsPatch
 import app.morphe.patches.youtube.shared.Constants.COMPATIBILITY_YOUTUBE
-import app.morphe.patches.youtube.shared.YouTubeActivityOnCreateFingerprint
 import app.morphe.patches.youtube.video.information.videoInformationPatch
 import app.morphe.util.getReference
 import app.morphe.util.indexOfFirstInstructionReversedOrThrow
@@ -85,12 +84,6 @@ val reloadVideoButtonPatch = bytecodePatch(
         )
 
         initializeTopControl(EXTENSION_BUTTON)
-
-        // Main activity is used to launch downloader intent.
-        YouTubeActivityOnCreateFingerprint.method.addInstruction(
-            0,
-            "invoke-static/range { p0 .. p0 }, $EXTENSION_CLASS->setMainActivity(Landroid/app/Activity;)V"
-        )
 
         val dismissPlayerInnerMethod = MiniAppOpenYtContentCommandEndpointFingerprint
             .instructionMatches.last()
