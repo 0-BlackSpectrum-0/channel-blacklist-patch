@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-26T15:19:00",
-  "description": "## [2.2.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.2.0...v2.2.1) (2026-09-26)\n\n### 🐛 Bug Fixes\n\n* restore missing playericons and shortsicons resources for playerIconStylePatch ([c8745a5](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/c8745a5731bba65d56388fb10b62b89e0ea6f475))",
-  "download_url": "https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/download/v2.2.1/patches-2.2.1.mpp",
+  "created_at": "2026-09-26T15:30:20",
+  "description": "## [2.2.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.2.1...v2.2.2) (2026-09-26)\n\n### 🐛 Bug Fixes\n\n* restore startup animation resources for custom branding patch ([fc5830b](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/fc5830bf84c10a5a5f858e8d32a99072cd874b43))",
+  "download_url": "https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/download/v2.2.2/patches-2.2.2.mpp",
   "signature_download_url": "",
-  "version": "2.2.1"
+  "version": "2.2.2"
 }

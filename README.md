@@ -35,7 +35,7 @@ All modifications made by Morphe, along with their dates, can be found in the Gi
 ## 🩹 Patches list
 
 <!-- PATCHES_START -->
-> **[v2.2.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/tag/v2.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;86 patches total
+> **[v2.2.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/releases/tag/v2.2.2)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;86 patches total
 <details>
 <summary>📦 YouTube&nbsp;&nbsp;•&nbsp;&nbsp;86 patches</summary>
 <br>

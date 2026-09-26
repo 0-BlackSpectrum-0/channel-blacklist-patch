@@ -1,3 +1,9 @@
+## [2.2.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.2.1...v2.2.2) (2026-09-26)
+
+### 🐛 Bug Fixes
+
+* restore startup animation resources for custom branding patch ([fc5830b](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/fc5830bf84c10a5a5f858e8d32a99072cd874b43))
+
 ## [2.2.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.2.0...v2.2.1) (2026-09-26)
 
 ### 🐛 Bug Fixes
