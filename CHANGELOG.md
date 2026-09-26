@@ -1,3 +1,9 @@
+## [2.2.3](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.2.2...v2.2.3) (2026-09-26)
+
+### 🐛 Bug Fixes
+
+* add missing splash screen animation style strings across all languages ([dccecf8](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/dccecf84ce55d1f4dfe178f133c1bb6975b49801))
+
 ## [2.2.2](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.2.1...v2.2.2) (2026-09-26)
 
 ### 🐛 Bug Fixes
