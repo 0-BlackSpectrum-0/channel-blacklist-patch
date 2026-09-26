@@ -1,3 +1,9 @@
+## [2.2.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.1.3...v2.2.0) (2026-09-26)
+
+### ✨ New Features
+
+* **youtube:** merge upstream dev updates and bump target support to 21.39.522 ([dd175bb](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/dd175bb5edc5e5e0685b29e285315e830661e2d5))
+
 ## [2.1.3](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.1.2...v2.1.3) (2026-09-23)
 
 ### 🐛 Bug Fixes
