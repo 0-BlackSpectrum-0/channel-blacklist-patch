@@ -1,3 +1,9 @@
+## [2.2.1](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.2.0...v2.2.1) (2026-09-26)
+
+### 🐛 Bug Fixes
+
+* restore missing playericons and shortsicons resources for playerIconStylePatch ([c8745a5](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/c8745a5731bba65d56388fb10b62b89e0ea6f475))
+
 ## [2.2.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.1.3...v2.2.0) (2026-09-26)
 
 ### ✨ New Features
