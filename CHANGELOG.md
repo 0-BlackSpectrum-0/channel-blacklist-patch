@@ -1,3 +1,14 @@
+## [1.45.0-dev.21](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.20...v1.45.0-dev.21) (2026-09-30)
+
+### 🐛 Bug Fixes
+
+* **YouTube - Layout components filter:** Filtered header buttons left empty spaces ([#3402](https://github.com/MorpheApp/morphe-patches/issues/3402)) ([b719412](https://github.com/MorpheApp/morphe-patches/commit/b719412520f3ed7828b7424a9f4814eec3b4ae50))
+
+### ✨ New Features
+
+* **YouTube - Playback buffer:** Add playback buffer size option ([#3386](https://github.com/MorpheApp/morphe-patches/issues/3386)) ([dfff1f5](https://github.com/MorpheApp/morphe-patches/commit/dfff1f5b170058fe14a59abb6da8214e3022842f))
+* **YouTube:** Added "Restore original videos title and description" ([#3384](https://github.com/MorpheApp/morphe-patches/issues/3384)) ([67e650c](https://github.com/MorpheApp/morphe-patches/commit/67e650c1a263a1c26de354527fc00c7dae828db9))
+
 ## [1.45.0-dev.20](https://github.com/MorpheApp/morphe-patches/compare/v1.45.0-dev.19...v1.45.0-dev.20) (2026-09-29)
 
 ### 🐛 Bug Fixes
