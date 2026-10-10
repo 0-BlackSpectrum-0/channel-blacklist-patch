@@ -1,3 +1,9 @@
+## [2.4.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.3.0...v2.4.0) (2026-10-10)
+
+### ✨ New Features
+
+* Sync upstream dev and fix channel blacklist in 3-dot menu on all devices ([5f420e9](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/commit/5f420e91e4666f80ec257f31208226b57b323e1c))
+
 ## [2.3.0](https://github.com/0-BlackSpectrum-0/channel-blacklist-patch/compare/v2.2.3...v2.3.0) (2026-09-29)
 
 ### ✨ New Features
