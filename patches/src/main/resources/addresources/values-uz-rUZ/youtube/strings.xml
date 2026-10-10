@@ -425,6 +425,7 @@ Sizning API kalitingiz hech kim bilan baham ko'rilmasligi kerak. Uni kirish huqu
   <string name="morphe_loop_video_range_clear">O\'chirish</string>
   <string name="morphe_loop_video_range_toast_on">Takrorlanmoqda %1$s - %2$s</string>
   <string name="morphe_loop_video_range_invalid_time">Noto\'g\'ri vaqt diapazoni</string>
+  <!-- interaction.pip.pipButtonPatch -->
   <!-- interaction.playall.playAllButtonPatch -->
   <string name="morphe_play_all_button_title">Oʻynatish barcha tugmasini koʻrsatish</string>
   <string name="morphe_play_all_button_summary">"Kanalning barcha videolaridan o'yin ro'yxatini yaratish uchun bosing, bekor qilish uchun ushlab turish
@@ -938,6 +939,8 @@ Cheklov: Agar 'Eski video harakatlar panelini tiklash' o'chirilgan bo'lsa, 'Ko'p
   <string name="morphe_playback_in_feeds_entry_always_on">Doimo yoqilgan</string>
   <string name="morphe_playback_in_feeds_entry_wifi_only">Faqat Wi-Fi</string>
   <string name="morphe_playback_in_feeds_entry_off">Oʻchirilgan</string>
+  <!-- layout.originaltitles.restoreOriginalTitlesPatch -->
+  <!-- layout.feedrefresh.disableAutoFeedRefreshPatch -->
   <!-- layout.miniplayer.miniplayerPatch -->
   <string name="morphe_miniplayer_disable_resuming_title">Mini-pleerni qayta boshlashni oʻchirish</string>
   <string name="morphe_miniplayer_disable_resuming_summary">YouTube Premium xususiyati bo\'lgan mini-pleyerning qayta tiklanishini o\'chirish</string>
@@ -1055,6 +1058,8 @@ Batafsil ma'lumot olish uchun DeArrow.ajay.app ni oching."</string>
   <!-- misc.links.openLinksExternallyPatch -->
   <string name="morphe_external_browser_title">Brauzerda ochish</string>
   <string name="morphe_external_browser_summary">Ilova ichidagi brauzer o\'rniga tashqi brauzerda havolalarni ochadi</string>
+  <!-- video.buffer.playbackBufferPatch -->
+  <string name="morphe_playback_buffer_size_entry_default">Standart</string>
   <!-- video.quality.rememberVideoQualityPatch -->
   <!-- Translations should match the language used in 'morphe_custom_playback_speeds_auto'. -->
   <string name="morphe_video_quality_default_entry_1">Harakatdan o\'rinchik</string>
@@ -1154,4 +1159,5 @@ AV1 bilan video o'ynashda lag yoki to'silishlar yuzaga kelishi mumkin."</string>
   <string name="morphe_restore_old_video_action_bar_title">Eski video harakatlar panelini tiklash</string>
   <!-- layout.player.icons.playerIconStylePatch -->
   <string name="morphe_player_icon_style_entry_default">Standart</string>
+  <string name="morphe_player_icon_style_entry_custom">Maxsus</string>
 </resources>

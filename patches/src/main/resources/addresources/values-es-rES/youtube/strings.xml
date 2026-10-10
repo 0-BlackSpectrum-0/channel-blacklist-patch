@@ -90,6 +90,8 @@ Los cambios incluyen:
           This button usually appears in the Home feed for refreshing the feed. -->
   <string name="morphe_hide_latest_videos_button_title">Ocultar botón \'Vídeos recientes\'</string>
   <string name="morphe_hide_latest_videos_button_summary">Oculta el banner azul \'Vídeos recientes\' que aparece en la parte superior del feed de Inicio</string>
+  <string name="morphe_hide_live_streams_title">Ocultar directos</string>
+  <string name="morphe_hide_live_streams_summary">Oculta los vídeos que están en directo ahora en el feed de Inicio y en los resultados de búsqueda</string>
   <string name="morphe_hide_mix_playlists_title">Ocultar listas de reproducción Mix</string>
   <string name="morphe_hide_movies_section_title">Ocultar sección de películas</string>
   <!-- 'Notifications' should be translated using the same localized wording YouTube displays for the menu item. -->
@@ -157,6 +159,8 @@ Los cambios incluyen:
   <string name="morphe_hide_sync_button_title">Ocultar botón \'Sincronizar con vídeo\'</string>
   <string name="morphe_hide_timed_reactions_title">Ocultar reacciones sincronizadas</string>
   <string name="morphe_hide_timed_reactions_summary">Oculta la función que permite a los usuarios reaccionar con emojis en la sección de comentarios y el chat en directo</string>
+  <string name="morphe_hide_you_tab_channel_handle_title">Ocultar identificador del canal en la pestaña Tú</string>
+  <string name="morphe_hide_you_tab_channel_handle_summary">Oculta el identificador del canal debajo del nombre de la cuenta en la pestaña Tú</string>
   <string name="morphe_hide_video_title_title">Ocultar título de vídeo</string>
   <string name="morphe_hide_video_title_summary">Oculta el título del vídeo en el modo de pantalla completa</string>
   <string name="morphe_sanitize_video_subtitle_title">Limpiar subtítulos de vídeo</string>
@@ -496,6 +500,10 @@ Tu clave API nunca debe compartirse. Cualquiera que tenga acceso a ella puede us
   <string name="morphe_loop_video_range_clear">Borrar</string>
   <string name="morphe_loop_video_range_toast_on">Repetición de %1$s - %2$s</string>
   <string name="morphe_loop_video_range_invalid_time">Tiempo no válido</string>
+  <!-- interaction.pip.pipButtonPatch -->
+  <string name="morphe_pip_button_overlay_title">Mostrar botón superpuesto de imagen en imagen</string>
+  <string name="morphe_pip_button_flyout_title">Mostrar botón de imagen en imagen en el menú flotante</string>
+  <string name="morphe_pip_button_flyout_name">Cambiar a imagen en imagen</string>
   <!-- interaction.playall.playAllButtonPatch -->
   <string name="morphe_play_all_button_title">Mostrar botón \'Reproducir todo\'</string>
   <string name="morphe_play_all_button_summary">"Pulsa para generar una lista de reproducción de todos los vídeos del canal. Mantén pulsado para deshacer.
@@ -637,6 +645,8 @@ Para solucionar esto, activa 'Falsificar transmisiones de vídeo' y cambia 'Clie
   <string name="morphe_swipe_volume_distance_title">Sensibilidad del deslizamiento de volumen</string>
   <string name="morphe_swipe_volume_distance_summary">Los valores más altos requieren más deslizamiento por paso de volumen</string>
   <string name="morphe_swipe_volume_steps_title">Pasos de volumen</string>
+  <string name="morphe_volume_boost_title">Aumento de volumen</string>
+  <string name="morphe_volume_boost_summary">Deslizar hacia arriba más allá del volumen máximo lo aumenta, lo que puede distorsionar el audio con volumen alto</string>
   <string name="morphe_swipe_volume_steps_entry_default">Predeterminado del dispositivo</string>
   <string name="morphe_swipe_brightness_sensitivity_title">Sensibilidad del deslizamiento de brillo</string>
   <string name="morphe_swipe_brightness_sensitivity_summary">Los valores más altos requieren más deslizamiento por cada nivel de brillo</string>
@@ -1065,6 +1075,13 @@ Limitación: si la opción 'Restaurar antigua barra de acciones de vídeo' está
   <string name="morphe_playback_in_feeds_entry_always_on">Siempre activada</string>
   <string name="morphe_playback_in_feeds_entry_wifi_only">Solo con Wi-Fi</string>
   <string name="morphe_playback_in_feeds_entry_off">Desactivada</string>
+  <!-- layout.originaltitles.restoreOriginalTitlesPatch -->
+  <string name="morphe_restore_original_titles_title">Restaurar títulos originales</string>
+  <string name="morphe_restore_original_titles_summary">Muestra los títulos y las descripciones originales de los vídeos y las descripciones de los canales en lugar de las versiones traducidas automáticamente</string>
+  <string name="morphe_restore_original_titles_loading">Cargando título…</string>
+  <!-- layout.feedrefresh.disableAutoFeedRefreshPatch -->
+  <string name="morphe_disable_auto_feed_refresh_title">Desactivar actualización automática del feed</string>
+  <string name="morphe_disable_auto_feed_refresh_summary">Evita que los feeds se actualicen automáticamente cuando quedan desactualizados</string>
   <!-- layout.miniplayer.miniplayerPatch -->
   <string name="morphe_miniplayer_disable_resuming_title">Desactivar reanudación del reproductor en miniatura</string>
   <string name="morphe_miniplayer_disable_resuming_summary">Desactiva el reproductor en miniatura de \'Seguir viendo\', una función de YouTube Premium que aparece al iniciar la aplicación.</string>
@@ -1191,6 +1208,12 @@ Pulsa aquí para abrir DeArrow.ajay.app"</string>
   <!-- misc.links.openLinksExternallyPatch -->
   <string name="morphe_external_browser_title">Abrir enlaces en el navegador</string>
   <string name="morphe_external_browser_summary">Abre los enlaces en un navegador externo en lugar del navegador integrado</string>
+  <!-- video.buffer.playbackBufferPatch -->
+  <string name="morphe_playback_buffer_size_title">Tamaño del búfer de reproducción</string>
+  <string name="morphe_playback_buffer_size_entry_default">Predeterminado</string>
+  <string name="morphe_playback_buffer_size_entry_low">Bajo</string>
+  <string name="morphe_playback_buffer_size_entry_medium">Medio</string>
+  <string name="morphe_playback_buffer_size_entry_maximum">Máximo</string>
   <!-- video.quality.rememberVideoQualityPatch -->
   <!-- Translations should match the language used in 'morphe_custom_playback_speeds_auto'. -->
   <string name="morphe_video_quality_default_entry_1">Automático</string>
@@ -1310,5 +1333,6 @@ Limitación: Vuelve al antiguo estilo de superposición de 'Más vídeos'"</stri
   <string name="morphe_player_icon_style_entry_default">Predeterminado</string>
   <string name="morphe_player_icon_style_entry_regular">Fino</string>
   <string name="morphe_player_icon_style_entry_bold">Grueso</string>
+  <string name="morphe_player_icon_style_entry_custom">Personalizado</string>
   <string name="morphe_shorts_icon_style_title">Estilo de iconos de Shorts</string>
 </resources>

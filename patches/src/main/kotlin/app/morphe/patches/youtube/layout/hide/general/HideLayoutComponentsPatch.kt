@@ -38,6 +38,7 @@ import app.morphe.patches.shared.misc.spans.inclusiveSpanPatch
 import app.morphe.patches.shared.misc.textcomponent.hookLithoSpannableString
 import app.morphe.patches.shared.misc.textcomponent.lithoSpannableStringPatch
 import app.morphe.patches.shared.misc.textcomponent.textComponentPatch
+import app.morphe.patches.youtube.ad.injectHideViewCall
 import app.morphe.patches.youtube.layout.hide.shelves.hideHorizontalShelvesPatch
 import app.morphe.patches.youtube.layout.hide.updatescreen.hideUpdateScreenPatch
 import app.morphe.patches.youtube.misc.engagement.engagementPanelHookPatch
@@ -66,7 +67,6 @@ import app.morphe.util.findInstructionIndicesReversedOrThrow
 import app.morphe.util.getReference
 import app.morphe.util.indexOfFirstInstructionOrThrow
 import app.morphe.util.indexOfFirstInstructionReversedOrThrow
-import app.morphe.util.injectHideViewCall
 import app.morphe.util.insertLiteralOverride
 import app.morphe.util.registersUsed
 import com.android.tools.smali.dexlib2.AccessFlags
@@ -417,8 +417,10 @@ val hideLayoutComponentsPatch = bytecodePatch(
             SwitchPreference("morphe_hide_horizontal_shelves", summary = true),
             SwitchPreference("morphe_hide_hyped_label"),
             SwitchPreference("morphe_hide_image_shelf", summary = true),
+            SwitchPreference("morphe_hide_help_feedback_menu", summary = true),
             SwitchPreference("morphe_hide_invite_to_message_card", summary = true),
             SwitchPreference("morphe_hide_latest_videos_button", summary = true),
+            SwitchPreference("morphe_hide_live_streams", summary = true),
             SwitchPreference("morphe_hide_mix_playlists"),
             SwitchPreference("morphe_hide_movies_section"),
             SwitchPreference("morphe_hide_notifications_menu_header", summary = true),
@@ -443,6 +445,7 @@ val hideLayoutComponentsPatch = bytecodePatch(
                 tag = "app.morphe.extension.shared.settings.preference.BulletPointSwitchPreference"
             ),
             SwitchPreference("morphe_hide_web_search_results", summary = true),
+            SwitchPreference("morphe_hide_you_tab_channel_handle", summary = true),
             SwitchPreference("morphe_hide_youtube_doodles", summary = true)
         )
 
@@ -624,6 +627,12 @@ val hideLayoutComponentsPatch = bytecodePatch(
 
         hookLithoSpannableString(COMMENTS_FILTER)
         hookVideoIntent(COMMENTS_FILTER, detectVideo = true, detectShorts = false)
+
+        // endregion
+
+        // region hide page header buttons
+
+        hookElement("$LAYOUT_COMPONENTS_FILTER->hidePageHeaderButtons")
 
         // endregion
 
@@ -1293,6 +1302,19 @@ val hideLayoutComponentsPatch = bytecodePatch(
 
         // region hide player chapters & timeline button
 
+        // Hook the later instruction first: both can be in the same method.
+        HideTimeBarChapterTitleFingerprint.let {
+            it.method.apply {
+                val index = it.instructionMatches.last().index
+                val register = getInstruction<OneRegisterInstruction>(index).registerA
+
+                addInstruction(
+                    index + 1,
+                    "invoke-static { v$register }, $LAYOUT_COMPONENTS_FILTER->hideChapterTitle(Landroid/view/View;)V"
+                )
+            }
+        }
+
         HideTimeBarEntryPointContainerFingerprint.let {
             it.method.apply {
                 val index = it.instructionMatches.last().index
@@ -1304,6 +1326,18 @@ val hideLayoutComponentsPatch = bytecodePatch(
                 )
             }
         }
+
+        // endregion
+
+        // region hide help & feedback in menus
+
+        ListMenuItemViewOnMeasureFingerprint.method.addInstructions(
+            0,
+            """
+                invoke-static { p0, p2 }, $LAYOUT_COMPONENTS_FILTER->hideHelpFeedbackMenuRow(Landroid/view/View;I)I
+                move-result p2
+            """
+        )
 
         // endregion
 

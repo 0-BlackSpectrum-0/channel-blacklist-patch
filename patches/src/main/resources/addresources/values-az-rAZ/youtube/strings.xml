@@ -90,6 +90,8 @@ Dəyişikliklər ehtiva edir:
           This button usually appears in the Home feed for refreshing the feed. -->
   <string name="morphe_hide_latest_videos_button_title">\"Ən son videolar\" düyməsini gizlət</string>
   <string name="morphe_hide_latest_videos_button_summary">Ev axınının yuxarısında görünən mavi \"Ən son videolar\" panelin gizlədir</string>
+  <string name="morphe_hide_live_streams_title">Canlı yayımları gizlət</string>
+  <string name="morphe_hide_live_streams_summary">Əsas səhifədə və axtarış nəticələrində canlı yayımlanan videoları gizlədir</string>
   <string name="morphe_hide_mix_playlists_title">Mix pleylistlərin gizlət</string>
   <string name="morphe_hide_movies_section_title">Filmlər bölməsini gizlət</string>
   <!-- 'Notifications' should be translated using the same localized wording YouTube displays for the menu item. -->
@@ -496,6 +498,10 @@ API açarınız heç vaxt paylaşılmamalıdır. Buna girişi olan hər bir kəs
   <string name="morphe_loop_video_range_clear">Təmizlə</string>
   <string name="morphe_loop_video_range_toast_on">%1$s - %2$s arası təkrarlama</string>
   <string name="morphe_loop_video_range_invalid_time">Etibarsız vaxt aralığı</string>
+  <!-- interaction.pip.pipButtonPatch -->
+  <string name="morphe_pip_button_overlay_title">Şəkil içində şəkil örtüyü düyməsini göstər</string>
+  <string name="morphe_pip_button_flyout_title">Şəkil içində şəkil örtüyü açılan menyu düyməsini göstər</string>
+  <string name="morphe_pip_button_flyout_name">Şəkil İçində Şəkilə Keç</string>
   <!-- interaction.playall.playAllButtonPatch -->
   <string name="morphe_play_all_button_title">Hamısını oynat düyməsini göstər</string>
   <string name="morphe_play_all_button_summary">"Kanaldan bütün videoların pleylistini yaratmaq üçün toxun, geri almaq üçün toxun və saxla
@@ -637,6 +643,8 @@ Bunu düzəltmək üçün 'Video yayımlarını saxtalaşdır'-ı aktivləşdir 
   <string name="morphe_swipe_volume_distance_title">Səs səviyyəsi sürüşdürmə həssaslığı</string>
   <string name="morphe_swipe_volume_distance_summary">Daha yüksək dəyərlər hər səs pilləsi üzrə daha çox sürüşdürmə tələb edir</string>
   <string name="morphe_swipe_volume_steps_title">Səs səviyyəsi pillələri</string>
+  <string name="morphe_volume_boost_title">Səs səviyyəsi artırıcı</string>
+  <string name="morphe_volume_boost_summary">Ən yüksək səs səviyyəsindən yuxarı sürüşdürmək səsi gücləndirir, bu da uca səsdə təhriflərə səbəb ola bilər</string>
   <string name="morphe_swipe_volume_steps_entry_default">Cihaz standartı</string>
   <string name="morphe_swipe_brightness_sensitivity_title">Parlaqlıq sürüşdürmə həssaslığı</string>
   <string name="morphe_swipe_brightness_sensitivity_summary">Daha yüksək dəyərlər hər parlaqlıq pilləsi üzrə daha çox sürüşdürmə tələb edir</string>
@@ -1065,6 +1073,13 @@ Məhdudiyyət: 'Köhnə video fəaliyyət cizgisini bərpa et' qapadılıbsa, 'D
   <string name="morphe_playback_in_feeds_entry_always_on">Həmişə aktiv</string>
   <string name="morphe_playback_in_feeds_entry_wifi_only">Yalnız Wi-Fi</string>
   <string name="morphe_playback_in_feeds_entry_off">Qapalı</string>
+  <!-- layout.originaltitles.restoreOriginalTitlesPatch -->
+  <string name="morphe_restore_original_titles_title">Orijinal başlıqları bərpa et</string>
+  <string name="morphe_restore_original_titles_summary">Avtomatik tərcümə olunmuşlar əvəzinə orijinal video başlıqlarını, video təsvirlərini və kanal təsvirlərini göstərir</string>
+  <string name="morphe_restore_original_titles_loading">Başlıq yüklənilir…</string>
+  <!-- layout.feedrefresh.disableAutoFeedRefreshPatch -->
+  <string name="morphe_disable_auto_feed_refresh_title">Avtomatik axın yeniləməsini qapat</string>
+  <string name="morphe_disable_auto_feed_refresh_summary">Axınların köhnəldikdən sonra avtomatik yenilənməsinin qarşısını alır</string>
   <!-- layout.miniplayer.miniplayerPatch -->
   <string name="morphe_miniplayer_disable_resuming_title">Kiçik oynadıcı davam etdirilməsini qapat</string>
   <string name="morphe_miniplayer_disable_resuming_summary">Tətbiqin açılışında görünən, YouTube Premium xüsusiyyəti olan \"İzləməyə davam et\" kiçik oynadıcısını qapadır</string>
@@ -1191,6 +1206,12 @@ DeArrow.ajay.app 'i açmaq üçün buraya toxun"</string>
   <!-- misc.links.openLinksExternallyPatch -->
   <string name="morphe_external_browser_title">Bağlantıları brauzerdə aç</string>
   <string name="morphe_external_browser_summary">Linkləri tətbiqdaxili brauzer əvəzinə, xarici brauzerdə açır</string>
+  <!-- video.buffer.playbackBufferPatch -->
+  <string name="morphe_playback_buffer_size_title">Oynatma buferinin həcmi</string>
+  <string name="morphe_playback_buffer_size_entry_default">İlkin</string>
+  <string name="morphe_playback_buffer_size_entry_low">Aşağı</string>
+  <string name="morphe_playback_buffer_size_entry_medium">Orta</string>
+  <string name="morphe_playback_buffer_size_entry_maximum">Ən yüksək</string>
   <!-- video.quality.rememberVideoQualityPatch -->
   <!-- Translations should match the language used in 'morphe_custom_playback_speeds_auto'. -->
   <string name="morphe_video_quality_default_entry_1">Avtomatik</string>
@@ -1310,5 +1331,6 @@ Məhdudiyyət: Köhnə üslub üçün \"Daha çox video\" örtüyünə qayıdır
   <string name="morphe_player_icon_style_entry_default">İlkin</string>
   <string name="morphe_player_icon_style_entry_regular">Nazik</string>
   <string name="morphe_player_icon_style_entry_bold">Qalın</string>
+  <string name="morphe_player_icon_style_entry_custom">Fərdi</string>
   <string name="morphe_shorts_icon_style_title">Shorts simvol üslubu</string>
 </resources>

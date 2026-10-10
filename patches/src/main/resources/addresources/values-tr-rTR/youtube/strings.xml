@@ -90,6 +90,8 @@ Değişiklikler şunları içerir:
           This button usually appears in the Home feed for refreshing the feed. -->
   <string name="morphe_hide_latest_videos_button_title">Son videolar düğmesini gizle</string>
   <string name="morphe_hide_latest_videos_button_summary">Ana sayfa akışının üst kısmında görünen mavi \"En yeni videolar\" afişini gizler</string>
+  <string name="morphe_hide_live_streams_title">Canlı yayınları gizle</string>
+  <string name="morphe_hide_live_streams_summary">Ana sayfa akışındaki ve arama sonuçlarındaki canlı videoları gizler</string>
   <string name="morphe_hide_mix_playlists_title">Mix oynatma listelerini gizle</string>
   <string name="morphe_hide_movies_section_title">Filmler kısmını gizle</string>
   <!-- 'Notifications' should be translated using the same localized wording YouTube displays for the menu item. -->
@@ -157,6 +159,8 @@ Değişiklikler şunları içerir:
   <string name="morphe_hide_sync_button_title">\'Videoyla senkronize et\' düğmesini gizle</string>
   <string name="morphe_hide_timed_reactions_title">Süreli tepkileri gizle</string>
   <string name="morphe_hide_timed_reactions_summary">Kullanıcıların yorum bölümünde ve canlı sohbette emojilerle tepki vermesini sağlayan özelliği gizler</string>
+  <string name="morphe_hide_you_tab_channel_handle_title">\"Siz\" sekmesinde kanal kullanıcı adını gizle</string>
+  <string name="morphe_hide_you_tab_channel_handle_summary">\"Siz\" sekmesinde, hesap adının altındaki kanal kullanıcı adını gizler.</string>
   <string name="morphe_hide_video_title_title">Video başlığını gizle</string>
   <string name="morphe_hide_video_title_summary">Tam ekran modunda video başlığını gizler</string>
   <string name="morphe_sanitize_video_subtitle_title">Video altyazısını temizle</string>
@@ -496,6 +500,10 @@ API anahtarınız asla paylaşılmamalıdır. Ona erişimi olan herkes OpenRoute
   <string name="morphe_loop_video_range_clear">Temizle</string>
   <string name="morphe_loop_video_range_toast_on">%1$s - %2$s arasında döngü</string>
   <string name="morphe_loop_video_range_invalid_time">Geçersiz zaman aralığı</string>
+  <!-- interaction.pip.pipButtonPatch -->
+  <string name="morphe_pip_button_overlay_title">Resim içinde resim katman düğmesini göster</string>
+  <string name="morphe_pip_button_flyout_title">Resim içinde resim açılır düğmesini göster</string>
+  <string name="morphe_pip_button_flyout_name">Resim içinde resim moduna geç</string>
   <!-- interaction.playall.playAllButtonPatch -->
   <string name="morphe_play_all_button_title">Tümünü oynat düğmesini göster</string>
   <string name="morphe_play_all_button_summary">"Kanaldaki tüm videoların oynatma listesini oluşturmak için dokunun, geri almak için basılı tutun
@@ -637,6 +645,8 @@ Bunu düzeltmek için 'Video akışlarını taklit et' seçeneğini etkinleştir
   <string name="morphe_swipe_volume_distance_title">Ses kaydırma hassasiyeti</string>
   <string name="morphe_swipe_volume_distance_summary">Daha yüksek değerler, ses seviyesi adımı başına daha fazla kaydırma gerektirir.</string>
   <string name="morphe_swipe_volume_steps_title">Ses seviyesi adımları</string>
+  <string name="morphe_volume_boost_title">Ses güçlendirme</string>
+  <string name="morphe_volume_boost_summary">Maksimum ses seviyesinin ötesine kaydırmak sesi güçlendirir, bu da yüksek seslerin bozulmasına neden olabilir</string>
   <string name="morphe_swipe_volume_steps_entry_default">Cihaz varsayılanı</string>
   <string name="morphe_swipe_brightness_sensitivity_title">Parlaklık kaydırma hassasiyeti</string>
   <string name="morphe_swipe_brightness_sensitivity_summary">Daha yüksek değerler, her parlaklık adımı için daha fazla kaydırma gerektirir</string>
@@ -1065,6 +1075,13 @@ Sınırlamalar: 'Eski video eylem çubuğunu geri yükle' kapatılırsa, 'Daha f
   <string name="morphe_playback_in_feeds_entry_always_on">Her zaman açık</string>
   <string name="morphe_playback_in_feeds_entry_wifi_only">Yalnızca Wi-Fi üzerinde</string>
   <string name="morphe_playback_in_feeds_entry_off">Kapalı</string>
+  <!-- layout.originaltitles.restoreOriginalTitlesPatch -->
+  <string name="morphe_restore_original_titles_title">Orijinal başlıkları geri yükle</string>
+  <string name="morphe_restore_original_titles_summary">Orijinal video başlıklarını, video açıklamalarını ve kanal açıklamalarını otomatik çevrilenlerin yerine gösterir</string>
+  <string name="morphe_restore_original_titles_loading">Başlık yükleniyor…</string>
+  <!-- layout.feedrefresh.disableAutoFeedRefreshPatch -->
+  <string name="morphe_disable_auto_feed_refresh_title">Otomatik akış yenilemeyi devre dışı bırak</string>
+  <string name="morphe_disable_auto_feed_refresh_summary">Akışların güncelliğini yitirdikten sonra otomatik olarak yenilenmesini engeller</string>
   <!-- layout.miniplayer.miniplayerPatch -->
   <string name="morphe_miniplayer_disable_resuming_title">Mini oynatıcıyı sürdürmeyi devre dışı bırak</string>
   <string name="morphe_miniplayer_disable_resuming_summary">Uygulama başlangıcında görünen YouTube Premium özelliği \'İzlemeye devam edin\' mini oynatıcısını devre dışı bırakır</string>
@@ -1191,6 +1208,12 @@ DeArrow hakkında daha fazla bilgi edinmek için buraya dokunun"</string>
   <!-- misc.links.openLinksExternallyPatch -->
   <string name="morphe_external_browser_title">Bağlantıları tarayıcıda aç</string>
   <string name="morphe_external_browser_summary">Bağlantıları uygulama içi tarayıcı yerine harici bir tarayıcıda açar</string>
+  <!-- video.buffer.playbackBufferPatch -->
+  <string name="morphe_playback_buffer_size_title">Oynatma arabellek boyutu</string>
+  <string name="morphe_playback_buffer_size_entry_default">Varsayılan</string>
+  <string name="morphe_playback_buffer_size_entry_low">Düşük</string>
+  <string name="morphe_playback_buffer_size_entry_medium">Orta</string>
+  <string name="morphe_playback_buffer_size_entry_maximum">Maksimum</string>
   <!-- video.quality.rememberVideoQualityPatch -->
   <!-- Translations should match the language used in 'morphe_custom_playback_speeds_auto'. -->
   <string name="morphe_video_quality_default_entry_1">Oto</string>
@@ -1310,5 +1333,6 @@ Sınırlama: Eski stil 'Diğer videolar' katmanına geri döner"</string>
   <string name="morphe_player_icon_style_entry_default">Varsayılan</string>
   <string name="morphe_player_icon_style_entry_regular">İnce</string>
   <string name="morphe_player_icon_style_entry_bold">Kalın</string>
+  <string name="morphe_player_icon_style_entry_custom">Özel</string>
   <string name="morphe_shorts_icon_style_title">Shorts simge stili</string>
 </resources>
